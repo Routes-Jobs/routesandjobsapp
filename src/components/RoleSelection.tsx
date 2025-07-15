@@ -12,6 +12,13 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
       <div className="max-w-4xl w-full space-y-8">
         {/* Header */}
         <div className="text-center space-y-4">
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <img 
+              src="/lovable-uploads/5137d2a6-573f-4db3-b0c1-4cca8f17c149.png" 
+              alt="Routes & Jobs Logo" 
+              className="h-16 w-auto"
+            />
+          </div>
           <h1 className="text-4xl font-bold text-primary">Routes & Jobs</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Reliable transportation for workers and community members. 

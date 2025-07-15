@@ -94,6 +94,11 @@ const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
           </Button>
+          <img 
+            src="/lovable-uploads/5137d2a6-573f-4db3-b0c1-4cca8f17c149.png" 
+            alt="Routes & Jobs Logo" 
+            className="h-8 w-auto"
+          />
           <div>
             <h1 className="text-2xl font-bold">Community Transportation</h1>
             <p className="text-accent-foreground/80">Reliable rides with predictable pricing</p>
