@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, Building2, MapPin } from "lucide-react";
+import { Users, Building2, MapPin, Car } from "lucide-react";
 
 interface RoleSelectionProps {
-  onRoleSelect: (role: "employee" | "employer" | "general") => void;
+  onRoleSelect: (role: "employee" | "employer" | "general" | "driver") => void;
 }
 
 const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
@@ -27,7 +27,7 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
         </div>
 
         {/* Role Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Employee Card */}
           <Card className="hover:shadow-lg transition-shadow cursor-pointer border-2 hover:border-primary/20">
             <CardHeader className="text-center pb-3">
@@ -86,7 +86,7 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
           </Card>
 
           {/* General Public Card */}
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer border-2 hover:border-primary/20 md:col-span-2 lg:col-span-1">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer border-2 hover:border-primary/20">
             <CardHeader className="text-center pb-3">
               <div className="mx-auto w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mb-2">
                 <MapPin className="w-6 h-6 text-accent" />
@@ -110,6 +110,34 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
                 size="lg"
               >
                 Continue as Rider
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Driver Card */}
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer border-2 hover:border-emerald-200">
+            <CardHeader className="text-center pb-3">
+              <div className="mx-auto w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mb-2">
+                <Car className="w-6 h-6 text-emerald-600" />
+              </div>
+              <CardTitle className="text-xl">Driver</CardTitle>
+              <CardDescription>
+                Manage routes with traffic light system
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <ul className="text-sm text-muted-foreground space-y-2">
+                <li>• Green-Yellow-Red route status</li>
+                <li>• Real-time traffic updates</li>
+                <li>• Route management tools</li>
+                <li>• Driver performance stats</li>
+              </ul>
+              <Button 
+                onClick={() => onRoleSelect("driver")} 
+                className="w-full bg-emerald-600 hover:bg-emerald-700"
+                size="lg"
+              >
+                Driver Dashboard
               </Button>
             </CardContent>
           </Card>
