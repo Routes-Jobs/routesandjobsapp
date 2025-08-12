@@ -9,8 +9,9 @@ interface RoleSelectionProps {
 
 const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
   return (
-    <div className="min-h-[calc(100vh-80px)] flex flex-col items-center justify-center p-6 bg-gradient-to-br from-primary/5 to-secondary/5">
-      <div className="max-w-4xl w-full space-y-8">
+    <div className="min-h-[calc(100vh-80px)] flex flex-col items-center justify-center p-6 bg-gradient-to-br from-primary/5 to-secondary/5 relative">
+      <div className="absolute inset-0 logo-background"></div>
+      <div className="max-w-4xl w-full space-y-8 relative z-10">
         {/* Header */}
         <div className="text-center space-y-4">
           <h1 className="text-4xl font-bold text-foreground">Find Your Transportation Solution</h1>
