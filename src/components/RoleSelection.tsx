@@ -110,7 +110,7 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
               <Button 
                 onClick={() => onRoleSelect("general")} 
                 variant="outline"
-                className="w-full"
+                className="w-full bg-orange-500 text-white border-orange-500 hover:bg-orange-600 hover:border-orange-600"
                 size="lg"
               >
                 Continue as Rider
