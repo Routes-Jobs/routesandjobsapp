@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import Header from "@/components/Header";
 import RoleSelection from "@/components/RoleSelection";
 import EmployeeFlow from "@/components/EmployeeFlow";
 import EmployerFlow from "@/components/EmployerFlow";
@@ -25,6 +26,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Header />
       {renderFlow()}
     </div>
   );
