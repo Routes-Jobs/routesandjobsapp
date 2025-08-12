@@ -119,22 +119,4 @@ All colors MUST be HSL.
       transform: translateX(10px);
     }
   }
-  
-  @keyframes pulse-slow {
-    0%, 100% {
-      opacity: 0.3;
-    }
-    50% {
-      opacity: 0.1;
-    }
-  }
-  
-  .logo-background {
-    background-image: url('/lovable-uploads/5a24a020-705b-4a02-bddc-253022daa901.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 400px auto;
-    opacity: 0.05;
-    animation: pulse-slow 4s ease-in-out infinite;
-  }
 }
