@@ -1,7 +1,11 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageToggle from "@/components/LanguageToggle";
 
 const Header = () => {
+  const { t } = useLanguage();
+  
   return (
     <header className="bg-white border-b border-border">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -25,20 +29,21 @@ const Header = () => {
         {/* Navigation */}
         <nav className="hidden md:flex items-center gap-6">
           <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-            Home
+            {t('home')}
           </a>
           <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-            Job Listings
+            {t('jobListings')}
           </a>
         </nav>
 
-        {/* Auth buttons */}
-        <div className="flex items-center gap-2">
+        {/* Auth buttons and Language Toggle */}
+        <div className="flex items-center gap-3">
+          <LanguageToggle />
           <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-            Login
+            {t('login')}
           </Button>
           <Button className="bg-primary hover:bg-primary/90">
-            Sign Up
+            {t('signUp')}
           </Button>
         </div>
       </div>

@@ -2,12 +2,15 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Building2, MapPin } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface RoleSelectionProps {
   onRoleSelect: (role: "employee" | "employer" | "general") => void;
 }
 
 const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
+  const { t } = useLanguage();
+  
   return (
     <div className="min-h-[calc(100vh-80px)] flex flex-col items-center justify-center p-6 bg-gradient-to-br from-primary/5 to-secondary/5 relative">
       <div className="absolute inset-0 logo-background"></div>
@@ -23,10 +26,9 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
 
         {/* Header */}
         <div className="text-center space-y-4">
-          <h1 className="text-4xl font-bold text-foreground">Find Your Transportation Solution</h1>
+          <h1 className="text-4xl font-bold text-foreground">{t('welcomeTitle')}</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Reliable transportation for workers and community members. 
-            Choose your role to get started.
+            {t('welcomeSubtitle')}
           </p>
         </div>
 
@@ -38,24 +40,24 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
               <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-2">
                 <Users className="w-6 h-6 text-primary" />
               </div>
-              <CardTitle className="text-xl">Employee</CardTitle>
+              <CardTitle className="text-xl">{t('employee')}</CardTitle>
               <CardDescription>
-                Schedule rides to your job site with predictable pricing
+                {t('employeeDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <ul className="text-sm text-muted-foreground space-y-2">
-                <li>• Schedule rides around your shifts</li>
-                <li>• Access to job site pickup hubs</li>
-                <li>• No surge pricing</li>
-                <li>• Workforce-focused features</li>
+                <li>{t('employeeFeatures.feature1')}</li>
+                <li>{t('employeeFeatures.feature2')}</li>
+                <li>{t('employeeFeatures.feature3')}</li>
+                <li>{t('employeeFeatures.feature4')}</li>
               </ul>
               <Button 
                 onClick={() => onRoleSelect("employee")} 
                 className="w-full"
                 size="lg"
               >
-                Continue as Employee
+                {t('continueEmployee')}
               </Button>
             </CardContent>
           </Card>
@@ -66,17 +68,17 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
               <div className="mx-auto w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mb-2">
                 <Building2 className="w-6 h-6 text-secondary" />
               </div>
-              <CardTitle className="text-xl">Employer</CardTitle>
+              <CardTitle className="text-xl">{t('employer')}</CardTitle>
               <CardDescription>
-                Manage workforce logistics and transportation solutions
+                {t('employerDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <ul className="text-sm text-muted-foreground space-y-2">
-                <li>• View workforce transportation</li>
-                <li>• Manage scheduled routes</li>
-                <li>• Employee ride summaries</li>
-                <li>• Administrative dashboard</li>
+                <li>{t('employerFeatures.feature1')}</li>
+                <li>{t('employerFeatures.feature2')}</li>
+                <li>{t('employerFeatures.feature3')}</li>
+                <li>{t('employerFeatures.feature4')}</li>
               </ul>
               <Button 
                 onClick={() => onRoleSelect("employer")} 
@@ -84,7 +86,7 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
                 className="w-full"
                 size="lg"
               >
-                Continue as Employer
+                {t('continueEmployer')}
               </Button>
             </CardContent>
           </Card>
@@ -95,17 +97,17 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
               <div className="mx-auto w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mb-2">
                 <MapPin className="w-6 h-6 text-accent" />
               </div>
-              <CardTitle className="text-xl">General Public</CardTitle>
+              <CardTitle className="text-xl">{t('generalPublic')}</CardTitle>
               <CardDescription>
-                Community transportation from Point A to Point B
+                {t('generalDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <ul className="text-sm text-muted-foreground space-y-2">
-                <li>• Request rides anywhere</li>
-                <li>• Flat-fee subscription model</li>
-                <li>• Schedule future trips</li>
-                <li>• Community-friendly pricing</li>
+                <li>{t('generalFeatures.feature1')}</li>
+                <li>{t('generalFeatures.feature2')}</li>
+                <li>{t('generalFeatures.feature3')}</li>
+                <li>{t('generalFeatures.feature4')}</li>
               </ul>
               <Button 
                 onClick={() => onRoleSelect("general")} 
@@ -113,7 +115,7 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
                 className="w-full bg-orange-500 text-white border-orange-500 hover:bg-orange-600 hover:border-orange-600"
                 size="lg"
               >
-                Continue as Rider
+                {t('continueRider')}
               </Button>
             </CardContent>
           </Card>
@@ -122,21 +124,21 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
         {/* Driver Portal Link */}
         <div className="text-center pt-4 border-t">
           <p className="text-sm text-muted-foreground mb-3">
-            Are you a driver? Access your dedicated portal:
+            {t('driverPortalDesc')}
           </p>
           <Button 
             variant="outline" 
             className="border-emerald-300 text-emerald-600 hover:bg-emerald-50"
             onClick={() => window.open('/driver', '_blank')}
           >
-            Driver Portal →
+            {t('driverPortal')} →
           </Button>
         </div>
 
         {/* Footer */}
         <div className="text-center pt-4">
           <p className="text-sm text-muted-foreground">
-            Bridging transportation gaps for Memphis workers and community members
+            {t('footerText')}
           </p>
         </div>
       </div>
