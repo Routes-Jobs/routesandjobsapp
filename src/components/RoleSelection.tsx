@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Building2, MapPin, Car } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import transportationBg from "@/assets/transportation-background.jpg";
+import AnimatedRoadNetwork from "./AnimatedRoadNetwork";
 
 interface RoleSelectionProps {
   onRoleSelect: (role: "employee" | "employer" | "general") => void;
@@ -12,12 +12,12 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
   const { t } = useLanguage();
   
   return (
-    <div 
-      className="min-h-screen bg-cover bg-center bg-no-repeat relative"
-      style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${transportationBg})`
-      }}
-    >
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Animated Road Network Background */}
+      <AnimatedRoadNetwork />
+      
+      {/* Overlay for better text contrast */}
+      <div className="absolute inset-0 bg-black/40" />
       <div className="relative z-10 flex flex-col justify-center items-center min-h-screen px-6">
         <div className="max-w-6xl w-full mx-auto">
           {/* Simple Header */}
