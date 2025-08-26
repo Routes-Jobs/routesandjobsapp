@@ -92,6 +92,28 @@ const DriverApp = () => {
     }
   };
 
+  const contactDispatch = () => {
+    toast({
+      title: "Contacting Dispatch",
+      description: "Connecting you to dispatch center...",
+    });
+  };
+
+  const openSettings = () => {
+    toast({
+      title: "Settings",
+      description: "Opening driver settings panel...",
+    });
+  };
+
+  const openNavigation = (route?: Route) => {
+    const destination = route?.destination || activeRoute?.destination || "destination";
+    toast({
+      title: "Navigation Started",
+      description: `Opening GPS navigation to ${destination}`,
+    });
+  };
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (driverName.trim()) {
@@ -187,11 +209,21 @@ const DriverApp = () => {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm" className="text-white hover:bg-emerald-700">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-white hover:bg-emerald-700"
+              onClick={contactDispatch}
+            >
               <Phone className="w-4 h-4 mr-2" />
               Dispatch
             </Button>
-            <Button variant="ghost" size="sm" className="text-white hover:bg-emerald-700">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-white hover:bg-emerald-700"
+              onClick={openSettings}
+            >
               <Settings className="w-4 h-4" />
             </Button>
           </div>
@@ -238,7 +270,11 @@ const DriverApp = () => {
                 <Button onClick={completeRoute} className="flex-1">
                   Complete Route
                 </Button>
-                <Button variant="outline" className="flex-1">
+                <Button 
+                  variant="outline" 
+                  className="flex-1"
+                  onClick={() => openNavigation()}
+                >
                   <Navigation className="w-4 h-4 mr-2" />
                   Navigation
                 </Button>

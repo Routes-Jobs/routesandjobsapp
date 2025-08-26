@@ -4,6 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Users, Route, Calendar, TrendingUp, MapPin, Clock } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import EmployerJobManagement from "@/components/EmployerJobManagement";
 
 interface EmployerFlowProps {
   onBack: () => void;
@@ -11,6 +13,15 @@ interface EmployerFlowProps {
 
 const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
   const [selectedRoute, setSelectedRoute] = useState<string | null>(null);
+  const { toast } = useToast();
+
+  const handleManageRoute = (routeId: string) => {
+    setSelectedRoute(routeId);
+    toast({
+      title: "Route Management",
+      description: "Opening route management panel...",
+    });
+  };
 
   // Mock data for demonstration
   const routes = [
@@ -64,10 +75,11 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
 
       <div className="max-w-6xl mx-auto p-6">
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="routes">Routes</TabsTrigger>
             <TabsTrigger value="employees">Employees</TabsTrigger>
+            <TabsTrigger value="jobs">Job Management</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
           </TabsList>
 
@@ -180,7 +192,12 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
                       <MapPin className="w-4 h-4" />
                       Destination: {route.destination}
                     </div>
-                    <Button variant="outline" size="sm" className="w-full">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full"
+                      onClick={() => handleManageRoute(route.id)}
+                    >
                       Manage Route
                     </Button>
                   </CardContent>
@@ -224,6 +241,10 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="jobs" className="space-y-6">
+            <EmployerJobManagement />
           </TabsContent>
 
           <TabsContent value="analytics" className="space-y-6">
