@@ -13,51 +13,61 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10 relative overflow-hidden">
-      {/* Stretched Logo Background */}
-      <div className="absolute inset-0 flex items-center justify-center opacity-5">
-        <img 
-          src="/lovable-uploads/5a24a020-705b-4a02-bddc-253022daa901.png" 
-          alt="Routes and Jobs Logo" 
-          className="w-full max-w-6xl h-auto object-contain animate-float"
-        />
+      {/* Stretched Logo Header Bar */}
+      <div className="relative w-full h-32 bg-gradient-to-r from-primary/20 via-secondary/15 to-accent/20 border-b border-primary/20 shadow-lg">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <img 
+            src="/lovable-uploads/5a24a020-705b-4a02-bddc-253022daa901.png" 
+            alt="Routes and Jobs Logo" 
+            className="h-20 w-auto object-contain opacity-80 animate-opportunity-pulse"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
       </div>
       
       {/* Animated Route Lines */}
-      <div className="absolute inset-0 route-flow opacity-20"></div>
+      <div className="absolute inset-0 route-flow opacity-15"></div>
       
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center p-6">
-        <div className="max-w-6xl w-full space-y-12">
-          {/* Hero Logo */}
-          <div className="text-center">
-            <img 
-              src="/lovable-uploads/5a24a020-705b-4a02-bddc-253022daa901.png" 
-              alt="Routes and Jobs Logo" 
-              className="mx-auto w-48 h-48 object-contain opacity-90 animate-opportunity-pulse"
-            />
-          </div>
-
-          {/* Header with Text Shadows */}
-          <div className="text-center space-y-6">
-            <h1 className="text-6xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent drop-shadow-2xl">
-              {t('welcomeTitle')}
+      {/* Floating Background Logo */}
+      <div className="absolute inset-0 flex items-center justify-center opacity-3">
+        <img 
+          src="/lovable-uploads/5a24a020-705b-4a02-bddc-253022daa901.png" 
+          alt="Routes and Jobs Logo" 
+          className="w-full max-w-4xl h-auto object-contain animate-float"
+        />
+      </div>
+      
+      <div className="relative z-10 flex flex-col min-h-[calc(100vh-8rem)] p-6">
+        <div className="max-w-7xl w-full mx-auto flex-1 flex flex-col justify-center space-y-16">
+          {/* Hero Section with Bold Text Shadows */}
+          <div className="text-center space-y-8">
+            <h1 className="text-7xl md:text-8xl font-black bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent relative">
+              <span className="absolute inset-0 text-foreground/20 blur-sm">{t('welcomeTitle')}</span>
+              <span className="relative">{t('welcomeTitle')}</span>
             </h1>
-            <p className="text-2xl text-foreground max-w-4xl mx-auto font-medium drop-shadow-lg">
-              {t('welcomeSubtitle')}
+            <p className="text-3xl text-foreground max-w-5xl mx-auto font-semibold relative">
+              <span className="absolute inset-0 text-foreground/30 blur-sm translate-x-1 translate-y-1">{t('welcomeSubtitle')}</span>
+              <span className="relative">{t('welcomeSubtitle')}</span>
             </p>
-            <div className="text-lg text-muted-foreground drop-shadow-md">
-              Find your next opportunity • Connect with your community • Move toward your future
+            <div className="text-xl text-accent font-medium relative">
+              <span className="absolute inset-0 text-accent/40 blur-sm translate-x-0.5 translate-y-0.5">Find your next opportunity • Connect with your community • Move toward your future</span>
+              <span className="relative">Find your next opportunity • Connect with your community • Move toward your future</span>
             </div>
           </div>
 
-          {/* Role Cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Employee Card */}
-            <Card className="hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 cursor-pointer border-2 hover:border-primary/30 bg-card/80 backdrop-blur-sm hover:scale-105 group">
-              <CardHeader className="text-center pb-3">
-                <div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary to-primary/60 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <Users className="w-8 h-8 text-white" />
+          {/* Dynamic Role Cards Layout */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {/* Employee Card - Enhanced */}
+            <Card className="hover:shadow-2xl hover:shadow-primary/30 transition-all duration-500 cursor-pointer border-2 hover:border-primary/40 bg-gradient-to-br from-card/90 to-card/70 backdrop-blur-md hover:scale-110 group relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <CardHeader className="text-center pb-4 relative z-10">
+                <div className="mx-auto w-20 h-20 bg-gradient-to-br from-primary via-primary/80 to-primary/60 rounded-full flex items-center justify-center mb-6 group-hover:scale-125 transition-all duration-500 shadow-xl shadow-primary/30">
+                  <Users className="w-10 h-10 text-white drop-shadow-lg" />
                 </div>
-                <CardTitle className="text-2xl font-bold drop-shadow-md">{t('employee')}</CardTitle>
+                <CardTitle className="text-3xl font-black relative">
+                  <span className="absolute inset-0 text-primary/20 blur-sm translate-x-0.5 translate-y-0.5">{t('employee')}</span>
+                  <span className="relative text-foreground">{t('employee')}</span>
+                </CardTitle>
               <CardDescription>
                 {t('employeeDesc')}
               </CardDescription>
@@ -80,13 +90,17 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
             </CardContent>
           </Card>
 
-            {/* Employer Card */}
-            <Card className="hover:shadow-2xl hover:shadow-secondary/20 transition-all duration-300 cursor-pointer border-2 hover:border-secondary/30 bg-card/80 backdrop-blur-sm hover:scale-105 group">
-              <CardHeader className="text-center pb-3">
-                <div className="mx-auto w-16 h-16 bg-gradient-to-br from-secondary to-secondary/60 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <Building2 className="w-8 h-8 text-white" />
+            {/* Employer Card - Enhanced */}
+            <Card className="hover:shadow-2xl hover:shadow-secondary/30 transition-all duration-500 cursor-pointer border-2 hover:border-secondary/40 bg-gradient-to-br from-card/90 to-card/70 backdrop-blur-md hover:scale-110 group relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <CardHeader className="text-center pb-4 relative z-10">
+                <div className="mx-auto w-20 h-20 bg-gradient-to-br from-secondary via-secondary/80 to-secondary/60 rounded-full flex items-center justify-center mb-6 group-hover:scale-125 transition-all duration-500 shadow-xl shadow-secondary/30">
+                  <Building2 className="w-10 h-10 text-white drop-shadow-lg" />
                 </div>
-                <CardTitle className="text-2xl font-bold drop-shadow-md">{t('employer')}</CardTitle>
+                <CardTitle className="text-3xl font-black relative">
+                  <span className="absolute inset-0 text-secondary/20 blur-sm translate-x-0.5 translate-y-0.5">{t('employer')}</span>
+                  <span className="relative text-foreground">{t('employer')}</span>
+                </CardTitle>
               <CardDescription>
                 {t('employerDesc')}
               </CardDescription>
@@ -109,13 +123,17 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
             </CardContent>
           </Card>
 
-            {/* General Public Card */}
-            <Card className="hover:shadow-2xl hover:shadow-accent/20 transition-all duration-300 cursor-pointer border-2 hover:border-accent/30 bg-card/80 backdrop-blur-sm hover:scale-105 group">
-              <CardHeader className="text-center pb-3">
-                <div className="mx-auto w-16 h-16 bg-gradient-to-br from-accent to-accent/60 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <MapPin className="w-8 h-8 text-white" />
+            {/* General Public Card - Enhanced */}
+            <Card className="hover:shadow-2xl hover:shadow-accent/30 transition-all duration-500 cursor-pointer border-2 hover:border-accent/40 bg-gradient-to-br from-card/90 to-card/70 backdrop-blur-md hover:scale-110 group relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <CardHeader className="text-center pb-4 relative z-10">
+                <div className="mx-auto w-20 h-20 bg-gradient-to-br from-accent via-accent/80 to-accent/60 rounded-full flex items-center justify-center mb-6 group-hover:scale-125 transition-all duration-500 shadow-xl shadow-accent/30">
+                  <MapPin className="w-10 h-10 text-white drop-shadow-lg" />
                 </div>
-                <CardTitle className="text-2xl font-bold drop-shadow-md">{t('generalPublic')}</CardTitle>
+                <CardTitle className="text-3xl font-black relative">
+                  <span className="absolute inset-0 text-accent/20 blur-sm translate-x-0.5 translate-y-0.5">{t('generalPublic')}</span>
+                  <span className="relative text-foreground">{t('generalPublic')}</span>
+                </CardTitle>
               <CardDescription>
                 {t('generalDesc')}
               </CardDescription>
@@ -138,25 +156,29 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
           </Card>
         </div>
 
-          {/* Driver Portal Link */}
-          <div className="text-center pt-8 border-t border-border/50">
-            <p className="text-lg text-muted-foreground mb-4 drop-shadow-sm">
-              {t('driverPortalDesc')}
-            </p>
-            <Button 
-              variant="outline" 
-              className="border-2 border-secondary text-secondary hover:bg-secondary hover:text-white shadow-lg hover:shadow-secondary/25 transition-all duration-300"
-              onClick={() => window.open('/driver', '_blank')}
-              size="lg"
-            >
-              {t('driverPortal')} →
-            </Button>
+          {/* Driver Portal CTA - Eye-catching */}
+          <div className="text-center pt-12">
+            <div className="bg-gradient-to-r from-secondary/10 via-primary/10 to-accent/10 p-8 rounded-3xl border border-primary/20 shadow-2xl backdrop-blur-sm">
+              <p className="text-2xl font-semibold mb-6 relative">
+                <span className="absolute inset-0 text-muted-foreground/30 blur-sm translate-x-0.5 translate-y-0.5">{t('driverPortalDesc')}</span>
+                <span className="relative text-muted-foreground">{t('driverPortalDesc')}</span>
+              </p>
+              <Button 
+                variant="outline" 
+                className="border-3 border-secondary text-secondary hover:bg-secondary hover:text-white shadow-xl hover:shadow-secondary/40 transition-all duration-500 hover:scale-110 text-xl px-8 py-4"
+                onClick={() => window.open('/driver', '_blank')}
+                size="lg"
+              >
+                <span className="font-bold">{t('driverPortal')} →</span>
+              </Button>
+            </div>
           </div>
 
-          {/* Footer */}
+          {/* Footer with Style */}
           <div className="text-center pt-8">
-            <p className="text-lg text-muted-foreground drop-shadow-sm">
-              {t('footerText')}
+            <p className="text-xl font-medium relative">
+              <span className="absolute inset-0 text-muted-foreground/20 blur-sm translate-x-0.5 translate-y-0.5">{t('footerText')}</span>
+              <span className="relative text-muted-foreground">{t('footerText')}</span>
             </p>
           </div>
         </div>
