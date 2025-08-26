@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Building2, MapPin, Car } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import AnimatedRoadNetwork from "./AnimatedRoadNetwork";
 
 interface RoleSelectionProps {
   onRoleSelect: (role: "employee" | "employer" | "general") => void;
@@ -13,11 +12,19 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
   
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Animated Road Network Background */}
-      <AnimatedRoadNetwork />
+      {/* Video Background */}
+      <video 
+        autoPlay 
+        loop 
+        muted 
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src="/videos/highway-aerial.mp4" type="video/mp4" />
+      </video>
       
       {/* Overlay for better text contrast */}
-      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-black/50" />
       <div className="relative z-10 flex flex-col justify-center items-center min-h-screen px-6">
         <div className="max-w-6xl w-full mx-auto">
           {/* Simple Header */}
