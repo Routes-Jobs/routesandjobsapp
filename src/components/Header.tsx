@@ -20,6 +20,8 @@ const Header = () => {
 
         {/* Navigation */}
         <nav className="hidden md:flex items-center gap-8 text-gray-600 text-sm font-medium">
+          <a href="/" className="hover:text-primary transition-colors">HOME</a>
+          <a href="/jobs" className="hover:text-primary transition-colors">JOBS</a>
           <a href="#how-it-works" className="hover:text-primary transition-colors">HOW IT WORKS</a>
           <a href="#benefits" className="hover:text-primary transition-colors">TRANSPORTATION BENEFITS</a>
           <a href="#contact" className="hover:text-primary transition-colors">Contact / Support</a>
