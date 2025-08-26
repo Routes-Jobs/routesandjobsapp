@@ -8,56 +8,60 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 218 20% 98%;
-    --foreground: 220 13% 13%;
+    /* Light, motivational colors for movement and opportunity */
+    --background: 220 15% 97%;
+    --foreground: 220 20% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 13% 13%;
+    --card-foreground: 220 20% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 13% 13%;
+    --popover-foreground: 220 20% 15%;
 
-    --primary: 199 89% 38%;
+    /* Bright blue for progress and trust */
+    --primary: 214 84% 56%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 165 45% 45%;
+    /* Energetic green for opportunity */
+    --secondary: 142 76% 36%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 218 20% 95%;
-    --muted-foreground: 220 9% 46%;
+    --muted: 210 20% 94%;
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 26 90% 58%;
+    /* Vibrant orange for energy and action */
+    --accent: 25 95% 53%;
     --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 218 20% 89%;
-    --input: 218 20% 95%;
-    --ring: 199 89% 38%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 214 84% 56%;
 
     --radius: 0.75rem;
     
-    /* Custom workforce-friendly gradients and shadows */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
-    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary)));
-    --shadow-soft: 0 4px 12px -2px hsl(var(--primary) / 0.1);
-    --shadow-medium: 0 8px 24px -4px hsl(var(--primary) / 0.15);
+    /* Movement and progress gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(214, 84%, 56%), hsl(142, 76%, 36%));
+    --gradient-secondary: linear-gradient(135deg, hsl(142, 76%, 36%), hsl(25, 95%, 53%));
+    --gradient-accent: linear-gradient(135deg, hsl(25, 95%, 53%), hsl(214, 84%, 56%));
+    --gradient-flow: linear-gradient(90deg, hsl(214, 84%, 56%), hsl(142, 76%, 36%), hsl(25, 95%, 53%));
+    --gradient-subtle: linear-gradient(135deg, hsl(220, 15%, 97%), hsl(210, 20%, 94%));
+    
+    /* Enhanced shadows for depth */
+    --shadow-soft: 0 2px 8px -2px hsl(214, 84%, 56% / 0.08);
+    --shadow-medium: 0 4px 16px -4px hsl(214, 84%, 56% / 0.12);
+    --shadow-glow: 0 0 20px hsl(214, 84%, 56% / 0.15);
+    --shadow-accent: 0 4px 12px -2px hsl(25, 95%, 53% / 0.2);
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -71,24 +75,24 @@ All colors MUST be HSL.
     --popover: 220 13% 11%;
     --popover-foreground: 218 20% 95%;
 
-    --primary: 199 89% 48%;
+    --primary: 214 84% 56%;
     --primary-foreground: 220 13% 9%;
 
-    --secondary: 165 45% 55%;
+    --secondary: 142 76% 36%;
     --secondary-foreground: 220 13% 9%;
 
     --muted: 220 13% 15%;
     --muted-foreground: 220 9% 65%;
 
-    --accent: 26 90% 68%;
+    --accent: 25 95% 53%;
     --accent-foreground: 220 13% 9%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 220 13% 18%;
     --input: 220 13% 15%;
-    --ring: 199 89% 48%;
+    --ring: 214 84% 56%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -129,6 +133,47 @@ All colors MUST be HSL.
     }
   }
   
+  @keyframes route-flow {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+  @keyframes opportunity-pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+  
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
   .logo-background {
     background-image: url('/lovable-uploads/5a24a020-705b-4a02-bddc-253022daa901.png');
     background-repeat: no-repeat;
@@ -136,5 +181,23 @@ All colors MUST be HSL.
     background-size: 400px auto;
     opacity: 0.05;
     animation: pulse-slow 4s ease-in-out infinite;
+  }
+  
+  .route-flow {
+    animation: route-flow 3s linear infinite;
+  }
+  
+  .opportunity-pulse {
+    animation: opportunity-pulse 2s ease-in-out infinite;
+  }
+  
+  .float-subtle {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .gradient-flow {
+    background: var(--gradient-flow);
+    background-size: 200% 200%;
+    animation: gradient-shift 4s ease infinite;
   }
 }
