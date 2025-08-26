@@ -12,19 +12,29 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
   
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Video Background */}
-      <video 
-        autoPlay 
-        loop 
-        muted 
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-      >
-        <source src="/videos/highway-aerial.mp4" type="video/mp4" />
-      </video>
+      {/* Dynamic Animated Background - No video needed */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-gray-900">
+        {/* Moving road lines animation */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-1/2 left-0 w-full h-1 bg-yellow-400 animate-[slide_3s_linear_infinite] transform rotate-12"></div>
+          <div className="absolute top-1/3 left-0 w-full h-1 bg-yellow-400 animate-[slide_4s_linear_infinite] transform -rotate-6 animation-delay-1s"></div>
+          <div className="absolute top-2/3 left-0 w-full h-1 bg-yellow-400 animate-[slide_5s_linear_infinite] transform rotate-3 animation-delay-2s"></div>
+        </div>
+        
+        {/* Moving car lights effect */}
+        <div className="absolute inset-0 opacity-40">
+          <div className="absolute top-1/4 left-0 w-3 h-3 bg-white rounded-full animate-[drive_6s_linear_infinite] shadow-[0_0_10px_rgba(255,255,255,0.8)]"></div>
+          <div className="absolute top-1/2 right-0 w-2 h-2 bg-red-500 rounded-full animate-[driveReverse_8s_linear_infinite] shadow-[0_0_8px_rgba(239,68,68,0.8)]"></div>
+          <div className="absolute top-3/4 left-0 w-2 h-2 bg-blue-400 rounded-full animate-[drive_7s_linear_infinite] shadow-[0_0_6px_rgba(59,130,246,0.8)]"></div>
+        </div>
+        
+        {/* Pulsing city glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(59,130,246,0.2)_0%,transparent_50%)] animate-pulse"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(16,185,129,0.1)_0%,transparent_60%)] animate-pulse animation-delay-1s"></div>
+      </div>
       
       {/* Overlay for better text contrast */}
-      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-0 bg-black/30" />
       <div className="relative z-10 flex flex-col justify-center items-center min-h-screen px-6">
         <div className="max-w-6xl w-full mx-auto">
           {/* Simple Header */}

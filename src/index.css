@@ -124,6 +124,24 @@ All colors MUST be HSL.
     }
   }
   
+  @keyframes slide {
+    0% {
+      transform: translateX(-100vw);
+    }
+    100% {
+      transform: translateX(100vw);
+    }
+  }
+  
+  @keyframes driveReverse {
+    0% {
+      transform: translateX(100vw);
+    }
+    100% {
+      transform: translateX(-100vw);
+    }
+  }
+  
   @keyframes pulse-slow {
     0%, 100% {
       opacity: 0.3;
