@@ -96,8 +96,8 @@ const JobListings = ({ userType = "general" }: JobListingsProps) => {
   const filteredJobs = jobs.filter(job => {
     const matchesSearch = job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          job.company.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesLocation = filterLocation ? job.location.includes(filterLocation) : true;
-    const matchesType = filterType ? job.type === filterType : true;
+    const matchesLocation = filterLocation && filterLocation !== "all-locations" ? job.location.includes(filterLocation) : true;
+    const matchesType = filterType && filterType !== "all-types" ? job.type === filterType : true;
     return matchesSearch && matchesLocation && matchesType;
   });
 
@@ -212,7 +212,7 @@ const JobListings = ({ userType = "general" }: JobListingsProps) => {
                 <SelectValue placeholder="Filter by location" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Locations</SelectItem>
+                <SelectItem value="all-locations">All Locations</SelectItem>
                 <SelectItem value="Industrial">Industrial District</SelectItem>
                 <SelectItem value="Downtown">Downtown Area</SelectItem>
                 <SelectItem value="East">East Industrial Park</SelectItem>
@@ -223,7 +223,7 @@ const JobListings = ({ userType = "general" }: JobListingsProps) => {
                 <SelectValue placeholder="Job type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Types</SelectItem>
+                <SelectItem value="all-types">All Types</SelectItem>
                 <SelectItem value="Full-time">Full-time</SelectItem>
                 <SelectItem value="Part-time">Part-time</SelectItem>
                 <SelectItem value="Contract">Contract</SelectItem>
@@ -282,8 +282,8 @@ const JobListings = ({ userType = "general" }: JobListingsProps) => {
             <p className="text-muted-foreground">No jobs match your current filters.</p>
             <Button variant="outline" onClick={() => {
               setSearchTerm("");
-              setFilterLocation("");
-              setFilterType("");
+              setFilterLocation("all-locations");
+              setFilterType("all-types");
             }} className="mt-4">
               Clear Filters
             </Button>
