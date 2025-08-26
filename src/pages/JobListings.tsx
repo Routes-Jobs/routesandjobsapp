@@ -271,9 +271,9 @@ const JobListingsPage = () => {
     const matchesSearch = job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          job.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          job.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesLocation = filterLocation ? job.location.includes(filterLocation) : true;
-    const matchesType = filterType ? job.type === filterType : true;
-    const matchesCategory = filterCategory ? job.category === filterCategory : true;
+    const matchesLocation = filterLocation && filterLocation !== "all" ? job.location.includes(filterLocation) : true;
+    const matchesType = filterType && filterType !== "all" ? job.type === filterType : true;
+    const matchesCategory = filterCategory && filterCategory !== "all" ? job.category === filterCategory : true;
     return matchesSearch && matchesLocation && matchesType && matchesCategory;
   });
 
@@ -544,7 +544,7 @@ const JobListingsPage = () => {
                     <SelectValue placeholder="All Categories" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">🌟 All Categories</SelectItem>
+                    <SelectItem value="all">🌟 All Categories</SelectItem>
                     {categories.map(category => (
                       <SelectItem key={category} value={category}>{category}</SelectItem>
                     ))}
@@ -558,7 +558,7 @@ const JobListingsPage = () => {
                     <SelectValue placeholder="All Locations" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">📍 All Locations</SelectItem>
+                    <SelectItem value="all">📍 All Locations</SelectItem>
                     {locations.map(location => (
                       <SelectItem key={location} value={location}>{location}</SelectItem>
                     ))}
@@ -572,7 +572,7 @@ const JobListingsPage = () => {
                     <SelectValue placeholder="All Types" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">⏰ All Types</SelectItem>
+                    <SelectItem value="all">⏰ All Types</SelectItem>
                     <SelectItem value="Full-time">Full-time</SelectItem>
                     <SelectItem value="Part-time">Part-time</SelectItem>
                     <SelectItem value="Contract">Contract</SelectItem>
@@ -580,16 +580,16 @@ const JobListingsPage = () => {
                 </Select>
               </div>
             </div>
-            {(searchTerm || filterCategory || filterLocation || filterType) && (
+            {(searchTerm || (filterCategory && filterCategory !== "all") || (filterLocation && filterLocation !== "all") || (filterType && filterType !== "all")) && (
               <div className="flex justify-end">
                 <Button 
                   variant="outline" 
                   size="sm"
                   onClick={() => {
                     setSearchTerm("");
-                    setFilterLocation("");
-                    setFilterType("");
-                    setFilterCategory("");
+                    setFilterLocation("all");
+                    setFilterType("all");
+                    setFilterCategory("all");
                   }}
                 >
                   Clear Filters
@@ -732,9 +732,9 @@ const JobListingsPage = () => {
                 variant="gradientAccent" 
                 onClick={() => {
                   setSearchTerm("");
-                  setFilterLocation("");
-                  setFilterType("");
-                  setFilterCategory("");
+                  setFilterLocation("all");
+                  setFilterType("all");
+                  setFilterCategory("all");
                 }}
                 className="px-8"
               >
