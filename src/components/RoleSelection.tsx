@@ -22,9 +22,19 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
         <div className="max-w-6xl w-full mx-auto">
           {/* Simple Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Routes & Jobs
-            </h1>
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <h1 className="text-4xl md:text-5xl font-bold text-white">
+                Routes & Jobs
+              </h1>
+              {/* Animated Car */}
+              <div className="relative">
+                <div className="w-12 h-12 relative overflow-hidden">
+                  <div className="absolute inset-0 animate-[drive_3s_ease-in-out_infinite] text-3xl">
+                    🚗
+                  </div>
+                </div>
+              </div>
+            </div>
             <p className="text-xl text-white/90 max-w-2xl mx-auto">
               Find transportation solutions and job opportunities in your community
             </p>
