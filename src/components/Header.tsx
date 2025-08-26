@@ -28,21 +28,46 @@ const Header = () => {
 
         {/* Navigation */}
         <nav className="hidden md:flex items-center gap-6">
-          <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+          <button 
+            onClick={() => window.location.href = '/'} 
+            className="text-muted-foreground hover:text-foreground transition-colors"
+          >
             {t('home')}
-          </a>
-          <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+          </button>
+          <button 
+            onClick={() => {
+              // Scroll to job listings section or navigate to jobs
+              const jobSection = document.querySelector('[data-job-listings]');
+              if (jobSection) {
+                jobSection.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                alert('Job listings are available in the role-specific sections');
+              }
+            }}
+            className="text-muted-foreground hover:text-foreground transition-colors"
+          >
             {t('jobListings')}
-          </a>
+          </button>
         </nav>
 
         {/* Auth buttons and Language Toggle */}
         <div className="flex items-center gap-3">
           <LanguageToggle />
-          <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+          <Button 
+            variant="ghost" 
+            className="text-muted-foreground hover:text-foreground"
+            onClick={() => {
+              alert('Login functionality would redirect to authentication page');
+            }}
+          >
             {t('login')}
           </Button>
-          <Button className="bg-primary hover:bg-primary/90">
+          <Button 
+            className="bg-primary hover:bg-primary/90"
+            onClick={() => {
+              alert('Sign up functionality would redirect to registration page');
+            }}
+          >
             {t('signUp')}
           </Button>
         </div>
