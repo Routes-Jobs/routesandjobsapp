@@ -16,6 +16,19 @@ const Header = () => {
             alt="Routes and Jobs Logo" 
             className="h-10 w-auto"
           />
+          {/* Animated Car */}
+          <div className="relative">
+            <div className="w-8 h-8 relative overflow-hidden">
+              <div className="absolute inset-0 animate-[drive_3s_ease-in-out_infinite]">
+                🚗
+              </div>
+            </div>
+          </div>
+          <h1 className="text-xl font-bold">
+            <span className="text-gray-800">Routes</span>
+            <span className="text-gray-400 mx-1">&</span>
+            <span className="text-gray-800">Jobs</span>
+          </h1>
         </div>
 
         {/* Navigation */}
