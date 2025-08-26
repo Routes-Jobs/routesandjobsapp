@@ -39,19 +39,16 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
       
       <div className="relative z-10 flex flex-col min-h-[calc(100vh-8rem)] p-6">
         <div className="max-w-7xl w-full mx-auto flex-1 flex flex-col justify-center space-y-16">
-          {/* Hero Section with Bold Text Shadows */}
+          {/* Hero Section with Readable Text */}
           <div className="text-center space-y-8">
-            <h1 className="text-7xl md:text-8xl font-black bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent relative">
-              <span className="absolute inset-0 text-foreground/20 blur-sm">{t('welcomeTitle')}</span>
-              <span className="relative">{t('welcomeTitle')}</span>
+            <h1 className="text-7xl md:text-8xl font-black text-foreground relative drop-shadow-2xl">
+              {t('welcomeTitle')}
             </h1>
-            <p className="text-3xl text-foreground max-w-5xl mx-auto font-semibold relative">
-              <span className="absolute inset-0 text-foreground/30 blur-sm translate-x-1 translate-y-1">{t('welcomeSubtitle')}</span>
-              <span className="relative">{t('welcomeSubtitle')}</span>
+            <p className="text-3xl text-foreground/90 max-w-5xl mx-auto font-semibold drop-shadow-lg">
+              {t('welcomeSubtitle')}
             </p>
-            <div className="text-xl text-accent font-medium relative">
-              <span className="absolute inset-0 text-accent/40 blur-sm translate-x-0.5 translate-y-0.5">Find your next opportunity • Connect with your community • Move toward your future</span>
-              <span className="relative">Find your next opportunity • Connect with your community • Move toward your future</span>
+            <div className="text-xl text-accent font-semibold drop-shadow-md bg-background/50 backdrop-blur-sm rounded-full px-6 py-3 inline-block border border-accent/20">
+              Find your next opportunity • Connect with your community • Move toward your future
             </div>
           </div>
 
