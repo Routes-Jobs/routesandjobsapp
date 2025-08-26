@@ -32,12 +32,17 @@ const Header = () => {
         </div>
 
         {/* Navigation */}
-        <nav className="hidden lg:flex items-center gap-8 text-gray-600 text-sm font-medium">
+        <nav className="hidden lg:flex items-center gap-6 text-gray-600 text-sm font-medium">
           <a href="/" className="hover:text-primary transition-colors">HOME</a>
           <a href="/jobs" className="hover:text-primary transition-colors">JOBS</a>
+          <a href="#find-rides" className="hover:text-primary transition-colors">FIND RIDES</a>
+          <a href="/driver" className="hover:text-primary transition-colors">DRIVERS</a>
           <a href="#how-it-works" className="hover:text-primary transition-colors">HOW IT WORKS</a>
           <a href="#benefits" className="hover:text-primary transition-colors">BENEFITS</a>
+          <a href="#about" className="hover:text-primary transition-colors">ABOUT</a>
+          <a href="#faq" className="hover:text-primary transition-colors">FAQ</a>
           <a href="#contact" className="hover:text-primary transition-colors">CONTACT</a>
+          <a href="#support" className="hover:text-primary transition-colors">SUPPORT</a>
         </nav>
 
         {/* Auth buttons */}
