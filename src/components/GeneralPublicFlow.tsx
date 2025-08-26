@@ -4,14 +4,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowLeft, MapPin, Clock, Star, DollarSign } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import JobListings from "@/components/JobListings";
 
 interface GeneralPublicFlowProps {
   onBack: () => void;
 }
 
 const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
+  const [activeTab, setActiveTab] = useState("transportation");
   const [step, setStep] = useState<"request" | "routes" | "payment">("request");
   const [rideData, setRideData] = useState({
     pickup: "",
@@ -106,8 +109,15 @@ const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto p-6 space-y-6">
-        {step === "request" && (
+      <div className="max-w-4xl mx-auto p-6">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="transportation">Transportation</TabsTrigger>
+            <TabsTrigger value="jobs">Job Listings</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="transportation" className="space-y-6">
+            {step === "request" && (
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -296,6 +306,12 @@ const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
             </CardContent>
           </Card>
         )}
+          </TabsContent>
+          
+          <TabsContent value="jobs" className="space-y-6">
+            <JobListings userType="general" />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
