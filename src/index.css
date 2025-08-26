@@ -8,30 +8,30 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Light, motivational colors for movement and opportunity */
-    --background: 220 15% 97%;
-    --foreground: 220 20% 15%;
+    /* Clean, professional colors for corporate transportation */
+    --background: 0 0% 100%;
+    --foreground: 220 13% 18%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 20% 15%;
+    --card-foreground: 220 13% 18%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 15%;
+    --popover-foreground: 220 13% 18%;
 
-    /* Bright blue for progress and trust */
-    --primary: 214 84% 56%;
-    --primary-foreground: 0 0% 98%;
+    /* Professional teal/green like Enterprise */
+    --primary: 174 62% 47%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Energetic green for opportunity */
-    --secondary: 142 76% 36%;
-    --secondary-foreground: 0 0% 98%;
+    /* Supporting corporate blue */
+    --secondary: 214 32% 91%;
+    --secondary-foreground: 220 13% 18%;
 
-    --muted: 210 20% 94%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 8.9% 46.1%;
 
-    /* Vibrant orange for energy and action */
-    --accent: 25 95% 53%;
-    --accent-foreground: 0 0% 98%;
+    /* Clean accent color */
+    --accent: 174 62% 47%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;

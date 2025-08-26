@@ -1,8 +1,7 @@
-
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Building2, MapPin } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import heroBackground from "@/assets/hero-background.jpg";
 
 interface RoleSelectionProps {
   onRoleSelect: (role: "employee" | "employer" | "general") => void;
@@ -12,172 +11,130 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
   const { t } = useLanguage();
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10 relative overflow-hidden">
-      {/* Stretched Logo Header Bar */}
-      <div className="relative w-full h-32 bg-gradient-to-r from-primary/20 via-secondary/15 to-accent/20 border-b border-primary/20 shadow-lg">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <img 
-            src="/lovable-uploads/00680250-b124-4d3a-99bc-935a8dd04815.png" 
-            alt="Routes and Jobs Logo" 
-            className="h-16 w-auto object-contain opacity-90"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
-      </div>
-      
-      {/* Animated Route Lines */}
-      <div className="absolute inset-0 route-flow opacity-15"></div>
-      
-      {/* Floating Background Logo */}
-      <div className="absolute inset-0 flex items-center justify-center opacity-3">
-        <img 
-          src="/lovable-uploads/00680250-b124-4d3a-99bc-935a8dd04815.png" 
-          alt="Routes and Jobs Logo" 
-          className="w-full max-w-4xl h-auto object-contain animate-float"
-        />
-      </div>
-      
-      <div className="relative z-10 flex flex-col min-h-[calc(100vh-8rem)] p-6">
-        <div className="max-w-7xl w-full mx-auto flex-1 flex flex-col justify-center space-y-16">
-          {/* Hero Section with Readable Text */}
-          <div className="text-center space-y-8">
-            <h1 className="text-4xl md:text-5xl font-black text-foreground relative drop-shadow-2xl">
-              {t('welcomeTitle')}
+    <div className="min-h-screen">
+      {/* Hero Section with Background Image */}
+      <div 
+        className="relative min-h-screen bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${heroBackground})`
+        }}
+      >
+        <div className="relative z-10 flex flex-col justify-center items-center min-h-screen px-6 text-center">
+          {/* Hero Content */}
+          <div className="max-w-4xl mx-auto space-y-8">
+            <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight">
+              Look forward to better transportation.
             </h1>
-            <p className="text-lg text-foreground/90 max-w-4xl mx-auto font-semibold drop-shadow-lg">
-              {t('welcomeSubtitle')}
+            <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+              The way we work is changing - so the way we get to work should, too. Routes & Jobs is a flexible transportation platform that helps ease the daily commute and connects you with employment opportunities.
             </p>
-            <div className="text-sm text-accent font-semibold drop-shadow-md bg-background/50 backdrop-blur-sm rounded-full px-4 py-2 inline-block border border-accent/20">
-              Find your next opportunity • Connect with your community • Move toward your future
-            </div>
-          </div>
-
-          {/* Dynamic Role Cards Layout */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {/* Employee Card - Enhanced */}
-            <Card className="hover:shadow-2xl hover:shadow-primary/30 transition-all duration-500 cursor-pointer border-2 hover:border-primary/40 bg-gradient-to-br from-card/90 to-card/70 backdrop-blur-md hover:scale-110 group relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <CardHeader className="text-center pb-4 relative z-10">
-                <div className="mx-auto w-20 h-20 bg-gradient-to-br from-primary via-primary/80 to-primary/60 rounded-full flex items-center justify-center mb-6 group-hover:scale-125 transition-all duration-500 shadow-xl shadow-primary/30">
-                  <Users className="w-10 h-10 text-white drop-shadow-lg" />
-                </div>
-                <CardTitle className="text-xl font-black relative">
-                  <span className="absolute inset-0 text-primary/20 blur-sm translate-x-0.5 translate-y-0.5">{t('employee')}</span>
-                  <span className="relative text-foreground">{t('employee')}</span>
-                </CardTitle>
-              <CardDescription>
-                {t('employeeDesc')}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <ul className="text-sm text-muted-foreground space-y-2">
-                <li>{t('employeeFeatures.feature1')}</li>
-                <li>{t('employeeFeatures.feature2')}</li>
-                <li>{t('employeeFeatures.feature3')}</li>
-                <li>{t('employeeFeatures.feature4')}</li>
-              </ul>
-                <Button 
-                  onClick={() => onRoleSelect("employee")} 
-                  variant="opportunity"
-                  className="w-full"
-                  size="lg"
-                >
-                  {t('continueEmployee')}
-                </Button>
-            </CardContent>
-          </Card>
-
-            {/* Employer Card - Enhanced */}
-            <Card className="hover:shadow-2xl hover:shadow-secondary/30 transition-all duration-500 cursor-pointer border-2 hover:border-secondary/40 bg-gradient-to-br from-card/90 to-card/70 backdrop-blur-md hover:scale-110 group relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <CardHeader className="text-center pb-4 relative z-10">
-                <div className="mx-auto w-20 h-20 bg-gradient-to-br from-secondary via-secondary/80 to-secondary/60 rounded-full flex items-center justify-center mb-6 group-hover:scale-125 transition-all duration-500 shadow-xl shadow-secondary/30">
-                  <Building2 className="w-10 h-10 text-white drop-shadow-lg" />
-                </div>
-                <CardTitle className="text-3xl font-black relative">
-                  <span className="absolute inset-0 text-secondary/20 blur-sm translate-x-0.5 translate-y-0.5">{t('employer')}</span>
-                  <span className="relative text-foreground">{t('employer')}</span>
-                </CardTitle>
-              <CardDescription>
-                {t('employerDesc')}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <ul className="text-sm text-muted-foreground space-y-2">
-                <li>{t('employerFeatures.feature1')}</li>
-                <li>{t('employerFeatures.feature2')}</li>
-                <li>{t('employerFeatures.feature3')}</li>
-                <li>{t('employerFeatures.feature4')}</li>
-              </ul>
-                <Button 
-                  onClick={() => onRoleSelect("employer")} 
-                  variant="movement"
-                  className="w-full"
-                  size="lg"
-                >
-                  {t('continueEmployer')}
-                </Button>
-            </CardContent>
-          </Card>
-
-            {/* General Public Card - Enhanced */}
-            <Card className="hover:shadow-2xl hover:shadow-accent/30 transition-all duration-500 cursor-pointer border-2 hover:border-accent/40 bg-gradient-to-br from-card/90 to-card/70 backdrop-blur-md hover:scale-110 group relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <CardHeader className="text-center pb-4 relative z-10">
-                <div className="mx-auto w-20 h-20 bg-gradient-to-br from-accent via-accent/80 to-accent/60 rounded-full flex items-center justify-center mb-6 group-hover:scale-125 transition-all duration-500 shadow-xl shadow-accent/30">
-                  <MapPin className="w-10 h-10 text-white drop-shadow-lg" />
-                </div>
-                <CardTitle className="text-3xl font-black relative">
-                  <span className="absolute inset-0 text-accent/20 blur-sm translate-x-0.5 translate-y-0.5">{t('generalPublic')}</span>
-                  <span className="relative text-foreground">{t('generalPublic')}</span>
-                </CardTitle>
-              <CardDescription>
-                {t('generalDesc')}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <ul className="text-sm text-muted-foreground space-y-2">
-                <li>{t('generalFeatures.feature1')}</li>
-                <li>{t('generalFeatures.feature2')}</li>
-                <li>{t('generalFeatures.feature3')}</li>
-                <li>{t('generalFeatures.feature4')}</li>
-              </ul>
-                <Button 
-                  onClick={() => onRoleSelect("general")} 
-                  className="w-full bg-gradient-to-r from-accent to-accent/80 text-white border-0 hover:from-accent/90 hover:to-accent/70 shadow-lg hover:shadow-accent/25"
-                  size="lg"
-                >
-                  {t('continueRider')}
-                </Button>
-            </CardContent>
-          </Card>
-        </div>
-
-          {/* Driver Portal CTA - Eye-catching */}
-          <div className="text-center pt-12">
-            <div className="bg-gradient-to-r from-secondary/10 via-primary/10 to-accent/10 p-8 rounded-3xl border border-primary/20 shadow-2xl backdrop-blur-sm">
-              <p className="text-2xl font-semibold mb-6 relative">
-                <span className="absolute inset-0 text-muted-foreground/30 blur-sm translate-x-0.5 translate-y-0.5">{t('driverPortalDesc')}</span>
-                <span className="relative text-muted-foreground">{t('driverPortalDesc')}</span>
-              </p>
-              <Button 
-                variant="outline" 
-                className="border-3 border-secondary text-secondary hover:bg-secondary hover:text-white shadow-xl hover:shadow-secondary/40 transition-all duration-500 hover:scale-110 text-xl px-8 py-4"
-                onClick={() => window.open('/driver', '_blank')}
+            
+            {/* Two Main CTAs */}
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mt-12">
+              <Button
+                onClick={() => onRoleSelect("employer")}
+                variant="outline"
                 size="lg"
+                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 text-lg font-semibold min-w-[200px] group"
               >
-                <span className="font-bold">{t('driverPortal')} →</span>
+                <Building2 className="w-6 h-6 mr-3 group-hover:text-gray-900" />
+                FOR EMPLOYERS
+              </Button>
+              
+              <Button
+                onClick={() => onRoleSelect("employee")}
+                variant="outline"
+                size="lg"
+                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 text-lg font-semibold min-w-[200px] group"
+              >
+                <Users className="w-6 h-6 mr-3 group-hover:text-gray-900" />
+                FOR COMMUTERS
               </Button>
             </div>
           </div>
+        </div>
+      </div>
 
-          {/* Footer with Style */}
-          <div className="text-center pt-8">
-            <p className="text-xl font-medium relative">
-              <span className="absolute inset-0 text-muted-foreground/20 blur-sm translate-x-0.5 translate-y-0.5">{t('footerText')}</span>
-              <span className="relative text-muted-foreground">{t('footerText')}</span>
-            </p>
+      {/* Modern Solutions Section */}
+      <div className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-16">
+            Modern transportation solutions,<br/>
+            <span className="text-gray-600">from a trusted mobility platform.</span>
+          </h2>
+
+          {/* Two Column Layout */}
+          <div className="grid md:grid-cols-2 gap-16 mt-20">
+            {/* Employers Section */}
+            <div className="text-left">
+              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6">
+                <Building2 className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-3xl font-bold text-gray-800 mb-4">Employers</h3>
+              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                Adding a transportation benefit can help you attract and retain top talent. We make it easy to start, run and track your commuting benefit program.
+              </p>
+              <Button 
+                onClick={() => onRoleSelect("employer")}
+                className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg font-semibold"
+              >
+                Partner With Us
+              </Button>
+            </div>
+
+            {/* Commuters Section */}
+            <div className="text-left">
+              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6">
+                <Users className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-3xl font-bold text-gray-800 mb-4">Commuters</h3>
+              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                Even if you navigate between in-person and remote work, our ridesharing program can help you commute with co-workers who live near you and save money along the way.
+              </p>
+              <Button 
+                onClick={() => onRoleSelect("employee")}
+                className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg font-semibold"
+              >
+                Join Today
+              </Button>
+            </div>
           </div>
+        </div>
+      </div>
+
+      {/* General Public Section */}
+      <div className="py-20 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6 mx-auto">
+            <MapPin className="w-8 h-8 text-white" />
+          </div>
+          <h3 className="text-3xl font-bold text-gray-800 mb-4">General Public</h3>
+          <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+            Looking for reliable transportation options in your community? Find rides, explore job opportunities, and connect with local transportation services.
+          </p>
+          <Button 
+            onClick={() => onRoleSelect("general")}
+            variant="outline"
+            className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 text-lg font-semibold"
+          >
+            Explore Options
+          </Button>
+        </div>
+      </div>
+
+      {/* Driver Portal CTA */}
+      <div className="py-16 bg-primary">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <p className="text-2xl font-semibold mb-6 text-white">
+            Are you a driver looking to earn income?
+          </p>
+          <Button 
+            variant="outline" 
+            className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-3 text-lg font-semibold"
+            onClick={() => window.open('/driver', '_blank')}
+          >
+            Driver Portal →
+          </Button>
         </div>
       </div>
     </div>
