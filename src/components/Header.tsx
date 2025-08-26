@@ -8,27 +8,14 @@ const Header = () => {
   
   return (
     <header className="bg-white border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center">
           <img 
             src="/lovable-uploads/00680250-b124-4d3a-99bc-935a8dd04815.png" 
             alt="Routes and Jobs Logo" 
-            className="h-10 w-auto"
+            className="h-8 w-auto"
           />
-          {/* Animated Car */}
-          <div className="relative">
-            <div className="w-8 h-8 relative overflow-hidden">
-              <div className="absolute inset-0 animate-[drive_3s_ease-in-out_infinite]">
-                🚗
-              </div>
-            </div>
-          </div>
-          <h1 className="text-xl font-bold">
-            <span className="text-gray-800">Routes</span>
-            <span className="text-gray-400 mx-1">&</span>
-            <span className="text-gray-800">Jobs</span>
-          </h1>
         </div>
 
         {/* Navigation */}
