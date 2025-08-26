@@ -35,15 +35,7 @@ const Header = () => {
             {t('home')}
           </button>
           <button 
-            onClick={() => {
-              // Scroll to job listings section or navigate to jobs
-              const jobSection = document.querySelector('[data-job-listings]');
-              if (jobSection) {
-                jobSection.scrollIntoView({ behavior: 'smooth' });
-              } else {
-                alert('Job listings are available in the role-specific sections');
-              }
-            }}
+            onClick={() => window.location.href = '/jobs'}
             className="text-muted-foreground hover:text-foreground transition-colors"
           >
             {t('jobListings')}
