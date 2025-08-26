@@ -17,9 +17,9 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
       <div className="relative w-full h-32 bg-gradient-to-r from-primary/20 via-secondary/15 to-accent/20 border-b border-primary/20 shadow-lg">
         <div className="absolute inset-0 flex items-center justify-center">
           <img 
-            src="/lovable-uploads/5a24a020-705b-4a02-bddc-253022daa901.png" 
+            src="/lovable-uploads/00680250-b124-4d3a-99bc-935a8dd04815.png" 
             alt="Routes and Jobs Logo" 
-            className="h-20 w-auto object-contain opacity-80 animate-opportunity-pulse"
+            className="h-16 w-auto object-contain opacity-90"
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
@@ -31,7 +31,7 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
       {/* Floating Background Logo */}
       <div className="absolute inset-0 flex items-center justify-center opacity-3">
         <img 
-          src="/lovable-uploads/5a24a020-705b-4a02-bddc-253022daa901.png" 
+          src="/lovable-uploads/00680250-b124-4d3a-99bc-935a8dd04815.png" 
           alt="Routes and Jobs Logo" 
           className="w-full max-w-4xl h-auto object-contain animate-float"
         />
@@ -41,13 +41,13 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
         <div className="max-w-7xl w-full mx-auto flex-1 flex flex-col justify-center space-y-16">
           {/* Hero Section with Readable Text */}
           <div className="text-center space-y-8">
-            <h1 className="text-7xl md:text-8xl font-black text-foreground relative drop-shadow-2xl">
+            <h1 className="text-4xl md:text-5xl font-black text-foreground relative drop-shadow-2xl">
               {t('welcomeTitle')}
             </h1>
-            <p className="text-3xl text-foreground/90 max-w-5xl mx-auto font-semibold drop-shadow-lg">
+            <p className="text-lg text-foreground/90 max-w-4xl mx-auto font-semibold drop-shadow-lg">
               {t('welcomeSubtitle')}
             </p>
-            <div className="text-xl text-accent font-semibold drop-shadow-md bg-background/50 backdrop-blur-sm rounded-full px-6 py-3 inline-block border border-accent/20">
+            <div className="text-sm text-accent font-semibold drop-shadow-md bg-background/50 backdrop-blur-sm rounded-full px-4 py-2 inline-block border border-accent/20">
               Find your next opportunity • Connect with your community • Move toward your future
             </div>
           </div>
@@ -61,7 +61,7 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
                 <div className="mx-auto w-20 h-20 bg-gradient-to-br from-primary via-primary/80 to-primary/60 rounded-full flex items-center justify-center mb-6 group-hover:scale-125 transition-all duration-500 shadow-xl shadow-primary/30">
                   <Users className="w-10 h-10 text-white drop-shadow-lg" />
                 </div>
-                <CardTitle className="text-3xl font-black relative">
+                <CardTitle className="text-xl font-black relative">
                   <span className="absolute inset-0 text-primary/20 blur-sm translate-x-0.5 translate-y-0.5">{t('employee')}</span>
                   <span className="relative text-foreground">{t('employee')}</span>
                 </CardTitle>
