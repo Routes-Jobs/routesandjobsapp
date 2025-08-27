@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowLeft, MapPin, Clock, Star, DollarSign } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import JobListings from "@/components/JobListings";
+import AddressAutocomplete from "@/components/ui/address-autocomplete";
 
 interface GeneralPublicFlowProps {
   onBack: () => void;
@@ -129,24 +130,20 @@ const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="pickup">Pickup Location</Label>
-                <Input
-                  id="pickup"
-                  placeholder="Enter your pickup address"
-                  value={rideData.pickup}
-                  onChange={(e) => setRideData(prev => ({ ...prev, pickup: e.target.value }))}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="destination">Destination</Label>
-                <Input
-                  id="destination"
-                  placeholder="Where do you want to go?"
-                  value={rideData.destination}
-                  onChange={(e) => setRideData(prev => ({ ...prev, destination: e.target.value }))}
-                />
-              </div>
+              <AddressAutocomplete
+                id="pickup"
+                label="Pickup Location"
+                placeholder="Enter your pickup address"
+                value={rideData.pickup}
+                onChange={(value) => setRideData(prev => ({ ...prev, pickup: value }))}
+              />
+              <AddressAutocomplete
+                id="destination"
+                label="Destination"
+                placeholder="Where do you want to go?"
+                value={rideData.destination}
+                onChange={(value) => setRideData(prev => ({ ...prev, destination: value }))}
+              />
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="date">Date (Optional)</Label>

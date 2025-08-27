@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowLeft, Clock, MapPin, Calendar, DollarSign } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import JobListings from "@/components/JobListings";
+import AddressAutocomplete from "@/components/ui/address-autocomplete";
 
 interface EmployeeFlowProps {
   onBack: () => void;
@@ -106,24 +107,20 @@ const EmployeeFlow = ({ onBack }: EmployeeFlowProps) => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="pickup">Pickup Location</Label>
-                <Input
-                  id="pickup"
-                  placeholder="Enter your address or nearest hub"
-                  value={rideData.pickup}
-                  onChange={(e) => setRideData(prev => ({ ...prev, pickup: e.target.value }))}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="destination">Job Site Destination</Label>
-                <Input
-                  id="destination"
-                  placeholder="Enter job site address"
-                  value={rideData.destination}
-                  onChange={(e) => setRideData(prev => ({ ...prev, destination: e.target.value }))}
-                />
-              </div>
+              <AddressAutocomplete
+                id="pickup"
+                label="Pickup Location"
+                placeholder="Enter your address or nearest hub"
+                value={rideData.pickup}
+                onChange={(value) => setRideData(prev => ({ ...prev, pickup: value }))}
+              />
+              <AddressAutocomplete
+                id="destination"
+                label="Job Site Destination"
+                placeholder="Enter job site address"
+                value={rideData.destination}
+                onChange={(value) => setRideData(prev => ({ ...prev, destination: value }))}
+              />
               <div className="space-y-2">
                 <Label htmlFor="shift">Shift Type</Label>
                 <Select value={rideData.shift} onValueChange={(value) => setRideData(prev => ({ ...prev, shift: value }))}>
