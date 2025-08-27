@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Building2, MapPin, Car } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import highwayCars1 from "@/assets/highway-cars-1.jpg";
+import highwayCars2 from "@/assets/highway-cars-2.jpg";
 
 interface RoleSelectionProps {
   onRoleSelect: (role: "employee" | "employer" | "general") => void;
@@ -12,8 +14,22 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
   
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Dynamic Animated Background - No video needed */}
+      {/* Dynamic Animated Background with Car Photos */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-gray-900">
+        {/* Car Photo Backgrounds */}
+        <div className="absolute inset-0 opacity-20">
+          <img 
+            src={highwayCars1} 
+            alt="Highway cars aerial view" 
+            className="absolute top-0 left-0 w-full h-2/3 object-cover mix-blend-overlay animate-[fade-in_3s_ease-out]"
+          />
+          <img 
+            src={highwayCars2} 
+            alt="Cars side view" 
+            className="absolute bottom-0 right-0 w-2/3 h-1/2 object-cover mix-blend-soft-light opacity-60 animate-[fade-in_4s_ease-out]"
+          />
+        </div>
+        
         {/* Moving road lines animation */}
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-1/2 left-0 w-full h-1 bg-yellow-400 animate-[slide_3s_linear_infinite] transform rotate-12"></div>
