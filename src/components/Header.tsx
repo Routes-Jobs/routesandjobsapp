@@ -25,7 +25,7 @@ const Header = () => {
           <Link to="/jobs" className="hover:text-primary transition-colors">JOBS</Link>
           <a href="#find-rides" className="hover:text-primary transition-colors">FIND RIDES</a>
           <Link to="/driver" className="hover:text-primary transition-colors">DRIVERS</Link>
-          <a href="#about" className="hover:text-primary transition-colors">ABOUT</a>
+          <a href="https://routesandjobs.com" className="hover:text-primary transition-colors">ABOUT</a>
         </nav>
 
         {/* Auth buttons */}
