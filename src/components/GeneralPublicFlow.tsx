@@ -137,16 +137,20 @@ const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
               <AddressAutocomplete
                 id="pickup"
                 label="Pickup Location"
-                placeholder="Enter your pickup address"
+                placeholder="Enter your pickup address (Memphis only)"
                 value={rideData.pickup}
                 onChange={(value) => setRideData(prev => ({ ...prev, pickup: value }))}
+                restrictToCity="Memphis"
+                restrictToState="Tennessee"
               />
               <AddressAutocomplete
                 id="destination"
                 label="Destination"
-                placeholder="Where do you want to go?"
+                placeholder="Where do you want to go? (Memphis only)"
                 value={rideData.destination}
                 onChange={(value) => setRideData(prev => ({ ...prev, destination: value }))}
+                restrictToCity="Memphis"
+                restrictToState="Tennessee"
               />
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">

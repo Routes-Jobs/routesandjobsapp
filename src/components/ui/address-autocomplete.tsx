@@ -27,6 +27,8 @@ interface AddressAutocompleteProps {
   onChange: (value: string, suggestion?: AddressSuggestion) => void;
   className?: string;
   disabled?: boolean;
+  restrictToCity?: string;
+  restrictToState?: string;
 }
 
 const AddressAutocomplete = ({
@@ -36,7 +38,9 @@ const AddressAutocomplete = ({
   value,
   onChange,
   className,
-  disabled = false
+  disabled = false,
+  restrictToCity,
+  restrictToState
 }: AddressAutocompleteProps) => {
   const [suggestions, setSuggestions] = useState<AddressSuggestion[]>([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -69,8 +73,23 @@ const AddressAutocomplete = ({
           lat: item.lat,
           lon: item.lon
         }));
-        setSuggestions(formattedSuggestions);
-        setIsOpen(formattedSuggestions.length > 0);
+
+        const filtered = formattedSuggestions.filter((s) => {
+          const city = s.address?.city?.toLowerCase() || "";
+          const state = s.address?.state?.toLowerCase() || "";
+          const name = s.display_name.toLowerCase();
+
+          const cityOk = restrictToCity
+            ? city === restrictToCity.toLowerCase() || name.includes(restrictToCity.toLowerCase())
+            : true;
+          const stateOk = restrictToState
+            ? state.includes(restrictToState.toLowerCase()) || name.includes(restrictToState.toLowerCase())
+            : true;
+          return cityOk && stateOk;
+        });
+
+        setSuggestions(filtered);
+        setIsOpen(filtered.length > 0);
       }
     } catch (error) {
       console.error("Error fetching address suggestions:", error);
