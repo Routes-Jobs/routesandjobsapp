@@ -122,6 +122,109 @@ const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
           </TabsList>
           
           <TabsContent value="transportation" className="space-y-6">
+            {/* Jobs with Guaranteed Rides Section */}
+            <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-green-800">
+                  <Bus className="w-5 h-5" />
+                  Jobs with Guaranteed Transportation
+                </CardTitle>
+                <CardDescription>
+                  Click on any job below to get guaranteed transportation to the workplace
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {[
+                  {
+                    id: "fedex",
+                    title: "Warehouse Associate - FedEx Distribution",
+                    location: "FedEx Distribution Center, Memphis",
+                    shift: "6:00 AM - 2:00 PM",
+                    pay: "$18.50/hour",
+                    transport: "Free daily shuttle - 15 min ride",
+                    description: "Package handling, loading/unloading"
+                  },
+                  {
+                    id: "amazon",
+                    title: "Fulfillment Associate - Amazon",
+                    location: "Amazon Fulfillment Center, Memphis",
+                    shift: "7:00 AM - 3:30 PM",
+                    pay: "$17.25/hour",
+                    transport: "Subsidized van service - $1.50/day",
+                    description: "Order picking, packing, quality control"
+                  },
+                  {
+                    id: "autozone",
+                    title: "Distribution Center Worker - AutoZone",
+                    location: "AutoZone Distribution Center, Memphis",
+                    shift: "5:30 AM - 2:00 PM",
+                    pay: "$19.00/hour",
+                    transport: "Company shuttle - Free",
+                    description: "Auto parts sorting and distribution"
+                  },
+                  {
+                    id: "memphis-medical",
+                    title: "Hospital Support Staff - Memphis Medical",
+                    location: "Memphis Medical Center",
+                    shift: "Multiple shifts available",
+                    pay: "$16.75/hour",
+                    transport: "Employee shuttle - $2.00/day",
+                    description: "Patient support, cleaning, food service"
+                  }
+                ].map((job) => (
+                  <Card key={job.id} className="cursor-pointer hover:shadow-md transition-all border-2 hover:border-green-300 bg-white">
+                    <CardContent className="p-4">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-lg mb-1">{job.title}</h3>
+                          <div className="space-y-1 text-sm text-muted-foreground">
+                            <p className="flex items-center gap-2">
+                              <MapPin className="w-3 h-3" />
+                              {job.location}
+                            </p>
+                            <p className="flex items-center gap-2">
+                              <Clock className="w-3 h-3" />
+                              {job.shift}
+                            </p>
+                            <p>{job.description}</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-xl font-bold text-green-600 mb-1">{job.pay}</div>
+                          <Badge variant="default" className="bg-green-100 text-green-800 text-xs">
+                            <Bus className="w-3 h-3 mr-1" />
+                            Transport Included
+                          </Badge>
+                        </div>
+                      </div>
+                      
+                      <div className="bg-green-50 p-3 rounded-lg border border-green-200 mb-3">
+                        <p className="text-sm font-medium text-green-800">🚐 Guaranteed Transportation:</p>
+                        <p className="text-sm text-green-700">{job.transport}</p>
+                      </div>
+                      
+                      <Button 
+                        className="w-full bg-green-600 hover:bg-green-700" 
+                        onClick={() => {
+                          setRideData(prev => ({
+                            ...prev,
+                            destination: job.location,
+                            pickup: prev.pickup || "Enter your pickup location"
+                          }));
+                          toast({
+                            title: "Job Selected!",
+                            description: `Transportation to ${job.title} - Please enter your pickup location below.`,
+                          });
+                        }}
+                      >
+                        Get Ride to This Job
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </CardContent>
+            </Card>
+
             {step === "request" && (
           <Card>
             <CardHeader>
