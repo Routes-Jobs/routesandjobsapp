@@ -4,9 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Clock, DollarSign, Search, Briefcase, ArrowLeft, Bus } from "lucide-react";
+import { MapPin, Clock, DollarSign, Search, Briefcase, ArrowLeft, Bus, Car, CalendarDays, Users } from "lucide-react";
 import Header from "@/components/Header";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 interface Job {
   id: string;
@@ -18,13 +19,20 @@ interface Job {
   description: string;
   postedDate: string;
   includesTransportation?: boolean;
+  transportCost?: string;
+  interviewLocation?: string;
+  shift?: string;
+  requirements?: string[];
+  benefits?: string[];
 }
 
 const SimpleJobListings = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
   const [filterLocation, setFilterLocation] = useState("all");
   const [filterType, setFilterType] = useState("all");
+  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
 
   // Memphis job listings - 20 current opportunities
   const jobs: Job[] = [
@@ -37,7 +45,12 @@ const SimpleJobListings = () => {
       type: "Full-time",
       description: "Package handling, sorting, and loading at world's busiest cargo airport. Benefits include health insurance and transportation assistance.",
       postedDate: "1 day ago",
-      includesTransportation: true
+      includesTransportation: true,
+      transportCost: "Free - Company shuttle service",
+      interviewLocation: "FedEx Ground HR Office - Memphis Airport",
+      shift: "First Shift (6 AM - 2 PM)",
+      requirements: ["High school diploma", "Ability to lift 50 lbs", "Previous warehouse experience preferred"],
+      benefits: ["Health insurance", "Paid time off", "Transportation provided"]
     },
     {
       id: "2",
@@ -48,7 +61,12 @@ const SimpleJobListings = () => {
       type: "Full-time",
       description: "Manufacturing paper products, machine operation, quality control. Comprehensive benefits package.",
       postedDate: "2 days ago",
-      includesTransportation: false
+      includesTransportation: false,
+      transportCost: "Own transportation required",
+      interviewLocation: "International Paper HR - Southaven Plant",
+      shift: "Second Shift (2 PM - 10 PM)",
+      requirements: ["Manufacturing experience preferred", "Attention to detail", "Mechanical aptitude"],
+      benefits: ["Comprehensive benefits", "401k matching", "Career advancement"]
     },
     {
       id: "3",
@@ -59,7 +77,12 @@ const SimpleJobListings = () => {
       type: "Full-time",
       description: "Local package delivery, customer service, vehicle maintenance. Company vehicle provided.",
       postedDate: "1 day ago",
-      includesTransportation: true
+      includesTransportation: true,
+      transportCost: "Free - Company vehicle provided",
+      interviewLocation: "UPS Facility - Midtown Memphis Hub",
+      shift: "Flexible Schedule",
+      requirements: ["Valid driver's license", "Clean driving record", "Customer service skills"],
+      benefits: ["Flexible hours", "Company vehicle", "Gas reimbursement"]
     },
     {
       id: "4",
@@ -250,6 +273,20 @@ const SimpleJobListings = () => {
     }
   ];
 
+  const handleApply = (job: Job) => {
+    toast({
+      title: "Application Started",
+      description: `Your application for ${job.title} at ${job.company} has been initiated.`,
+    });
+  };
+
+  const handleBookRide = (job: Job) => {
+    toast({
+      title: "Interview Ride Booked",
+      description: `Transportation to ${job.company} interview has been requested. You'll receive confirmation shortly.`,
+    });
+  };
+
   const filteredJobs = jobs.filter(job => {
     const matchesSearch = job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          job.company.toLowerCase().includes(searchTerm.toLowerCase());
@@ -260,6 +297,117 @@ const SimpleJobListings = () => {
 
   const locations = [...new Set(jobs.map(job => job.location))];
   const types = [...new Set(jobs.map(job => job.type))];
+
+  // Handle job detail view
+  if (selectedJob) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="max-w-4xl mx-auto p-6">
+          <Button variant="outline" onClick={() => setSelectedJob(null)} className="mb-6">
+            ← Back to Job Listings
+          </Button>
+          
+          <Card>
+            <CardHeader>
+              <div className="flex justify-between items-start">
+                <div>
+                  <CardTitle className="text-2xl">{selectedJob.title}</CardTitle>
+                  <p className="text-lg text-muted-foreground">{selectedJob.company}</p>
+                </div>
+                <Badge variant={selectedJob.includesTransportation ? "default" : "secondary"}>
+                  {selectedJob.includesTransportation ? "Transport Included" : "Own Transport"}
+                </Badge>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-muted-foreground" />
+                  <span>{selectedJob.location}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <DollarSign className="w-4 h-4 text-muted-foreground" />
+                  <span>{selectedJob.salary}</span>
+                </div>
+                {selectedJob.shift && (
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-muted-foreground" />
+                    <span>{selectedJob.shift}</span>
+                  </div>
+                )}
+                <div className="flex items-center gap-2">
+                  <Briefcase className="w-4 h-4 text-muted-foreground" />
+                  <span>{selectedJob.type}</span>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="font-semibold mb-2">Job Description</h3>
+                <p className="text-muted-foreground">{selectedJob.description}</p>
+              </div>
+
+              {selectedJob.requirements && (
+                <div>
+                  <h3 className="font-semibold mb-2">Requirements</h3>
+                  <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                    {selectedJob.requirements.map((req, index) => (
+                      <li key={index}>{req}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {selectedJob.benefits && (
+                <div>
+                  <h3 className="font-semibold mb-2">Benefits</h3>
+                  <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                    {selectedJob.benefits.map((benefit, index) => (
+                      <li key={index}>{benefit}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {selectedJob.includesTransportation && selectedJob.transportCost && (
+                <div className="bg-muted/50 p-4 rounded-lg">
+                  <h3 className="font-semibold mb-2 flex items-center gap-2">
+                    <Car className="w-4 h-4" />
+                    Transportation Details
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    <strong>Daily Cost:</strong> {selectedJob.transportCost}
+                  </p>
+                  {selectedJob.interviewLocation && (
+                    <p className="text-sm text-muted-foreground">
+                      <strong>Interview Location:</strong> {selectedJob.interviewLocation}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              <div className="flex gap-3">
+                <Button onClick={() => handleApply(selectedJob)} className="flex-1" size="lg">
+                  Apply Now
+                </Button>
+                {selectedJob.interviewLocation && (
+                  <Button 
+                    variant="outline" 
+                    onClick={() => handleBookRide(selectedJob)}
+                    className="flex items-center gap-2"
+                    size="lg"
+                  >
+                    <CalendarDays className="w-4 h-4" />
+                    Book Interview Ride
+                  </Button>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -359,7 +507,7 @@ const SimpleJobListings = () => {
         {/* Job Listings */}
         <div className="grid gap-6">
           {filteredJobs.map((job) => (
-            <Card key={job.id} className="hover:shadow-md transition-shadow">
+            <Card key={job.id} className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => setSelectedJob(job)}>
               <CardHeader className="pb-4">
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
@@ -400,19 +548,52 @@ const SimpleJobListings = () => {
                       <Clock className="w-4 h-4" />
                       <span>Posted {job.postedDate}</span>
                     </div>
+                    <div className="flex items-center gap-1">
+                      <Users className="w-4 h-4" />
+                      <span>Multiple Openings</span>
+                    </div>
                   </div>
 
+                  {/* Transportation Cost */}
+                  {job.includesTransportation && job.transportCost && (
+                    <div className="bg-green-50 border border-green-200 p-3 rounded-lg">
+                      <div className="flex items-center gap-2 text-green-700">
+                        <Car className="w-4 h-4" />
+                        <span className="font-medium">Transportation: {job.transportCost}</span>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Description */}
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-gray-700 leading-relaxed line-clamp-2">
                     {job.description}
                   </p>
 
                   {/* Apply Button */}
-                  <div className="pt-4">
-                    <Button className="bg-primary hover:bg-primary/90">
+                  <div className="pt-4 flex gap-2">
+                    <Button 
+                      className="bg-primary hover:bg-primary/90 flex-1" 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleApply(job);
+                      }}
+                    >
                       <Briefcase className="w-4 h-4 mr-2" />
                       Apply Now
                     </Button>
+                    {job.interviewLocation && (
+                      <Button 
+                        variant="outline"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleBookRide(job);
+                        }}
+                        className="flex items-center gap-2"
+                      >
+                        <CalendarDays className="w-4 h-4" />
+                        Book Ride
+                      </Button>
+                    )}
                   </div>
                 </div>
               </CardContent>
