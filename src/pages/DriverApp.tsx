@@ -26,8 +26,7 @@ interface Route {
 const DriverApp = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [driverName, setDriverName] = useState("");
+  const [driverName] = useState("Driver");
   const [activeRoute, setActiveRoute] = useState<Route | null>(null);
   const [upcomingRoutes, setUpcomingRoutes] = useState<Route[]>([
     {
@@ -136,21 +135,8 @@ const DriverApp = () => {
     });
   };
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (driverName.trim()) {
-      setIsAuthenticated(true);
-      toast({
-        title: "Welcome Driver",
-        description: `Logged in as ${driverName}`,
-      });
-    }
-  };
-
   // Simulate real-time status updates
   useEffect(() => {
-    if (!isAuthenticated) return;
-    
     const interval = setInterval(() => {
       setUpcomingRoutes(prev => {
         const updated = [...prev];
@@ -178,45 +164,7 @@ const DriverApp = () => {
     }, 15000);
 
     return () => clearInterval(interval);
-  }, [isAuthenticated, toast]);
-
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 flex items-center justify-center p-6">
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
-            <img 
-              src="/lovable-uploads/5137d2a6-573f-4db3-b0c1-4cca8f17c149.png" 
-              alt="Routes & Jobs Logo" 
-              className="h-16 w-auto mx-auto mb-4"
-            />
-            <CardTitle className="text-2xl text-emerald-600">Driver Portal</CardTitle>
-            <CardDescription>Sign in to access your route dashboard</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div>
-                <label htmlFor="driverName" className="block text-sm font-medium mb-2">
-                  Driver Name
-                </label>
-                <Input
-                  id="driverName"
-                  type="text"
-                  placeholder="Enter your name"
-                  value={driverName}
-                  onChange={(e) => setDriverName(e.target.value)}
-                  required
-                />
-              </div>
-              <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700">
-                Sign In
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
+  }, [toast]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100">
