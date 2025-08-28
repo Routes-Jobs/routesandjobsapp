@@ -39,7 +39,7 @@ const DriverApp = () => {
       gpsCoordinates: { lat: 35.1495, lng: -90.0490 },
       earnings: "$45.00",
       trafficCondition: "heavy",
-      trafficAction: "Proceed to pickup spot NOW - Heavy traffic ahead!"
+      trafficAction: "Immediate departure recommended - Heavy traffic conditions ahead"
     },
     {
       id: "R002", 
@@ -51,7 +51,7 @@ const DriverApp = () => {
       gpsCoordinates: { lat: 35.1174, lng: -89.9711 },
       earnings: "$38.50",
       trafficCondition: "moderate",
-      trafficAction: "Monitor traffic - expect some delays"
+      trafficAction: "Standard route timing - Monitor traffic conditions"
     },
     {
       id: "R003",
@@ -63,7 +63,7 @@ const DriverApp = () => {
       gpsCoordinates: { lat: 35.0928, lng: -89.8092 },
       earnings: "$52.75",
       trafficCondition: "light",
-      trafficAction: "Clear roads - normal timing expected"
+      trafficAction: "Optimal traffic conditions - Proceed as scheduled"
     }
   ]);
 
@@ -161,9 +161,9 @@ const DriverApp = () => {
         if (updated[randomIndex] && oldPriority !== newPriority) {
           updated[randomIndex] = { ...updated[randomIndex], priority: newPriority };
           
-          const priorityMessage = newPriority === 'urgent' ? 'URGENT pickup needed!' : 
-                                 newPriority === 'next' ? 'Next priority pickup' : 
-                                 'Pickup can wait';
+          const priorityMessage = newPriority === 'urgent' ? 'High priority pickup required' : 
+                                 newPriority === 'next' ? 'Standard priority pickup' : 
+                                 'Scheduled pickup timing';
           
           toast({
             title: "Route Priority Update",
@@ -271,7 +271,7 @@ const DriverApp = () => {
                 {getPriorityIcon(activeRoute.priority)}
                 <span>Active Route: {activeRoute.destination}</span>
               </CardTitle>
-              <CardDescription>Currently in progress • Earnings: {activeRoute.earnings || 'N/A'}</CardDescription>
+              <CardDescription>Route in progress • Estimated earnings: {activeRoute.earnings || 'N/A'}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -291,7 +291,7 @@ const DriverApp = () => {
               
               {activeRoute.trafficAction && (
                 <div className={`rounded-lg p-3 border ${getTrafficColor(activeRoute.trafficCondition || 'light')}`}>
-                  <h4 className="font-medium mb-2">Traffic Update:</h4>
+                  <h4 className="font-medium mb-2">Traffic Advisory:</h4>
                   <p className="text-sm">{activeRoute.trafficAction}</p>
                 </div>
               )}
@@ -331,8 +331,8 @@ const DriverApp = () => {
               <div className="w-16 h-16 bg-red-500 rounded-full mx-auto mb-3 flex items-center justify-center">
                 <div className="w-8 h-8 bg-white rounded-full" />
               </div>
-              <h3 className="font-bold text-red-700">URGENT</h3>
-              <p className="text-sm text-red-600">Passengers needed ASAP</p>
+              <h3 className="font-bold text-red-700">HIGH PRIORITY</h3>
+              <p className="text-sm text-red-600">Immediate passenger pickup required</p>
             </CardContent>
           </Card>
           
@@ -341,8 +341,8 @@ const DriverApp = () => {
               <div className="w-16 h-16 bg-yellow-500 rounded-full mx-auto mb-3 flex items-center justify-center">
                 <div className="w-8 h-8 bg-white rounded-full" />
               </div>
-              <h3 className="font-bold text-yellow-700">NEXT</h3>
-              <p className="text-sm text-yellow-600">Passengers needed next</p>
+              <h3 className="font-bold text-yellow-700">STANDARD</h3>
+              <p className="text-sm text-yellow-600">Next scheduled pickup</p>
             </CardContent>
           </Card>
           
@@ -351,8 +351,8 @@ const DriverApp = () => {
               <div className="w-16 h-16 bg-green-500 rounded-full mx-auto mb-3 flex items-center justify-center">
                 <div className="w-8 h-8 bg-white rounded-full" />
               </div>
-              <h3 className="font-bold text-green-700">LATER</h3>
-              <p className="text-sm text-green-600">Passengers can wait</p>
+              <h3 className="font-bold text-green-700">SCHEDULED</h3>
+              <p className="text-sm text-green-600">Pickup as scheduled</p>
             </CardContent>
           </Card>
         </div>
@@ -362,7 +362,7 @@ const DriverApp = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Clock className="w-5 h-5" />
-              Upcoming Routes
+              Scheduled Routes
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -380,15 +380,15 @@ const DriverApp = () => {
                     <div className="flex-1">
                       <h3 className="font-medium text-lg">{route.destination}</h3>
                       <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                        <span>Pickup: {route.pickupTime}</span>
+                        <span>Scheduled: {route.pickupTime}</span>
                         <span>{route.passengers} passengers</span>
-                        <span>{route.estimatedDuration}</span>
-                        <span className="font-semibold text-green-600">Earn: {route.earnings}</span>
+                        <span>Duration: {route.estimatedDuration}</span>
+                        <span className="font-semibold text-green-600">Compensation: {route.earnings}</span>
                       </div>
                       
                       {route.trafficAction && (
                         <div className={`mt-2 text-sm p-2 rounded border ${getTrafficColor(route.trafficCondition || 'light')}`}>
-                          <strong>Traffic:</strong> {route.trafficAction}
+                          <strong>Traffic Advisory:</strong> {route.trafficAction}
                         </div>
                       )}
                     </div>
@@ -400,7 +400,7 @@ const DriverApp = () => {
                     disabled={!!activeRoute}
                     className="bg-emerald-600 hover:bg-emerald-700"
                   >
-                    Start Route
+                    Begin Route
                   </Button>
                 </div>
               ))}
@@ -408,18 +408,18 @@ const DriverApp = () => {
           </CardContent>
         </Card>
 
-        {/* Driver Performance Stats */}
+        {/* Performance Metrics */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           <Card className="text-center">
             <CardContent className="pt-6">
               <div className="text-2xl font-bold text-emerald-600">8</div>
-              <p className="text-sm text-muted-foreground">Routes Today</p>
+              <p className="text-sm text-muted-foreground">Routes Completed</p>
             </CardContent>
           </Card>
           <Card className="text-center">
             <CardContent className="pt-6">
               <div className="text-2xl font-bold text-green-600">$287.50</div>
-              <p className="text-sm text-muted-foreground">Today's Earnings</p>
+              <p className="text-sm text-muted-foreground">Daily Earnings</p>
             </CardContent>
           </Card>
           <Card className="text-center">
@@ -431,13 +431,13 @@ const DriverApp = () => {
           <Card className="text-center">
             <CardContent className="pt-6">
               <div className="text-2xl font-bold text-blue-600">147</div>
-              <p className="text-sm text-muted-foreground">Passengers Served</p>
+              <p className="text-sm text-muted-foreground">Passengers Transported</p>
             </CardContent>
           </Card>
           <Card className="text-center">
             <CardContent className="pt-6">
               <div className="text-2xl font-bold text-purple-600">4.9</div>
-              <p className="text-sm text-muted-foreground">Driver Rating</p>
+              <p className="text-sm text-muted-foreground">Service Rating</p>
             </CardContent>
           </Card>
         </div>

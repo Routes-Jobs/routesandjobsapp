@@ -80,15 +80,12 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
         <Tabs defaultValue="overview" className="space-y-4 md:space-y-6">
           {/* Mobile-friendly tabs - scrollable on small screens, grid on larger */}
           <div className="w-full overflow-x-auto">
-            <TabsList className="inline-flex h-12 items-center justify-start rounded-md bg-muted p-1 text-muted-foreground min-w-full md:grid md:grid-cols-5 md:w-full">
+            <TabsList className="inline-flex h-12 items-center justify-start rounded-md bg-muted p-1 text-muted-foreground min-w-full md:grid md:grid-cols-4 md:w-full">
               <TabsTrigger value="overview" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
                 Overview
               </TabsTrigger>
-              <TabsTrigger value="routes" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
-                Routes
-              </TabsTrigger>
-              <TabsTrigger value="employees" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
-                Employees
+              <TabsTrigger value="operations" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
+                Routes & Staff
               </TabsTrigger>
               <TabsTrigger value="jobs" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
                 Jobs
@@ -175,54 +172,67 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="routes" className="space-y-4 md:space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {routes.map((route) => (
-                <Card key={route.id} className="cursor-pointer hover:shadow-md transition-shadow">
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="flex items-center gap-2">
-                        <Route className="w-5 h-5" />
-                        {route.name}
-                      </CardTitle>
-                      <Badge variant={route.status === "active" ? "default" : "secondary"}>
-                        {route.status}
-                      </Badge>
-                    </div>
-                    <CardDescription>
-                      {route.employees} employees • Next pickup: {route.nextPickup}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div>
-                      <p className="text-sm font-medium mb-2">Pickup Hubs:</p>
-                      <div className="flex flex-wrap gap-2">
-                        {route.pickupHubs.map((hub, index) => (
-                          <Badge key={index} variant="outline" className="text-xs">
-                            {hub}
+          <TabsContent value="operations" className="space-y-4 md:space-y-6">
+            {/* Routes Section */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Route className="w-5 h-5" />
+                  Transportation Routes
+                </CardTitle>
+                <CardDescription>
+                  Manage and monitor active transportation routes
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {routes.map((route) => (
+                    <Card key={route.id} className="cursor-pointer hover:shadow-md transition-shadow">
+                      <CardHeader>
+                        <div className="flex items-center justify-between">
+                          <CardTitle className="flex items-center gap-2">
+                            <Route className="w-5 h-5" />
+                            {route.name}
+                          </CardTitle>
+                          <Badge variant={route.status === "active" ? "default" : "secondary"}>
+                            {route.status}
                           </Badge>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <MapPin className="w-4 h-4" />
-                      Destination: {route.destination}
-                    </div>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="w-full"
-                      onClick={() => handleManageRoute(route.id)}
-                    >
-                      Manage Route
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
+                        </div>
+                        <CardDescription>
+                          {route.employees} employees • Next pickup: {route.nextPickup}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-3">
+                        <div>
+                          <p className="text-sm font-medium mb-2">Pickup Hubs:</p>
+                          <div className="flex flex-wrap gap-2">
+                            {route.pickupHubs.map((hub, index) => (
+                              <Badge key={index} variant="outline" className="text-xs">
+                                {hub}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <MapPin className="w-4 h-4" />
+                          Destination: {route.destination}
+                        </div>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="w-full"
+                          onClick={() => handleManageRoute(route.id)}
+                        >
+                          Manage Route
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
 
-          <TabsContent value="employees" className="space-y-4 md:space-y-6">
+            {/* Employees Section */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
