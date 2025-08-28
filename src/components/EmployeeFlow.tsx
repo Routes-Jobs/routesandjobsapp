@@ -15,7 +15,7 @@ interface EmployeeFlowProps {
 }
 
 const EmployeeFlow = ({ onBack }: EmployeeFlowProps) => {
-  const [activeTab, setActiveTab] = useState("transportation");
+  const [activeTab, setActiveTab] = useState("jobs");
   const [step, setStep] = useState<"request" | "schedule" | "subscription">("request");
   const [rideData, setRideData] = useState({
     pickup: "",
