@@ -292,7 +292,6 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
                     { id: "pickup5", name: "Airport Hub", coordinates: [-89.9711, 35.0428], type: "pickup", status: "scheduled" }
                   ]}
                   height="400px"
-                  showTokenInput={true}
                 />
               </CardContent>
             </Card>

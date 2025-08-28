@@ -387,7 +387,6 @@ const DriverApp = () => {
                 }))
               ]}
               height="350px"
-              showTokenInput={true}
             />
           </CardContent>
         </Card>
