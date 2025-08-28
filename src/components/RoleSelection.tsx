@@ -73,16 +73,16 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
             </p>
           </div>
 
-          {/* Simple Role Cards */}
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            {/* Find Riders */}
+          {/* Navigation Options */}
+          <div className="grid md:grid-cols-4 gap-6 mb-12">
+            {/* Plan Work Shuttle */}
             <Card className="bg-white/95 hover:bg-white transition-all cursor-pointer border-2 hover:border-primary">
               <CardHeader className="text-center pb-4">
                 <div className="mx-auto w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4">
                   <Users className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-xl font-bold">Find Riders</CardTitle>
-                <CardDescription>Connect with people who need rides</CardDescription>
+                <CardTitle className="text-lg font-bold">Plan Work Shuttle</CardTitle>
+                <CardDescription>Schedule employee transportation</CardDescription>
               </CardHeader>
               <CardContent>
                 <Button 
@@ -94,14 +94,14 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
               </CardContent>
             </Card>
 
-            {/* Find Jobs */}
+            {/* Find a Job */}
             <Card className="bg-white/95 hover:bg-white transition-all cursor-pointer border-2 hover:border-primary">
               <CardHeader className="text-center pb-4">
                 <div className="mx-auto w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4">
                   <Building2 className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-xl font-bold">Find Jobs</CardTitle>
-                <CardDescription>Browse available job opportunities</CardDescription>
+                <CardTitle className="text-lg font-bold">Find a Job</CardTitle>
+                <CardDescription>Browse available opportunities</CardDescription>
               </CardHeader>
               <CardContent>
                 <Button 
@@ -113,13 +113,13 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
               </CardContent>
             </Card>
 
-            {/* Get Rides */}
+            {/* Get a Ride */}
             <Card className="bg-white/95 hover:bg-white transition-all cursor-pointer border-2 hover:border-primary">
               <CardHeader className="text-center pb-4">
                 <div className="mx-auto w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4">
                   <MapPin className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-xl font-bold">Get Rides</CardTitle>
+                <CardTitle className="text-lg font-bold">Get a Ride</CardTitle>
                 <CardDescription>Find transportation in your area</CardDescription>
               </CardHeader>
               <CardContent>
@@ -128,6 +128,25 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
                   className="w-full bg-primary hover:bg-primary/90"
                 >
                   Find Rides
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Employer Portal */}
+            <Card className="bg-white/95 hover:bg-white transition-all cursor-pointer border-2 hover:border-primary">
+              <CardHeader className="text-center pb-4">
+                <div className="mx-auto w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-4">
+                  <Building2 className="w-8 h-8 text-white" />
+                </div>
+                <CardTitle className="text-lg font-bold">Employer Portal</CardTitle>
+                <CardDescription>Manage workforce transportation</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button 
+                  onClick={() => onRoleSelect("employer")} 
+                  className="w-full bg-secondary hover:bg-secondary/90"
+                >
+                  Access Portal
                 </Button>
               </CardContent>
             </Card>
