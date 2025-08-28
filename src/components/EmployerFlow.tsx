@@ -122,7 +122,7 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
                   <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground">On-Time Rate</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <div className="text-xl md:text-2xl font-bold text-green-600">96%</div>
+                  <div className="text-xl md:text-2xl font-bold text-green-600">98%</div>
                   <p className="text-xs text-muted-foreground">Last 30 days</p>
                 </CardContent>
               </Card>
@@ -289,10 +289,10 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span>On-time arrivals</span>
-                      <span className="font-medium">96%</span>
+                      <span className="font-medium">98%</span>
                     </div>
                     <div className="w-full bg-secondary/20 rounded-full h-2">
-                      <div className="bg-green-600 h-2 rounded-full" style={{ width: "96%" }}></div>
+                      <div className="bg-green-600 h-2 rounded-full" style={{ width: "98%" }}></div>
                     </div>
                   </div>
                   <div className="space-y-2">
