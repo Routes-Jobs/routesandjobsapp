@@ -270,26 +270,6 @@ const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="date">Date (Optional)</Label>
-                  <Input
-                    id="date"
-                    type="date"
-                    value={rideData.date}
-                    onChange={(e) => setRideData(prev => ({ ...prev, date: e.target.value }))}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="time">Time (Optional)</Label>
-                  <Input
-                    id="time"
-                    type="time"
-                    value={rideData.time}
-                    onChange={(e) => setRideData(prev => ({ ...prev, time: e.target.value }))}
-                  />
-                </div>
-              </div>
               <div className="space-y-2">
                 <Label htmlFor="passengers">Number of Passengers</Label>
                 <Select value={rideData.passengers} onValueChange={(value) => setRideData(prev => ({ ...prev, passengers: value }))}>
@@ -396,8 +376,7 @@ const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
                   <p><strong>To:</strong> {rideData.destination}</p>
                   <p><strong>Route:</strong> Employee Discount Route</p>
                   <p><strong>Passengers:</strong> {rideData.passengers}</p>
-                  {rideData.date && <p><strong>Date:</strong> {rideData.date}</p>}
-                  {rideData.time && <p><strong>Time:</strong> {rideData.time}</p>}
+                  <p><strong>Schedule:</strong> Next available pickup</p>
                 </div>
               </div>
 
