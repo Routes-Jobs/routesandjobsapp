@@ -39,14 +39,6 @@ const EmployeeFlow = ({ onBack }: EmployeeFlowProps) => {
   };
 
   const handleSchedule = () => {
-    if (!rideData.date || !rideData.time) {
-      toast({
-        title: "Missing Schedule",
-        description: "Please select date and time for your ride.",
-        variant: "destructive"
-      });
-      return;
-    }
     setStep("subscription");
   };
 
@@ -171,33 +163,13 @@ const EmployeeFlow = ({ onBack }: EmployeeFlowProps) => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="date">Date</Label>
-                  <Input
-                    id="date"
-                    type="date"
-                    value={rideData.date}
-                    onChange={(e) => setRideData(prev => ({ ...prev, date: e.target.value }))}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="time">Time</Label>
-                  <Input
-                    id="time"
-                    type="time"
-                    value={rideData.time}
-                    onChange={(e) => setRideData(prev => ({ ...prev, time: e.target.value }))}
-                  />
-                </div>
-              </div>
-              
               <div className="bg-secondary/10 p-4 rounded-lg">
                 <h3 className="font-semibold mb-2">Ride Summary</h3>
                 <div className="space-y-1 text-sm">
                   <p><strong>From:</strong> {rideData.pickup}</p>
                   <p><strong>To:</strong> {rideData.destination}</p>
                   <p><strong>Shift:</strong> {rideData.shift}</p>
+                  <p><strong>Schedule:</strong> Next available pickup for your shift</p>
                 </div>
               </div>
 
@@ -263,8 +235,7 @@ const EmployeeFlow = ({ onBack }: EmployeeFlowProps) => {
                 <h3 className="font-semibold mb-2">Your Ride Details</h3>
                 <div className="space-y-1 text-sm">
                   <p><strong>Route:</strong> {rideData.pickup} → {rideData.destination}</p>
-                  <p><strong>Date:</strong> {rideData.date}</p>
-                  <p><strong>Time:</strong> {rideData.time}</p>
+                  <p><strong>Schedule:</strong> Next available pickup for your shift</p>
                   <p><strong>Estimated Cost:</strong> $5.50 (or FREE with pass)</p>
                 </div>
               </div>
