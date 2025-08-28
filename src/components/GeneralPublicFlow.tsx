@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowLeft, MapPin, Clock, Star, DollarSign } from "lucide-react";
+import { ArrowLeft, MapPin, Clock, Star, DollarSign, Badge as BadgeIcon, Bus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import JobListings from "@/components/JobListings";
 import AddressAutocomplete from "@/components/ui/address-autocomplete";
@@ -58,34 +59,37 @@ const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
     });
   };
 
-  // Mock route options
+  // Mock route options with really cheap pricing
   const routeOptions = [
     {
-      id: "direct",
-      name: "Direct Route",
+      id: "employee",
+      name: "Employee Discount Route",
       duration: "25 mins",
-      price: "$8.50",
+      price: "$2.75",
+      originalPrice: "$5.50",
       pickupTime: "15 mins",
       rating: 4.8,
-      description: "Fastest route with minimal stops"
+      description: "50% employee discount - Show your work ID",
+      isEmployeeDiscount: true
     },
     {
-      id: "shared",
-      name: "Community Shared",
+      id: "shuttle",
+      name: "Workplace Shuttle",
       duration: "35 mins", 
-      price: "$5.50",
+      price: "$1.50",
+      pickupTime: "10 mins",
+      rating: 4.9,
+      description: "Shared shuttle service to major employment areas",
+      isShuttle: true
+    },
+    {
+      id: "community",
+      name: "Community Ride",
+      duration: "30 mins",
+      price: "$3.25",
       pickupTime: "20 mins",
       rating: 4.6,
-      description: "Shared ride with other community members"
-    },
-    {
-      id: "scheduled",
-      name: "Scheduled Route",
-      duration: "30 mins",
-      price: "$6.00",
-      pickupTime: "5 mins",
-      rating: 4.9,
-      description: "Regular community route with fixed schedule"
+      description: "Affordable community transportation option"
     }
   ];
 
@@ -203,12 +207,31 @@ const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
               <Card key={route.id} className="cursor-pointer hover:shadow-md transition-shadow border-2 hover:border-primary/20">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-3">
-                    <div>
-                      <h3 className="font-semibold text-lg">{route.name}</h3>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="font-semibold text-lg">{route.name}</h3>
+                        {route.isEmployeeDiscount && (
+                          <Badge variant="secondary" className="bg-green-100 text-green-800">
+                            <BadgeIcon className="w-3 h-3 mr-1" />
+                            Employee
+                          </Badge>
+                        )}
+                        {route.isShuttle && (
+                          <Badge variant="default" className="bg-blue-100 text-blue-800">
+                            <Bus className="w-3 h-3 mr-1" />
+                            Shuttle
+                          </Badge>
+                        )}
+                      </div>
                       <p className="text-sm text-muted-foreground">{route.description}</p>
                     </div>
                     <div className="text-right">
-                      <div className="text-2xl font-bold text-primary">{route.price}</div>
+                      <div className="flex flex-col items-end">
+                        {route.originalPrice && (
+                          <span className="text-sm text-muted-foreground line-through">{route.originalPrice}</span>
+                        )}
+                        <div className="text-2xl font-bold text-primary">{route.price}</div>
+                      </div>
                       <div className="flex items-center gap-1 text-sm">
                         <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
                         {route.rating}
@@ -249,7 +272,7 @@ const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
                 <div className="space-y-1 text-sm">
                   <p><strong>From:</strong> {rideData.pickup}</p>
                   <p><strong>To:</strong> {rideData.destination}</p>
-                  <p><strong>Route:</strong> Community Shared</p>
+                  <p><strong>Route:</strong> Employee Discount Route</p>
                   <p><strong>Passengers:</strong> {rideData.passengers}</p>
                   {rideData.date && <p><strong>Date:</strong> {rideData.date}</p>}
                   {rideData.time && <p><strong>Time:</strong> {rideData.time}</p>}
@@ -259,7 +282,7 @@ const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
               <div className="space-y-4">
                 <div className="flex justify-between items-center p-3 border rounded-lg">
                   <span>Ride Cost</span>
-                  <span className="font-semibold">$5.50</span>
+                  <span className="font-semibold">$2.75</span>
                 </div>
                 
                 <div className="border-t pt-4">
@@ -270,9 +293,9 @@ const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
                         <div className="flex justify-between items-center">
                           <div>
                             <p className="font-medium">Pay per ride</p>
-                            <p className="text-sm text-muted-foreground">No commitment</p>
+                            <p className="text-sm text-muted-foreground">Super affordable pricing</p>
                           </div>
-                          <span className="text-lg font-bold">$5.50</span>
+                          <span className="text-lg font-bold">$2.75</span>
                         </div>
                       </CardContent>
                     </Card>
@@ -281,10 +304,22 @@ const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
                       <CardContent className="p-4">
                         <div className="flex justify-between items-center">
                           <div>
-                            <p className="font-medium">Community Pass - Monthly</p>
-                            <p className="text-sm text-muted-foreground">Unlimited rides + priority booking</p>
+                            <p className="font-medium">Weekly Pass</p>
+                            <p className="text-sm text-muted-foreground">Unlimited rides for 7 days</p>
                           </div>
-                          <span className="text-lg font-bold">$89</span>
+                          <span className="text-lg font-bold">$15</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="border">
+                      <CardContent className="p-4">
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <p className="font-medium">Monthly Community Pass</p>
+                            <p className="text-sm text-muted-foreground">Best value - unlimited rides</p>
+                          </div>
+                          <span className="text-lg font-bold">$45</span>
                         </div>
                       </CardContent>
                     </Card>
