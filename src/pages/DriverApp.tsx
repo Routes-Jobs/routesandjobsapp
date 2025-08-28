@@ -10,13 +10,16 @@ import { useNavigate } from "react-router-dom";
 
 interface Route {
   id: string;
-  status: 'green' | 'yellow' | 'red';
+  priority: 'urgent' | 'next' | 'later'; // Changed from status to priority
   destination: string;
   pickupTime: string;
   passengers: number;
   estimatedDuration: string;
   issues?: string[];
   gpsCoordinates?: { lat: number; lng: number };
+  earnings?: string;
+  trafficCondition?: 'light' | 'moderate' | 'heavy';
+  trafficAction?: string;
 }
 
 const DriverApp = () => {
@@ -28,50 +31,66 @@ const DriverApp = () => {
   const [upcomingRoutes, setUpcomingRoutes] = useState<Route[]>([
     {
       id: "R001",
-      status: "green",
+      priority: "urgent",
       destination: "Memphis Industrial Park",
       pickupTime: "6:00 AM",
       passengers: 12,
       estimatedDuration: "25 min",
-      gpsCoordinates: { lat: 35.1495, lng: -90.0490 }
+      gpsCoordinates: { lat: 35.1495, lng: -90.0490 },
+      earnings: "$45.00",
+      trafficCondition: "heavy",
+      trafficAction: "Proceed to pickup spot NOW - Heavy traffic ahead!"
     },
     {
       id: "R002", 
-      status: "yellow",
+      priority: "next",
       destination: "FedEx Distribution Center",
       pickupTime: "6:30 AM",
       passengers: 8,
       estimatedDuration: "30 min",
-      issues: ["Light traffic detected"],
-      gpsCoordinates: { lat: 35.1174, lng: -89.9711 }
+      gpsCoordinates: { lat: 35.1174, lng: -89.9711 },
+      earnings: "$38.50",
+      trafficCondition: "moderate",
+      trafficAction: "Monitor traffic - expect some delays"
     },
     {
       id: "R003",
-      status: "red", 
+      priority: "later", 
       destination: "Amazon Fulfillment Center",
       pickupTime: "7:00 AM",
       passengers: 15,
       estimatedDuration: "45 min",
-      issues: ["Road closure on I-40", "2 passengers running late"],
-      gpsCoordinates: { lat: 35.0928, lng: -89.8092 }
+      gpsCoordinates: { lat: 35.0928, lng: -89.8092 },
+      earnings: "$52.75",
+      trafficCondition: "light",
+      trafficAction: "Clear roads - normal timing expected"
     }
   ]);
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'green': return 'bg-green-500';
-      case 'yellow': return 'bg-yellow-500';
-      case 'red': return 'bg-red-500';
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case 'urgent': return 'bg-red-500'; // Red = URGENT pickup needed
+      case 'next': return 'bg-yellow-500'; // Yellow = Next priority
+      case 'later': return 'bg-green-500'; // Green = Can wait, pickup later
       default: return 'bg-gray-500';
     }
   };
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'green': return <CheckCircle className="w-8 h-8 text-green-600" />;
-      case 'yellow': return <AlertTriangle className="w-8 h-8 text-yellow-600" />;
-      case 'red': return <AlertTriangle className="w-8 h-8 text-red-600" />;
+  const getPriorityIcon = (priority: string) => {
+    switch (priority) {
+      case 'urgent': return <AlertTriangle className="w-8 h-8 text-red-600" />;
+      case 'next': return <AlertTriangle className="w-8 h-8 text-yellow-600" />;
+      case 'later': return <CheckCircle className="w-8 h-8 text-green-600" />;
       default: return <Clock className="w-8 h-8 text-gray-600" />;
+    }
+  };
+
+  const getTrafficColor = (condition: string) => {
+    switch (condition) {
+      case 'heavy': return 'text-red-600 bg-red-50 border-red-200';
+      case 'moderate': return 'text-yellow-600 bg-yellow-50 border-yellow-200';
+      case 'light': return 'text-green-600 bg-green-50 border-green-200';
+      default: return 'text-gray-600 bg-gray-50 border-gray-200';
     }
   };
 
@@ -135,17 +154,21 @@ const DriverApp = () => {
       setUpcomingRoutes(prev => {
         const updated = [...prev];
         const randomIndex = Math.floor(Math.random() * updated.length);
-        const statuses: ('green' | 'yellow' | 'red')[] = ['green', 'yellow', 'red'];
-        const oldStatus = updated[randomIndex]?.status;
-        const newStatus = statuses[Math.floor(Math.random() * statuses.length)];
+        const priorities: ('urgent' | 'next' | 'later')[] = ['urgent', 'next', 'later'];
+        const oldPriority = updated[randomIndex]?.priority;
+        const newPriority = priorities[Math.floor(Math.random() * priorities.length)];
         
-        if (updated[randomIndex] && oldStatus !== newStatus) {
-          updated[randomIndex] = { ...updated[randomIndex], status: newStatus };
+        if (updated[randomIndex] && oldPriority !== newPriority) {
+          updated[randomIndex] = { ...updated[randomIndex], priority: newPriority };
+          
+          const priorityMessage = newPriority === 'urgent' ? 'URGENT pickup needed!' : 
+                                 newPriority === 'next' ? 'Next priority pickup' : 
+                                 'Pickup can wait';
           
           toast({
-            title: "Route Status Update",
-            description: `Route ${updated[randomIndex].id} changed to ${newStatus}`,
-            variant: newStatus === 'red' ? 'destructive' : 'default',
+            title: "Route Priority Update",
+            description: `Route ${updated[randomIndex].id}: ${priorityMessage}`,
+            variant: newPriority === 'urgent' ? 'destructive' : 'default',
           });
         }
         
@@ -245,10 +268,10 @@ const DriverApp = () => {
           <Card className="border-2 border-primary bg-white">
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-3 text-xl">
-                {getStatusIcon(activeRoute.status)}
+                {getPriorityIcon(activeRoute.priority)}
                 <span>Active Route: {activeRoute.destination}</span>
               </CardTitle>
-              <CardDescription>Currently in progress</CardDescription>
+              <CardDescription>Currently in progress • Earnings: {activeRoute.earnings || 'N/A'}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -266,6 +289,13 @@ const DriverApp = () => {
                 </div>
               </div>
               
+              {activeRoute.trafficAction && (
+                <div className={`rounded-lg p-3 border ${getTrafficColor(activeRoute.trafficCondition || 'light')}`}>
+                  <h4 className="font-medium mb-2">Traffic Update:</h4>
+                  <p className="text-sm">{activeRoute.trafficAction}</p>
+                </div>
+              )}
+
               {activeRoute.issues && activeRoute.issues.length > 0 && (
                 <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
                   <h4 className="font-medium text-yellow-800 mb-2">Current Issues:</h4>
@@ -294,15 +324,15 @@ const DriverApp = () => {
           </Card>
         )}
 
-        {/* Traffic Light Status Overview */}
+        {/* Priority Status Overview */}
         <div className="grid grid-cols-3 gap-4">
-          <Card className="bg-green-50 border-green-200 text-center">
+          <Card className="bg-red-50 border-red-200 text-center">
             <CardContent className="pt-6">
-              <div className="w-16 h-16 bg-green-500 rounded-full mx-auto mb-3 flex items-center justify-center">
+              <div className="w-16 h-16 bg-red-500 rounded-full mx-auto mb-3 flex items-center justify-center">
                 <div className="w-8 h-8 bg-white rounded-full" />
               </div>
-              <h3 className="font-bold text-green-700">GREEN</h3>
-              <p className="text-sm text-green-600">Clear to proceed</p>
+              <h3 className="font-bold text-red-700">URGENT</h3>
+              <p className="text-sm text-red-600">Passengers needed ASAP</p>
             </CardContent>
           </Card>
           
@@ -311,18 +341,18 @@ const DriverApp = () => {
               <div className="w-16 h-16 bg-yellow-500 rounded-full mx-auto mb-3 flex items-center justify-center">
                 <div className="w-8 h-8 bg-white rounded-full" />
               </div>
-              <h3 className="font-bold text-yellow-700">YELLOW</h3>
-              <p className="text-sm text-yellow-600">Proceed with caution</p>
+              <h3 className="font-bold text-yellow-700">NEXT</h3>
+              <p className="text-sm text-yellow-600">Passengers needed next</p>
             </CardContent>
           </Card>
           
-          <Card className="bg-red-50 border-red-200 text-center">
+          <Card className="bg-green-50 border-green-200 text-center">
             <CardContent className="pt-6">
-              <div className="w-16 h-16 bg-red-500 rounded-full mx-auto mb-3 flex items-center justify-center">
+              <div className="w-16 h-16 bg-green-500 rounded-full mx-auto mb-3 flex items-center justify-center">
                 <div className="w-8 h-8 bg-white rounded-full" />
               </div>
-              <h3 className="font-bold text-red-700">RED</h3>
-              <p className="text-sm text-red-600">Critical attention needed</p>
+              <h3 className="font-bold text-green-700">LATER</h3>
+              <p className="text-sm text-green-600">Passengers can wait</p>
             </CardContent>
           </Card>
         </div>
@@ -343,22 +373,22 @@ const DriverApp = () => {
                   className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors"
                 >
                   <div className="flex items-center gap-4">
-                    <div className={`w-8 h-8 rounded-full ${getStatusColor(route.status)} flex items-center justify-center`}>
+                    <div className={`w-8 h-8 rounded-full ${getPriorityColor(route.priority)} flex items-center justify-center`}>
                       <div className="w-4 h-4 bg-white rounded-full" />
                     </div>
                     
-                    <div>
+                    <div className="flex-1">
                       <h3 className="font-medium text-lg">{route.destination}</h3>
                       <div className="flex items-center gap-4 text-sm text-muted-foreground">
                         <span>Pickup: {route.pickupTime}</span>
                         <span>{route.passengers} passengers</span>
                         <span>{route.estimatedDuration}</span>
+                        <span className="font-semibold text-green-600">Earn: {route.earnings}</span>
                       </div>
                       
-                      {route.issues && route.issues.length > 0 && (
-                        <div className="mt-2 text-sm">
-                          <Badge variant="secondary" className="mr-1">Issues:</Badge>
-                          {route.issues.join(", ")}
+                      {route.trafficAction && (
+                        <div className={`mt-2 text-sm p-2 rounded border ${getTrafficColor(route.trafficCondition || 'light')}`}>
+                          <strong>Traffic:</strong> {route.trafficAction}
                         </div>
                       )}
                     </div>
@@ -379,11 +409,17 @@ const DriverApp = () => {
         </Card>
 
         {/* Driver Performance Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           <Card className="text-center">
             <CardContent className="pt-6">
               <div className="text-2xl font-bold text-emerald-600">8</div>
               <p className="text-sm text-muted-foreground">Routes Today</p>
+            </CardContent>
+          </Card>
+          <Card className="text-center">
+            <CardContent className="pt-6">
+              <div className="text-2xl font-bold text-green-600">$287.50</div>
+              <p className="text-sm text-muted-foreground">Today's Earnings</p>
             </CardContent>
           </Card>
           <Card className="text-center">
