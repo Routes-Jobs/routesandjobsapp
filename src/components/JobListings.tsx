@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Clock, DollarSign, Users, Search, Briefcase } from "lucide-react";
+import { MapPin, Clock, DollarSign, Users, Search, Briefcase, Car, CalendarDays } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Job {
@@ -20,6 +20,8 @@ interface Job {
   benefits: string[];
   postedDate: string;
   transportProvided: boolean;
+  transportCost?: string;
+  interviewLocation?: string;
 }
 
 interface JobListingsProps {
@@ -47,7 +49,9 @@ const JobListings = ({ userType = "general" }: JobListingsProps) => {
       requirements: ["High school diploma", "Ability to lift 50 lbs", "Previous warehouse experience preferred"],
       benefits: ["Health insurance", "Paid time off", "Transportation provided"],
       postedDate: "2024-01-15",
-      transportProvided: true
+      transportProvided: true,
+      transportCost: "Free - Company shuttle service",
+      interviewLocation: "LogisticsCorp HR Office - 123 Industrial Blvd"
     },
     {
       id: "2",
@@ -61,7 +65,9 @@ const JobListings = ({ userType = "general" }: JobListingsProps) => {
       requirements: ["Construction experience", "Safety certification preferred", "Reliable transportation"],
       benefits: ["Competitive pay", "Safety training", "Equipment provided"],
       postedDate: "2024-01-14",
-      transportProvided: true
+      transportProvided: true,
+      transportCost: "$5/day - Shared van service",
+      interviewLocation: "BuildCorp Field Office - 456 Construction Ave"
     },
     {
       id: "3",
@@ -75,7 +81,9 @@ const JobListings = ({ userType = "general" }: JobListingsProps) => {
       requirements: ["Mechanical aptitude", "Attention to detail", "Willingness to work rotating shifts"],
       benefits: ["401k matching", "Health benefits", "Shift differentials", "Free transportation"],
       postedDate: "2024-01-13",
-      transportProvided: true
+      transportProvided: true,
+      transportCost: "Free - Company bus routes",
+      interviewLocation: "TechManufacturing Main Entrance - 789 Tech Drive"
     },
     {
       id: "4",
@@ -89,7 +97,9 @@ const JobListings = ({ userType = "general" }: JobListingsProps) => {
       requirements: ["Valid driver's license", "Clean driving record", "Customer service skills"],
       benefits: ["Flexible hours", "Company vehicle", "Gas reimbursement"],
       postedDate: "2024-01-12",
-      transportProvided: false
+      transportProvided: false,
+      transportCost: "Own transportation required",
+      interviewLocation: "QuickDelivery Hub - 321 Delivery Way"
     },
     {
       id: "5",
@@ -103,7 +113,9 @@ const JobListings = ({ userType = "general" }: JobListingsProps) => {
       requirements: ["Forklift certification required", "1+ years experience", "Safety focused"],
       benefits: ["Health insurance", "Paid training", "Transportation provided"],
       postedDate: "2024-01-11",
-      transportProvided: true
+      transportProvided: true,
+      transportCost: "Free - Employee shuttle",
+      interviewLocation: "Warehouse Solutions Office - 654 Warehouse St"
     },
     {
       id: "6",
@@ -117,7 +129,9 @@ const JobListings = ({ userType = "general" }: JobListingsProps) => {
       requirements: ["Attention to detail", "Physical stamina", "Team player"],
       benefits: ["Night shift differential", "Health benefits", "Free shuttle service"],
       postedDate: "2024-01-10",
-      transportProvided: true
+      transportProvided: true,
+      transportCost: "Free - Night shuttle service",
+      interviewLocation: "AutoParts HR Department - 987 Assembly Ln"
     },
     {
       id: "7",
@@ -131,7 +145,9 @@ const JobListings = ({ userType = "general" }: JobListingsProps) => {
       requirements: ["Technical training", "2+ years experience", "Own tools preferred"],
       benefits: ["Tool allowance", "Overtime opportunities", "Transportation assistance"],
       postedDate: "2024-01-09",
-      transportProvided: true
+      transportProvided: true,
+      transportCost: "$3/day - Maintenance crew carpool",
+      interviewLocation: "Industrial Services Facility - 147 Maintenance Rd"
     },
     {
       id: "8",
@@ -145,7 +161,9 @@ const JobListings = ({ userType = "general" }: JobListingsProps) => {
       requirements: ["Security license", "Clean background check", "Reliable attendance"],
       benefits: ["Flexible scheduling", "Training provided", "Advancement opportunities"],
       postedDate: "2024-01-08",
-      transportProvided: false
+      transportProvided: false,
+      transportCost: "Own transportation required",
+      interviewLocation: "SecureWatch Training Center - 258 Security Blvd"
     },
     {
       id: "9",
@@ -159,7 +177,9 @@ const JobListings = ({ userType = "general" }: JobListingsProps) => {
       requirements: ["Food handling certification", "Customer service skills", "Early morning availability"],
       benefits: ["Free meals", "Flexible hours", "Transportation provided"],
       postedDate: "2024-01-07",
-      transportProvided: true
+      transportProvided: true,
+      transportCost: "Free - Early morning shuttle",
+      interviewLocation: "Cafeteria Solutions HQ - 369 Food Service Ave"
     },
     {
       id: "10",
@@ -173,7 +193,9 @@ const JobListings = ({ userType = "general" }: JobListingsProps) => {
       requirements: ["Previous cleaning experience", "Attention to detail", "Reliable transportation"],
       benefits: ["Evening hours", "Consistent schedule", "Performance bonuses"],
       postedDate: "2024-01-06",
-      transportProvided: false
+      transportProvided: false,
+      transportCost: "Own transportation required",
+      interviewLocation: "CleanPro Services Office - 741 Cleaning Way"
     }
   ];
 
@@ -189,6 +211,13 @@ const JobListings = ({ userType = "general" }: JobListingsProps) => {
     toast({
       title: "Application Started",
       description: `Your application for ${job.title} at ${job.company} has been initiated.`,
+    });
+  };
+
+  const handleBookRide = (job: Job) => {
+    toast({
+      title: "Interview Ride Booked",
+      description: `Transportation to ${job.company} interview has been requested. You'll receive confirmation shortly.`,
     });
   };
 
@@ -254,9 +283,37 @@ const JobListings = ({ userType = "general" }: JobListingsProps) => {
               </ul>
             </div>
 
-            <Button onClick={() => handleApply(selectedJob)} className="w-full" size="lg">
-              Apply Now
-            </Button>
+            {selectedJob.transportProvided && (
+              <div className="bg-muted/50 p-4 rounded-lg">
+                <h3 className="font-semibold mb-2 flex items-center gap-2">
+                  <Car className="w-4 h-4" />
+                  Transportation Details
+                </h3>
+                <p className="text-sm text-muted-foreground mb-2">
+                  <strong>Daily Cost:</strong> {selectedJob.transportCost}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  <strong>Interview Location:</strong> {selectedJob.interviewLocation}
+                </p>
+              </div>
+            )}
+
+            <div className="flex gap-3">
+              <Button onClick={() => handleApply(selectedJob)} className="flex-1" size="lg">
+                Apply Now
+              </Button>
+              {selectedJob.interviewLocation && (
+                <Button 
+                  variant="outline" 
+                  onClick={() => handleBookRide(selectedJob)}
+                  className="flex items-center gap-2"
+                  size="lg"
+                >
+                  <CalendarDays className="w-4 h-4" />
+                  Book Interview Ride
+                </Button>
+              )}
+            </div>
           </CardContent>
         </Card>
       </div>
