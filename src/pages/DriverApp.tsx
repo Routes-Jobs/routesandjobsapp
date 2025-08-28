@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { MapPin, Clock, Users, Bell, AlertTriangle, CheckCircle, Navigation, Phone, Settings, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import MapView from "@/components/MapView";
 
 interface Route {
   id: string;
@@ -405,6 +406,41 @@ const DriverApp = () => {
                 </div>
               ))}
             </div>
+          </CardContent>
+        </Card>
+
+        {/* Route Map */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <MapPin className="w-5 h-5" />
+              Route Map - Pickup Locations
+            </CardTitle>
+            <CardDescription>
+              View pickup locations and destinations on the map
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <MapView
+              locations={[
+                ...(activeRoute ? [{
+                  id: activeRoute.id,
+                  name: activeRoute.destination,
+                  coordinates: [activeRoute.gpsCoordinates?.lng || -90.0490, activeRoute.gpsCoordinates?.lat || 35.1495] as [number, number],
+                  type: 'destination' as const,
+                  status: 'active' as const
+                }] : []),
+                ...upcomingRoutes.map(route => ({
+                  id: route.id,
+                  name: route.destination,
+                  coordinates: [route.gpsCoordinates?.lng || -90.0490, route.gpsCoordinates?.lat || 35.1495] as [number, number],
+                  type: 'pickup' as const,
+                  status: 'scheduled' as const
+                }))
+              ]}
+              height="350px"
+              showTokenInput={true}
+            />
           </CardContent>
         </Card>
 

@@ -110,16 +110,20 @@ const EmployeeFlow = ({ onBack }: EmployeeFlowProps) => {
               <AddressAutocomplete
                 id="pickup"
                 label="Pickup Location"
-                placeholder="Enter your address or nearest hub"
+                placeholder="Enter your address or nearest hub (Memphis only)"
                 value={rideData.pickup}
                 onChange={(value) => setRideData(prev => ({ ...prev, pickup: value }))}
+                restrictToCity="Memphis"
+                restrictToState="Tennessee"
               />
               <AddressAutocomplete
                 id="destination"
                 label="Job Site Destination"
-                placeholder="Enter job site address"
+                placeholder="Enter job site address (Memphis only)"
                 value={rideData.destination}
                 onChange={(value) => setRideData(prev => ({ ...prev, destination: value }))}
+                restrictToCity="Memphis"
+                restrictToState="Tennessee"
               />
               <div className="space-y-2">
                 <Label htmlFor="shift">Shift Type</Label>

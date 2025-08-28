@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Users, Route, Calendar, TrendingUp, MapPin, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import EmployerJobManagement from "@/components/EmployerJobManagement";
+import MapView from "@/components/MapView";
 
 interface EmployerFlowProps {
   onBack: () => void;
@@ -265,6 +266,34 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
                     </div>
                   ))}
                 </div>
+              </CardContent>
+            </Card>
+
+            {/* Route Map */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <MapPin className="w-5 h-5" />
+                  Job Locations Map
+                </CardTitle>
+                <CardDescription>
+                  View job sites and employee pickup locations in Memphis
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <MapView
+                  locations={[
+                    { id: "job1", name: "Manufacturing Plant A", coordinates: [-90.0490, 35.1495], type: "job" },
+                    { id: "job2", name: "Logistics Center B", coordinates: [-90.0711, 35.1174], type: "job" },
+                    { id: "pickup1", name: "Midtown Hub", coordinates: [-90.0490, 35.1395], type: "pickup", status: "active" },
+                    { id: "pickup2", name: "Downtown Hub", coordinates: [-90.0490, 35.1595], type: "pickup", status: "scheduled" },
+                    { id: "pickup3", name: "East Memphis Hub", coordinates: [-89.8711, 35.1174], type: "pickup", status: "scheduled" },
+                    { id: "pickup4", name: "South Memphis Hub", coordinates: [-90.0490, 35.0895], type: "pickup", status: "active" },
+                    { id: "pickup5", name: "Airport Hub", coordinates: [-89.9711, 35.0428], type: "pickup", status: "scheduled" }
+                  ]}
+                  height="400px"
+                  showTokenInput={true}
+                />
               </CardContent>
             </Card>
           </TabsContent>
