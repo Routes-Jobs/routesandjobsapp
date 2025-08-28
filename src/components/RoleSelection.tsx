@@ -133,9 +133,9 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
             </Card>
 
             {/* Employer Portal */}
-            <Card className="bg-white/95 hover:bg-white transition-all cursor-pointer border-2 hover:border-primary">
+            <Card className="bg-white/95 hover:bg-white transition-all cursor-pointer border-2 hover:border-accent">
               <CardHeader className="text-center pb-4">
-                <div className="mx-auto w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-4">
+                <div className="mx-auto w-16 h-16 bg-accent rounded-full flex items-center justify-center mb-4">
                   <Building2 className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-lg font-bold">Employer Portal</CardTitle>
@@ -144,7 +144,7 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
               <CardContent>
                 <Button 
                   onClick={() => onRoleSelect("employer")} 
-                  className="w-full bg-secondary hover:bg-secondary/90"
+                  className="w-full bg-accent hover:bg-accent/90 text-white"
                 >
                   Access Portal
                 </Button>
