@@ -78,15 +78,12 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
       </div>
 
       <div className="max-w-6xl mx-auto p-4 md:p-6">
-        <Tabs defaultValue="overview" className="space-y-4 md:space-y-6">
+        <Tabs defaultValue="dashboard" className="space-y-4 md:space-y-6">
           {/* Mobile-friendly tabs - scrollable on small screens, grid on larger */}
           <div className="w-full overflow-x-auto">
-            <TabsList className="inline-flex h-12 items-center justify-start rounded-md bg-muted p-1 text-muted-foreground min-w-full md:grid md:grid-cols-4 md:w-full">
-              <TabsTrigger value="overview" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
-                Overview
-              </TabsTrigger>
-              <TabsTrigger value="operations" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
-                Routes & Staff
+            <TabsList className="inline-flex h-12 items-center justify-start rounded-md bg-muted p-1 text-muted-foreground min-w-full md:grid md:grid-cols-3 md:w-full">
+              <TabsTrigger value="dashboard" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
+                Dashboard & Operations
               </TabsTrigger>
               <TabsTrigger value="jobs" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
                 Jobs
@@ -97,7 +94,7 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
             </TabsList>
           </div>
 
-          <TabsContent value="overview" className="space-y-4 md:space-y-6">
+          <TabsContent value="dashboard" className="space-y-4 md:space-y-6">
             {/* Quick Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
               <Card>
@@ -171,9 +168,7 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
                 </div>
               </CardContent>
             </Card>
-          </TabsContent>
 
-          <TabsContent value="operations" className="space-y-4 md:space-y-6">
             {/* Routes Section */}
             <Card>
               <CardHeader>
@@ -274,7 +269,7 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <MapPin className="w-5 h-5" />
-                  Job Locations Map
+                  Job Locations & Pickup Hubs Map
                 </CardTitle>
                 <CardDescription>
                   View job sites and employee pickup locations in Memphis
