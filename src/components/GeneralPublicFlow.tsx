@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowLeft, MapPin, Clock, Star, DollarSign, Badge as BadgeIcon, Bus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import JobListings from "@/components/JobListings";
-import AddressAutocomplete from "@/components/ui/address-autocomplete";
+
 
 interface GeneralPublicFlowProps {
   onBack: () => void;
@@ -237,24 +237,39 @@ const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <AddressAutocomplete
-                id="pickup"
-                label="Pickup Location"
-                placeholder="Enter your pickup address (Memphis only)"
-                value={rideData.pickup}
-                onChange={(value) => setRideData(prev => ({ ...prev, pickup: value }))}
-                restrictToCity="Memphis"
-                restrictToState="Tennessee"
-              />
-              <AddressAutocomplete
-                id="destination"
-                label="Destination"
-                placeholder="Where do you want to go? (Memphis only)"
-                value={rideData.destination}
-                onChange={(value) => setRideData(prev => ({ ...prev, destination: value }))}
-                restrictToCity="Memphis"
-                restrictToState="Tennessee"
-              />
+              <div className="space-y-2">
+                <Label htmlFor="pickup">Pickup Location</Label>
+                <Select value={rideData.pickup} onValueChange={(value) => setRideData(prev => ({ ...prev, pickup: value }))}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select your pickup location" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Midtown Hub (Memphis)">Midtown Hub (Memphis)</SelectItem>
+                    <SelectItem value="Downtown Hub (Memphis)">Downtown Hub (Memphis)</SelectItem>
+                    <SelectItem value="East Memphis Hub (Memphis)">East Memphis Hub (Memphis)</SelectItem>
+                    <SelectItem value="South Memphis Hub (Memphis)">South Memphis Hub (Memphis)</SelectItem>
+                    <SelectItem value="Airport Hub (Memphis)">Airport Hub (Memphis)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="destination">Destination</Label>
+                <Select value={rideData.destination} onValueChange={(value) => setRideData(prev => ({ ...prev, destination: value }))}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Where do you want to go?" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="FedEx Distribution Center (Memphis)">FedEx Distribution Center (Memphis)</SelectItem>
+                    <SelectItem value="Amazon Fulfillment Center (Memphis)">Amazon Fulfillment Center (Memphis)</SelectItem>
+                    <SelectItem value="AutoZone Distribution Center (Memphis)">AutoZone Distribution Center (Memphis)</SelectItem>
+                    <SelectItem value="Memphis Medical Center">Memphis Medical Center</SelectItem>
+                    <SelectItem value="University of Memphis">University of Memphis</SelectItem>
+                    <SelectItem value="Memphis International Airport">Memphis International Airport</SelectItem>
+                    <SelectItem value="Wolfchase Galleria Mall">Wolfchase Galleria Mall</SelectItem>
+                    <SelectItem value="Beale Street Entertainment District">Beale Street Entertainment District</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="date">Date (Optional)</Label>
