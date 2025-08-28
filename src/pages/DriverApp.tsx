@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { MapPin, Clock, Users, Bell, AlertTriangle, CheckCircle, Navigation, Phone, Settings } from "lucide-react";
+import { MapPin, Clock, Users, Bell, AlertTriangle, CheckCircle, Navigation, Phone, Settings, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 interface Route {
   id: string;
@@ -20,6 +21,7 @@ interface Route {
 
 const DriverApp = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [driverName, setDriverName] = useState("");
   const [activeRoute, setActiveRoute] = useState<Route | null>(null);
@@ -209,6 +211,15 @@ const DriverApp = () => {
             </div>
           </div>
           <div className="flex items-center gap-2">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-white hover:bg-emerald-700"
+              onClick={() => navigate('/')}
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back
+            </Button>
             <Button 
               variant="ghost" 
               size="sm" 

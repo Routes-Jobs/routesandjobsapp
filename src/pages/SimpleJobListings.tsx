@@ -4,8 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Clock, DollarSign, Search, Briefcase } from "lucide-react";
+import { MapPin, Clock, DollarSign, Search, Briefcase, ArrowLeft } from "lucide-react";
 import Header from "@/components/Header";
+import { useNavigate } from "react-router-dom";
 
 interface Job {
   id: string;
@@ -19,11 +20,12 @@ interface Job {
 }
 
 const SimpleJobListings = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [filterLocation, setFilterLocation] = useState("all");
   const [filterType, setFilterType] = useState("all");
 
-  // Memphis job listings - 50 current opportunities
+  // Memphis job listings - 20 current opportunities
   const jobs: Job[] = [
     {
       id: "1",
@@ -224,306 +226,6 @@ const SimpleJobListings = () => {
       type: "Full-time",
       description: "Medical records data entry, filing, administrative support. Healthcare experience preferred.",
       postedDate: "4 days ago"
-    },
-    {
-      id: "21",
-      title: "Janitor/Custodian",
-      company: "ABM Industries",
-      location: "FedEx Corporate Headquarters",
-      salary: "$15-18/hour",
-      type: "Full-time",
-      description: "Office building cleaning, maintenance, restocking supplies. Multiple shift options.",
-      postedDate: "2 days ago"
-    },
-    {
-      id: "22",
-      title: "Equipment Operator",
-      company: "Komatsu America",
-      location: "Horn Lake, MS",
-      salary: "$21-27/hour",
-      type: "Full-time",
-      description: "Heavy equipment operation, maintenance support, quality control. Experience preferred.",
-      postedDate: "1 week ago"
-    },
-    {
-      id: "23",
-      title: "Home Health Aide",
-      company: "Visiting Angels",
-      location: "Greater Memphis Area",
-      salary: "$13-16/hour",
-      type: "Part-time",
-      description: "In-home care for elderly clients, companionship, light housekeeping. Flexible schedule.",
-      postedDate: "1 day ago"
-    },
-    {
-      id: "24",
-      title: "Casino Dealer",
-      company: "Southland Casino Racing",
-      location: "West Memphis, AR",
-      salary: "$12-15/hour + tips",
-      type: "Part-time",
-      description: "Table games dealing, customer service, cash handling. Training provided.",
-      postedDate: "3 days ago"
-    },
-    {
-      id: "25",
-      title: "Shipping Clerk",
-      company: "Nike Distribution Center",
-      location: "Memphis Distribution",
-      salary: "$16-20/hour",
-      type: "Full-time",
-      description: "Order processing, packaging, inventory tracking. Athletic wear discounts available.",
-      postedDate: "2 days ago"
-    },
-    {
-      id: "26",
-      title: "Medical Assistant",
-      company: "Methodist Medical Group",
-      location: "Germantown",
-      salary: "$17-21/hour",
-      type: "Full-time",
-      description: "Patient care support, administrative duties, medical records. Healthcare benefits.",
-      postedDate: "4 days ago"
-    },
-    {
-      id: "27",
-      title: "Restaurant Server",
-      company: "Gus's World Famous Fried Chicken",
-      location: "Downtown Memphis",
-      salary: "$12-15/hour + tips",
-      type: "Part-time",
-      description: "Customer service, order taking, food service. Tips typically $15-25/hour additional.",
-      postedDate: "1 day ago"
-    },
-    {
-      id: "28",
-      title: "Landscaping Worker",
-      company: "BrightView Landscapes",
-      location: "East Memphis",
-      salary: "$15-19/hour",
-      type: "Full-time",
-      description: "Lawn maintenance, planting, irrigation. Outdoor work, seasonal overtime opportunities.",
-      postedDate: "2 days ago"
-    },
-    {
-      id: "29",
-      title: "Bank Teller",
-      company: "First Horizon Bank",
-      location: "Multiple Memphis Branches",
-      salary: "$16-19/hour",
-      type: "Full-time",
-      description: "Customer transactions, account services, cash handling. Banking industry growth potential.",
-      postedDate: "1 week ago"
-    },
-    {
-      id: "30",
-      title: "Auto Parts Counter",
-      company: "O'Reilly Auto Parts",
-      location: "Various Memphis Locations",
-      salary: "$14-18/hour",
-      type: "Full-time",
-      description: "Customer service, parts lookup, inventory management. Automotive knowledge helpful.",
-      postedDate: "3 days ago"
-    },
-    {
-      id: "31",
-      title: "Childcare Worker",
-      company: "Kindercare Learning Centers",
-      location: "Cordova",
-      salary: "$13-16/hour",
-      type: "Full-time",
-      description: "Childcare supervision, educational activities, safety monitoring. Background check required.",
-      postedDate: "2 days ago"
-    },
-    {
-      id: "32",
-      title: "Telecommunications Installer",
-      company: "Comcast Xfinity",
-      location: "Greater Memphis Area",
-      salary: "$20-26/hour",
-      type: "Full-time",
-      description: "Cable/internet installation, customer service, equipment maintenance. Company vehicle provided.",
-      postedDate: "5 days ago"
-    },
-    {
-      id: "33",
-      title: "Pet Groomer Assistant",
-      company: "PetSmart",
-      location: "Wolfchase Galleria",
-      salary: "$12-15/hour",
-      type: "Part-time",
-      description: "Pet bathing, grooming assistance, customer service. Training provided, animal lovers welcome.",
-      postedDate: "1 day ago"
-    },
-    {
-      id: "34",
-      title: "Property Maintenance",
-      company: "MAA Apartment Communities",
-      location: "Multiple Memphis Properties",
-      salary: "$17-22/hour",
-      type: "Full-time",
-      description: "Apartment maintenance, HVAC, plumbing, electrical. On-call rotation, stable housing industry.",
-      postedDate: "4 days ago"
-    },
-    {
-      id: "35",
-      title: "Laboratory Technician",
-      company: "Quest Diagnostics",
-      location: "East Memphis",
-      salary: "$18-22/hour",
-      type: "Full-time",
-      description: "Sample processing, laboratory testing, quality control. Medical field experience preferred.",
-      postedDate: "1 week ago"
-    },
-    {
-      id: "36",
-      title: "Fitness Instructor",
-      company: "YMCA of Memphis",
-      location: "Multiple Locations",
-      salary: "$15-20/hour",
-      type: "Part-time",
-      description: "Group fitness classes, member interaction, equipment maintenance. Certification assistance available.",
-      postedDate: "3 days ago"
-    },
-    {
-      id: "37",
-      title: "Event Staff",
-      company: "FedExForum",
-      location: "Downtown Memphis",
-      salary: "$14-18/hour",
-      type: "Part-time",
-      description: "Event setup, crowd control, customer service during Grizzlies games and concerts.",
-      postedDate: "2 days ago"
-    },
-    {
-      id: "38",
-      title: "Dispatcher",
-      company: "Yellow Cab Memphis",
-      location: "Midtown Memphis",
-      salary: "$16-19/hour",
-      type: "Full-time",
-      description: "Taxi dispatch, customer service, radio communication. Computer skills required.",
-      postedDate: "4 days ago"
-    },
-    {
-      id: "39",
-      title: "Inventory Specialist",
-      company: "Target Distribution Center",
-      location: "Memphis Distribution",
-      salary: "$17-21/hour",
-      type: "Full-time",
-      description: "Inventory tracking, cycle counting, data entry. Employee discounts and benefits.",
-      postedDate: "1 day ago"
-    },
-    {
-      id: "40",
-      title: "Automotive Technician",
-      company: "Jiffy Lube",
-      location: "Multiple Memphis Locations",
-      salary: "$16-22/hour",
-      type: "Full-time",
-      description: "Oil changes, basic maintenance, customer service. Automotive training provided.",
-      postedDate: "3 days ago"
-    },
-    {
-      id: "41",
-      title: "Social Media Coordinator",
-      company: "St. Jude Children's Hospital",
-      location: "Downtown Memphis",
-      salary: "$18-24/hour",
-      type: "Full-time",
-      description: "Content creation, social media management, community engagement. Marketing experience preferred.",
-      postedDate: "1 week ago"
-    },
-    {
-      id: "42",
-      title: "Quality Inspector",
-      company: "Smith & Nephew",
-      location: "Bartlett",
-      salary: "$19-25/hour",
-      type: "Full-time",
-      description: "Medical device inspection, documentation, compliance checking. Attention to detail critical.",
-      postedDate: "2 days ago"
-    },
-    {
-      id: "43",
-      title: "Food Truck Operator",
-      company: "Memphis Food Truck Association",
-      location: "Various Memphis Events",
-      salary: "$15-20/hour",
-      type: "Part-time",
-      description: "Mobile food service, event setup, customer service. Weekend and evening availability.",
-      postedDate: "1 day ago"
-    },
-    {
-      id: "44",
-      title: "Package Handler",
-      company: "DHL Express",
-      location: "Memphis International Airport",
-      salary: "$16-20/hour",
-      type: "Part-time",
-      description: "Overnight package sorting, loading, scanning. Flexible part-time hours, student-friendly.",
-      postedDate: "2 days ago"
-    },
-    {
-      id: "45",
-      title: "Receptionist",
-      company: "Memphis Veterinary Specialists",
-      location: "Cordova",
-      salary: "$14-17/hour",
-      type: "Full-time",
-      description: "Front desk operations, appointment scheduling, client communication. Animal hospital environment.",
-      postedDate: "4 days ago"
-    },
-    {
-      id: "46",
-      title: "Delivery Driver - Food",
-      company: "DoorDash/Uber Eats",
-      location: "Memphis Metro Area",
-      salary: "$15-25/hour with tips",
-      type: "Part-time",
-      description: "Food delivery service, flexible scheduling, use your own vehicle. Evening and weekend peak hours.",
-      postedDate: "1 day ago"
-    },
-    {
-      id: "47",
-      title: "Library Assistant",
-      company: "Memphis Public Library",
-      location: "Central Library Downtown",
-      salary: "$13-16/hour",
-      type: "Part-time",
-      description: "Book shelving, customer assistance, program support. Public service experience helpful.",
-      postedDate: "1 week ago"
-    },
-    {
-      id: "48",
-      title: "Airport Security",
-      company: "TSA",
-      location: "Memphis International Airport",
-      salary: "$18-22/hour",
-      type: "Full-time",
-      description: "Passenger screening, security checkpoint operations, federal employment benefits.",
-      postedDate: "5 days ago"
-    },
-    {
-      id: "49",
-      title: "Bakery Assistant",
-      company: "Gibson's Donuts",
-      location: "Midtown Memphis",
-      salary: "$13-16/hour",
-      type: "Part-time",
-      description: "Donut preparation, customer service, early morning hours. Memphis institution since 1967.",
-      postedDate: "2 days ago"
-    },
-    {
-      id: "50",
-      title: "Parking Attendant",
-      company: "Standard Parking",
-      location: "Downtown Memphis",
-      salary: "$14-17/hour",
-      type: "Full-time",
-      description: "Parking facility operations, customer service, cash handling. Medical district location.",
-      postedDate: "3 days ago"
     }
   ];
 
@@ -545,6 +247,16 @@ const SimpleJobListings = () => {
       {/* Header Section */}
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-6 py-12">
+          <div className="flex items-center justify-between mb-8">
+            <Button 
+              variant="outline" 
+              onClick={() => navigate('/')}
+              className="flex items-center gap-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Home
+            </Button>
+          </div>
           <div className="text-center">
             <h1 className="text-4xl font-bold text-gray-800 mb-4">
               Find Your Next Job

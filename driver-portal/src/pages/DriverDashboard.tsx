@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Clock, MapPin, Users, CheckCircle, AlertCircle, Navigation } from "lucide-react";
+import { Clock, MapPin, Users, CheckCircle, AlertCircle, Navigation, ArrowLeft } from "lucide-react";
 
 interface Route {
   id: string;
@@ -141,6 +141,10 @@ const DriverDashboard = () => {
             <p className="text-muted-foreground">Welcome back, {driverName}</p>
           </div>
           <div className="flex gap-2">
+            <Button variant="outline" onClick={() => window.location.href = '/'}>
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back
+            </Button>
             <Button variant="outline">
               <Navigation className="w-4 h-4 mr-2" />
               GPS
