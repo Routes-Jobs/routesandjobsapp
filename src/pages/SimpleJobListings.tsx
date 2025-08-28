@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Clock, DollarSign, Search, Briefcase, ArrowLeft } from "lucide-react";
+import { MapPin, Clock, DollarSign, Search, Briefcase, ArrowLeft, Bus } from "lucide-react";
 import Header from "@/components/Header";
 import { useNavigate } from "react-router-dom";
 
@@ -17,6 +17,7 @@ interface Job {
   type: string;
   description: string;
   postedDate: string;
+  includesTransportation?: boolean;
 }
 
 const SimpleJobListings = () => {
@@ -35,7 +36,8 @@ const SimpleJobListings = () => {
       salary: "$18-22/hour",
       type: "Full-time",
       description: "Package handling, sorting, and loading at world's busiest cargo airport. Benefits include health insurance and transportation assistance.",
-      postedDate: "1 day ago"
+      postedDate: "1 day ago",
+      includesTransportation: true
     },
     {
       id: "2",
@@ -45,7 +47,8 @@ const SimpleJobListings = () => {
       salary: "$19-24/hour",
       type: "Full-time",
       description: "Manufacturing paper products, machine operation, quality control. Comprehensive benefits package.",
-      postedDate: "2 days ago"
+      postedDate: "2 days ago",
+      includesTransportation: false
     },
     {
       id: "3",
@@ -55,7 +58,8 @@ const SimpleJobListings = () => {
       salary: "$21-25/hour",
       type: "Full-time",
       description: "Local package delivery, customer service, vehicle maintenance. Company vehicle provided.",
-      postedDate: "1 day ago"
+      postedDate: "1 day ago",
+      includesTransportation: true
     },
     {
       id: "4",
@@ -65,7 +69,8 @@ const SimpleJobListings = () => {
       salary: "$17-21/hour",
       type: "Full-time",
       description: "Operate forklifts in automotive parts warehouse. Certification training provided.",
-      postedDate: "3 days ago"
+      postedDate: "3 days ago",
+      includesTransportation: true
     },
     {
       id: "5",
@@ -75,7 +80,8 @@ const SimpleJobListings = () => {
       salary: "$15-18/hour",
       type: "Full-time",
       description: "Transport patients and medical equipment throughout hospital campus. Training provided.",
-      postedDate: "2 days ago"
+      postedDate: "2 days ago",
+      includesTransportation: false
     },
     {
       id: "6",
@@ -85,7 +91,8 @@ const SimpleJobListings = () => {
       salary: "$14-16/hour",
       type: "Part-time",
       description: "Cafeteria service, food preparation, cleaning. Meaningful work supporting families.",
-      postedDate: "1 day ago"
+      postedDate: "1 day ago",
+      includesTransportation: true
     },
     {
       id: "7",
@@ -95,7 +102,8 @@ const SimpleJobListings = () => {
       salary: "$16-19/hour",
       type: "Full-time",
       description: "Property security, access control, incident reporting. Multiple shift options available.",
-      postedDate: "2 days ago"
+      postedDate: "2 days ago",
+      includesTransportation: false
     },
     {
       id: "8",
@@ -105,7 +113,8 @@ const SimpleJobListings = () => {
       salary: "$15-18/hour",
       type: "Full-time",
       description: "Customer service for restoration services. Training provided, advancement opportunities.",
-      postedDate: "4 days ago"
+      postedDate: "4 days ago",
+      includesTransportation: true
     },
     {
       id: "9",
@@ -115,7 +124,8 @@ const SimpleJobListings = () => {
       salary: "$20-26/hour",
       type: "Full-time",
       description: "Equipment maintenance, troubleshooting, preventive maintenance. Benefits package.",
-      postedDate: "3 days ago"
+      postedDate: "3 days ago",
+      includesTransportation: true
     },
     {
       id: "10",
@@ -125,7 +135,8 @@ const SimpleJobListings = () => {
       salary: "$18-22/hour",
       type: "Part-time",
       description: "Transport students safely. CDL training provided, great benefits for part-time work.",
-      postedDate: "1 week ago"
+      postedDate: "1 week ago",
+      includesTransportation: false
     },
     {
       id: "11",
@@ -135,7 +146,8 @@ const SimpleJobListings = () => {
       salary: "$13-16/hour",
       type: "Part-time",
       description: "Customer service, inventory management, sales support. Employee discounts available.",
-      postedDate: "2 days ago"
+      postedDate: "2 days ago",
+      includesTransportation: false
     },
     {
       id: "12",
@@ -145,7 +157,8 @@ const SimpleJobListings = () => {
       salary: "$16-20/hour",
       type: "Full-time",
       description: "Aircraft loading, baggage handling, ground support equipment operation.",
-      postedDate: "1 day ago"
+      postedDate: "1 day ago",
+      includesTransportation: true
     },
     {
       id: "13",
@@ -155,7 +168,8 @@ const SimpleJobListings = () => {
       salary: "$17-21/hour",
       type: "Full-time",
       description: "Appliance assembly, quality inspection, packaging. Stable manufacturing environment.",
-      postedDate: "3 days ago"
+      postedDate: "3 days ago",
+      includesTransportation: true
     },
     {
       id: "14",
@@ -165,7 +179,8 @@ const SimpleJobListings = () => {
       salary: "$22-28/hour",
       type: "Full-time",
       description: "Local food service delivery, customer relations. CDL-A required, home daily.",
-      postedDate: "2 days ago"
+      postedDate: "2 days ago",
+      includesTransportation: false
     },
     {
       id: "15",
@@ -175,7 +190,8 @@ const SimpleJobListings = () => {
       salary: "$14-17/hour",
       type: "Full-time",
       description: "Luxury hotel room cleaning and maintenance. Benefits and employee rates available.",
-      postedDate: "1 day ago"
+      postedDate: "1 day ago",
+      includesTransportation: false
     },
     {
       id: "16",
@@ -185,7 +201,8 @@ const SimpleJobListings = () => {
       salary: "$15-18/hour",
       type: "Part-time",
       description: "Food preparation, dishwashing, kitchen maintenance. Famous BBQ restaurant experience.",
-      postedDate: "2 days ago"
+      postedDate: "2 days ago",
+      includesTransportation: false
     },
     {
       id: "17",
@@ -195,7 +212,8 @@ const SimpleJobListings = () => {
       salary: "$19-23/hour",
       type: "Full-time",
       description: "Mail sorting, delivery support, customer service. Federal benefits package.",
-      postedDate: "5 days ago"
+      postedDate: "5 days ago",
+      includesTransportation: true
     },
     {
       id: "18",
@@ -205,7 +223,8 @@ const SimpleJobListings = () => {
       salary: "$18-24/hour",
       type: "Full-time",
       description: "General construction work, site preparation, material handling. Safety training provided.",
-      postedDate: "1 day ago"
+      postedDate: "1 day ago",
+      includesTransportation: false
     },
     {
       id: "19",
@@ -215,7 +234,8 @@ const SimpleJobListings = () => {
       salary: "$16-19/hour",
       type: "Full-time",
       description: "Prescription processing, customer service, inventory management. Certification assistance.",
-      postedDate: "3 days ago"
+      postedDate: "3 days ago",
+      includesTransportation: false
     },
     {
       id: "20",
@@ -225,7 +245,8 @@ const SimpleJobListings = () => {
       salary: "$14-17/hour",
       type: "Full-time",
       description: "Medical records data entry, filing, administrative support. Healthcare experience preferred.",
-      postedDate: "4 days ago"
+      postedDate: "4 days ago",
+      includesTransportation: true
     }
   ];
 
@@ -341,7 +362,7 @@ const SimpleJobListings = () => {
             <Card key={job.id} className="hover:shadow-md transition-shadow">
               <CardHeader className="pb-4">
                 <div className="flex justify-between items-start">
-                  <div>
+                  <div className="flex-1">
                     <CardTitle className="text-xl text-gray-800 mb-2">
                       {job.title}
                     </CardTitle>
@@ -349,9 +370,17 @@ const SimpleJobListings = () => {
                       {job.company}
                     </p>
                   </div>
-                  <Badge variant="outline" className="text-sm">
-                    {job.type}
-                  </Badge>
+                  <div className="flex flex-col items-end gap-2">
+                    <Badge variant="outline" className="text-sm">
+                      {job.type}
+                    </Badge>
+                    {job.includesTransportation && (
+                      <Badge variant="default" className="bg-green-600 hover:bg-green-700 text-white">
+                        <Bus className="w-3 h-3 mr-1" />
+                        Transportation
+                      </Badge>
+                    )}
+                  </div>
                 </div>
               </CardHeader>
               
