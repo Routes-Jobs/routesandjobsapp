@@ -108,8 +108,8 @@ const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
             className="h-8 w-auto"
           />
           <div>
-            <h1 className="text-2xl font-bold">Community Transportation</h1>
-            <p className="text-accent-foreground/80">Reliable rides with predictable pricing</p>
+            <h1 className="text-2xl font-bold">ARK Transportation</h1>
+            <p className="text-accent-foreground/80">Affordable • Reliable • Keeps Moving</p>
           </div>
         </div>
       </div>
@@ -122,6 +122,31 @@ const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
           </TabsList>
           
           <TabsContent value="transportation" className="space-y-6">
+            {/* ARK Value Proposition */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <Card className="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 border-green-200">
+                <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <DollarSign className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold text-green-800 mb-2">Affordable</h3>
+                <p className="text-green-700">Rides starting at just $1.50 - up to 70% less than traditional rideshare</p>
+              </Card>
+              <Card className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+                <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <BadgeIcon className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold text-blue-800 mb-2">Reliable</h3>
+                <p className="text-blue-700">94.2% on-time arrival rate with guaranteed pickup windows</p>
+              </Card>
+              <Card className="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
+                <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Bus className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold text-purple-800 mb-2">Keeps Moving</h3>
+                <p className="text-purple-700">Continuous service with shared routes and optimized scheduling</p>
+              </Card>
+            </div>
+
             {/* Jobs with Guaranteed Rides Section */}
             <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
               <CardHeader>

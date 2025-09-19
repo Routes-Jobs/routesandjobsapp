@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowLeft, Clock, MapPin, Calendar, DollarSign } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import JobListings from "@/components/JobListings";
+import EmployeeKPIs from "@/components/EmployeeKPIs";
 
 
 interface EmployeeFlowProps {
@@ -255,6 +256,10 @@ const EmployeeFlow = ({ onBack }: EmployeeFlowProps) => {
           
           <TabsContent value="jobs" className="space-y-6">
             <JobListings userType="employee" />
+          </TabsContent>
+
+          <TabsContent value="ark-portal" className="space-y-6">
+            <EmployeeKPIs />
           </TabsContent>
         </Tabs>
       </div>
