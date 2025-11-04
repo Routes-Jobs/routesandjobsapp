@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Users, Route, Calendar, TrendingUp, MapPin, Clock } from "lucide-react";
+import { ArrowLeft, Users, Route, Calendar, TrendingUp, MapPin, Clock, Target, Brain, BarChart3, AlertCircle, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import EmployerJobManagement from "@/components/EmployerJobManagement";
 import MapView from "@/components/MapView";
@@ -79,17 +79,26 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
 
       <div className="max-w-6xl mx-auto p-4 md:p-6">
         <Tabs defaultValue="dashboard" className="space-y-4 md:space-y-6">
-          {/* Mobile-friendly tabs - scrollable on small screens, grid on larger */}
+          {/* Mobile-friendly tabs - scrollable on small screens */}
           <div className="w-full overflow-x-auto">
-            <TabsList className="inline-flex h-12 items-center justify-start rounded-md bg-muted p-1 text-muted-foreground min-w-full md:grid md:grid-cols-3 md:w-full">
+            <TabsList className="inline-flex h-12 items-center justify-start rounded-md bg-muted p-1 text-muted-foreground w-full">
               <TabsTrigger value="dashboard" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
-                Dashboard & Operations
+                Dashboard
+              </TabsTrigger>
+              <TabsTrigger value="routing" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
+                Smart Routing
+              </TabsTrigger>
+              <TabsTrigger value="ark" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
+                ARK Tracking
+              </TabsTrigger>
+              <TabsTrigger value="ai-matching" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
+                AI Matching
               </TabsTrigger>
               <TabsTrigger value="jobs" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
                 Jobs
               </TabsTrigger>
-              <TabsTrigger value="analytics" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
-                Analytics
+              <TabsTrigger value="insights" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
+                Insights
               </TabsTrigger>
             </TabsList>
           </div>
@@ -292,76 +301,413 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
             </Card>
           </TabsContent>
 
+          {/* Smart Job Routing Dashboard */}
+          <TabsContent value="routing" className="space-y-4 md:space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Route className="w-5 h-5" />
+                  Smart Job Routing Dashboard
+                </CardTitle>
+                <CardDescription>View workers near your job locations with available transportation routes</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {/* Job Posting with Nearby Workers */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Active Job: Warehouse Associate</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2 text-sm">
+                        <MapPin className="w-4 h-4 text-primary" />
+                        <span className="font-medium">Job Location: Memphis Industrial District</span>
+                      </div>
+                      <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                        <p className="font-semibold text-green-800 mb-2">23 Workers Nearby</p>
+                        <p className="text-sm text-green-700">Within 5 miles with active routes available</p>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <h4 className="font-medium text-sm">Available Transportation Routes:</h4>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between p-3 bg-secondary/10 rounded">
+                          <span className="text-sm">Route A: Midtown → Industrial</span>
+                          <Badge variant="default">8 seats</Badge>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-secondary/10 rounded">
+                          <span className="text-sm">Route B: Downtown → Industrial</span>
+                          <Badge variant="default">5 seats</Badge>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-secondary/10 rounded">
+                          <span className="text-sm">Route C: East Memphis → Industrial</span>
+                          <Badge variant="default">10 seats</Badge>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Workers by Location */}
+                <Card className="border-2">
+                  <CardHeader>
+                    <CardTitle className="text-base">Worker Availability by Zone</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {[
+                        { zone: "Midtown", workers: 8, avgCommute: "12 min", routes: 2 },
+                        { zone: "Downtown", workers: 5, avgCommute: "15 min", routes: 1 },
+                        { zone: "East Memphis", workers: 10, avgCommute: "18 min", routes: 2 },
+                      ].map((area) => (
+                        <div key={area.zone} className="flex items-center justify-between p-3 border rounded-lg">
+                          <div>
+                            <p className="font-medium">{area.zone}</p>
+                            <p className="text-sm text-muted-foreground">{area.workers} available workers</p>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-sm font-medium">{area.avgCommute}</p>
+                            <p className="text-xs text-muted-foreground">{area.routes} active routes</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* ARK Tracking System */}
+          <TabsContent value="ark" className="space-y-4 md:space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <CheckCircle className="w-5 h-5 text-blue-600" />
+                    Attendance
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold text-blue-900">97.8%</div>
+                  <p className="text-sm text-blue-700 mt-1">Last 30 days</p>
+                </CardContent>
+              </Card>
+              <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <Users className="w-5 h-5 text-green-600" />
+                    Retention
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold text-green-900">92%</div>
+                  <p className="text-sm text-green-700 mt-1">90-day retention rate</p>
+                </CardContent>
+              </Card>
+              <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <Target className="w-5 h-5 text-purple-600" />
+                    Performance
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold text-purple-900">8.7/10</div>
+                  <p className="text-sm text-purple-700 mt-1">Average KPI score</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <BarChart3 className="w-5 h-5" />
+                  ARK System - Workforce Stability Metrics
+                </CardTitle>
+                <CardDescription>Track attendance, retention, and key performance indicators</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {/* Route Performance Analysis */}
+                <div>
+                  <h3 className="font-semibold mb-4">Route Performance Analysis</h3>
+                  <div className="space-y-3">
+                    {[
+                      { route: "Industrial District Route", attendance: 98, onTime: 96, satisfaction: 9.2, risk: "low" },
+                      { route: "Warehouse District Route", attendance: 95, onTime: 94, satisfaction: 8.5, risk: "low" },
+                      { route: "South Memphis Route", attendance: 92, onTime: 88, satisfaction: 7.8, risk: "medium" },
+                    ].map((route) => (
+                      <Card key={route.route} className="border">
+                        <CardContent className="p-4">
+                          <div className="flex items-center justify-between mb-3">
+                            <h4 className="font-medium">{route.route}</h4>
+                            <Badge variant={route.risk === "low" ? "default" : "secondary"}>
+                              {route.risk === "low" ? "Low Risk" : "Medium Risk"}
+                            </Badge>
+                          </div>
+                          <div className="grid grid-cols-3 gap-4 text-sm">
+                            <div>
+                              <p className="text-muted-foreground">Attendance</p>
+                              <p className="font-semibold text-lg">{route.attendance}%</p>
+                            </div>
+                            <div>
+                              <p className="text-muted-foreground">On-Time</p>
+                              <p className="font-semibold text-lg">{route.onTime}%</p>
+                            </div>
+                            <div>
+                              <p className="text-muted-foreground">Satisfaction</p>
+                              <p className="font-semibold text-lg">{route.satisfaction}/10</p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Pattern Insights */}
+                <Card className="bg-amber-50 border-amber-200">
+                  <CardHeader>
+                    <CardTitle className="text-base flex items-center gap-2">
+                      <AlertCircle className="w-4 h-4 text-amber-600" />
+                      Pattern Insights
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-2 text-sm">
+                    <div className="flex items-start gap-2">
+                      <div className="w-2 h-2 bg-amber-500 rounded-full mt-1.5"></div>
+                      <p>South Memphis route shows 12% tardiness rate on Mondays - consider earlier pickup times</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <div className="w-2 h-2 bg-green-500 rounded-full mt-1.5"></div>
+                      <p>Industrial District route has 98% attendance - best performing route for 6 weeks</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <div className="w-2 h-2 bg-amber-500 rounded-full mt-1.5"></div>
+                      <p>Weather delays increased by 8% during winter months on outer routes</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* AI Workforce Matching */}
+          <TabsContent value="ai-matching" className="space-y-4 md:space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Brain className="w-5 h-5" />
+                  AI Workforce Matching
+                </CardTitle>
+                <CardDescription>Smart matching using location, skills, and transportation data</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="p-4 bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200 rounded-lg">
+                  <h3 className="font-semibold text-purple-900 mb-2">AI Recommendations Active</h3>
+                  <p className="text-sm text-purple-700">Using real-time data to match workers to your warehouse position</p>
+                </div>
+
+                <div className="space-y-4">
+                  <h4 className="font-semibold">Top Matched Candidates</h4>
+                  {[
+                    { name: "Marcus Johnson", match: 95, distance: "2.3 mi", skills: ["Forklift", "Inventory"], route: "Midtown Route", available: "Immediate" },
+                    { name: "Sarah Williams", match: 92, distance: "3.1 mi", skills: ["Warehouse", "Shipping"], route: "Downtown Route", available: "Immediate" },
+                    { name: "David Brown", match: 88, distance: "4.5 mi", skills: ["Loading", "Quality Control"], route: "East Memphis Route", available: "2 weeks" },
+                  ].map((candidate) => (
+                    <Card key={candidate.name} className="border-2 hover:shadow-lg transition-shadow cursor-pointer">
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between mb-3">
+                          <div>
+                            <h4 className="font-semibold text-lg">{candidate.name}</h4>
+                            <p className="text-sm text-muted-foreground">{candidate.distance} from job site</p>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-2xl font-bold text-primary">{candidate.match}%</div>
+                            <p className="text-xs text-muted-foreground">Match Score</p>
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2">
+                            <Badge variant="secondary">{candidate.route}</Badge>
+                            <span className="text-sm text-muted-foreground">• Available: {candidate.available}</span>
+                          </div>
+                          <div className="flex gap-2">
+                            {candidate.skills.map((skill) => (
+                              <Badge key={skill} variant="outline" className="text-xs">{skill}</Badge>
+                            ))}
+                          </div>
+                        </div>
+                        <Button className="w-full mt-3" size="sm">View Full Profile & Contact</Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+
+                <Card className="bg-blue-50 border-blue-200">
+                  <CardHeader>
+                    <CardTitle className="text-base">Matching Criteria</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span>Location proximity</span>
+                      <span className="font-medium">35%</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Skills & experience match</span>
+                      <span className="font-medium">30%</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Transportation availability</span>
+                      <span className="font-medium">20%</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Attendance history</span>
+                      <span className="font-medium">15%</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
           <TabsContent value="jobs" className="space-y-4 md:space-y-6">
             <EmployerJobManagement />
           </TabsContent>
 
-          <TabsContent value="analytics" className="space-y-4 md:space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <TrendingUp className="w-5 h-5" />
-                    Attendance Impact
-                  </CardTitle>
-                  <CardDescription>
-                    How transportation affects attendance
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span>On-time arrivals</span>
-                      <span className="font-medium">98%</span>
-                    </div>
-                    <div className="w-full bg-secondary/20 rounded-full h-2">
-                      <div className="bg-green-600 h-2 rounded-full" style={{ width: "98%" }}></div>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span>Attendance rate</span>
-                      <span className="font-medium">98%</span>
-                    </div>
-                    <div className="w-full bg-secondary/20 rounded-full h-2">
-                      <div className="bg-primary h-2 rounded-full" style={{ width: "98%" }}></div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+          {/* Business Insight Dashboard */}
+          <TabsContent value="insights" className="space-y-4 md:space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <BarChart3 className="w-5 h-5" />
+                  Business Insight Dashboard
+                </CardTitle>
+                <CardDescription>Analytics on labor reliability, commute times, and retention</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {/* Key Metrics */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Card className="border-2">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-sm font-medium text-muted-foreground">Labor Reliability Score</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-3xl font-bold text-green-600">9.2/10</div>
+                      <p className="text-xs text-muted-foreground mt-1">+0.3 from last month</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-2">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-sm font-medium text-muted-foreground">Avg. Commute Time</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-3xl font-bold">18 min</div>
+                      <p className="text-xs text-muted-foreground mt-1">-2 min from last month</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-2">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-sm font-medium text-muted-foreground">Retention Rate</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-3xl font-bold text-primary">92%</div>
+                      <p className="text-xs text-muted-foreground mt-1">90-day average</p>
+                    </CardContent>
+                  </Card>
+                </div>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Clock className="w-5 h-5" />
-                    Cost Savings
-                  </CardTitle>
-                  <CardDescription>
-                    Monthly transportation savings
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-primary">$2,400</div>
-                    <p className="text-sm text-muted-foreground">vs. individual rideshare</p>
-                  </div>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span>Reduced absenteeism</span>
-                      <span className="font-medium">$1,200</span>
+                {/* Detailed Analytics */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-base">Attendance Impact Analysis</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="space-y-3">
+                        <div>
+                          <div className="flex justify-between text-sm mb-1">
+                            <span>Workers with transportation</span>
+                            <span className="font-medium">97.8%</span>
+                          </div>
+                          <div className="w-full bg-secondary/20 rounded-full h-2">
+                            <div className="bg-green-600 h-2 rounded-full" style={{ width: "97.8%" }}></div>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="flex justify-between text-sm mb-1">
+                            <span>Workers without transportation</span>
+                            <span className="font-medium">78.2%</span>
+                          </div>
+                          <div className="w-full bg-secondary/20 rounded-full h-2">
+                            <div className="bg-amber-500 h-2 rounded-full" style={{ width: "78.2%" }}></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-3 bg-green-50 border border-green-200 rounded text-sm">
+                        <p className="font-medium text-green-800">+19.6% improvement</p>
+                        <p className="text-green-700">with transportation provided</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-base">Cost-Benefit Analysis</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span>Monthly transportation cost</span>
+                          <span className="font-medium text-red-600">-$3,600</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Reduced turnover savings</span>
+                          <span className="font-medium text-green-600">+$4,200</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Improved attendance value</span>
+                          <span className="font-medium text-green-600">+$2,100</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Productivity gains</span>
+                          <span className="font-medium text-green-600">+$1,800</span>
+                        </div>
+                        <div className="border-t pt-2 mt-2 flex justify-between font-semibold">
+                          <span>Net Monthly Benefit</span>
+                          <span className="text-green-600">+$4,500</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Commute Time Distribution */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-base">Commute Time Distribution</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {[
+                        { range: "0-10 minutes", workers: 8, percentage: 40 },
+                        { range: "10-20 minutes", workers: 7, percentage: 35 },
+                        { range: "20-30 minutes", workers: 4, percentage: 20 },
+                        { range: "30+ minutes", workers: 1, percentage: 5 },
+                      ].map((item) => (
+                        <div key={item.range}>
+                          <div className="flex justify-between text-sm mb-1">
+                            <span>{item.range}</span>
+                            <span className="font-medium">{item.workers} workers ({item.percentage}%)</span>
+                          </div>
+                          <div className="w-full bg-secondary/20 rounded-full h-2">
+                            <div className="bg-primary h-2 rounded-full" style={{ width: `${item.percentage}%` }}></div>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                    <div className="flex justify-between">
-                      <span>Overtime reduction</span>
-                      <span className="font-medium">$800</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Transportation subsidy</span>
-                      <span className="font-medium">$400</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+                  </CardContent>
+                </Card>
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
       </div>
