@@ -8,6 +8,7 @@ import { LanguageProvider } from "./contexts/LanguageContext";
 import Index from "./pages/Index";
 import DriverApp from "./pages/DriverApp";
 import SimpleJobListings from "./pages/SimpleJobListings";
+import EmployeeLocations from "./pages/EmployeeLocations";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/jobs" element={<SimpleJobListings />} />
             <Route path="/driver" element={<DriverApp />} />
+            <Route path="/employee-locations" element={<EmployeeLocations />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
