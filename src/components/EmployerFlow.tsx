@@ -3,11 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Users, Route, Calendar, TrendingUp, MapPin, Clock, Target, Brain, BarChart3, AlertCircle, CheckCircle, DollarSign } from "lucide-react";
+import { ArrowLeft, Users, Route, Calendar, TrendingUp, MapPin, Clock, Target, Brain, BarChart3, AlertCircle, CheckCircle, DollarSign, Navigation } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import EmployerJobManagement from "@/components/EmployerJobManagement";
 import MapView from "@/components/MapView";
 import EmployerPricingCalendar from "@/components/EmployerPricingCalendar";
+import RealTimeTrackingMap from "@/components/RealTimeTrackingMap";
 import arkLogo from "@/assets/ark-logo.png";
 
 interface EmployerFlowProps {
@@ -86,6 +87,9 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
             <TabsList className="inline-flex h-12 items-center justify-start rounded-md bg-muted p-1 text-muted-foreground w-full">
               <TabsTrigger value="dashboard" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
                 Dashboard
+              </TabsTrigger>
+              <TabsTrigger value="tracking" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
+                Live Tracking
               </TabsTrigger>
               <TabsTrigger value="routing" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
                 Smart Routing
@@ -304,6 +308,10 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
                 />
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="tracking" className="space-y-4 md:space-y-6">
+            <RealTimeTrackingMap />
           </TabsContent>
 
           {/* Smart Job Routing Dashboard */}
