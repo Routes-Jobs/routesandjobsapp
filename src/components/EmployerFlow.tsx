@@ -3,10 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Users, Route, Calendar, TrendingUp, MapPin, Clock, Target, Brain, BarChart3, AlertCircle, CheckCircle } from "lucide-react";
+import { ArrowLeft, Users, Route, Calendar, TrendingUp, MapPin, Clock, Target, Brain, BarChart3, AlertCircle, CheckCircle, DollarSign } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import EmployerJobManagement from "@/components/EmployerJobManagement";
 import MapView from "@/components/MapView";
+import EmployerPricingCalendar from "@/components/EmployerPricingCalendar";
 
 interface EmployerFlowProps {
   onBack: () => void;
@@ -99,6 +100,9 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
               </TabsTrigger>
               <TabsTrigger value="insights" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
                 Insights
+              </TabsTrigger>
+              <TabsTrigger value="pricing" className="whitespace-nowrap px-3 py-2 text-sm font-medium">
+                Pricing
               </TabsTrigger>
             </TabsList>
           </div>
@@ -706,6 +710,24 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
                     </div>
                   </CardContent>
                 </Card>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Pricing Calendar Tab */}
+          <TabsContent value="pricing" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <DollarSign className="h-6 w-6" />
+                  Transportation Pricing Calculator
+                </CardTitle>
+                <CardDescription>
+                  Compare pricing models and schedule service dates based on your workforce size
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <EmployerPricingCalendar />
               </CardContent>
             </Card>
           </TabsContent>

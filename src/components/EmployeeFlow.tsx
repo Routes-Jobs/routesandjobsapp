@@ -9,6 +9,7 @@ import { ArrowLeft, Clock, MapPin, Calendar, DollarSign } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import JobListings from "@/components/JobListings";
 import EmployeeKPIs from "@/components/EmployeeKPIs";
+import EmployeePriceCalculator from "@/components/EmployeePriceCalculator";
 
 
 interface EmployeeFlowProps {
@@ -150,7 +151,16 @@ const EmployeeFlow = ({ onBack }: EmployeeFlowProps) => {
               </Button>
             </CardContent>
           </Card>
-        )}
+            )}
+
+            {/* Show price calculator after locations are selected */}
+            {step === "request" && rideData.pickup && rideData.destination && (
+              <EmployeePriceCalculator 
+                pickup={rideData.pickup}
+                destination={rideData.destination}
+              />
+            )}
+
 
         {step === "schedule" && (
           <Card>
