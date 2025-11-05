@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { MapPin, Navigation, Search, Clock, Route } from "lucide-react";
 import MapView from "@/components/MapView";
+import AddressAutocomplete from "@/components/ui/address-autocomplete";
 
 interface RideBookingWidgetProps {
   onSearchRide: (pickup: string, destination: string) => void;
@@ -115,32 +115,22 @@ const RideBookingWidget = ({ onSearchRide }: RideBookingWidgetProps) => {
       <CardContent className="p-6 space-y-4">
         <div className="space-y-3">
           {/* Pickup Location */}
-          <div className="relative">
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-primary">
-              <MapPin className="w-5 h-5" />
-            </div>
-            <Input
-              type="text"
-              placeholder="Where are you?"
-              value={pickupLocation}
-              onChange={(e) => setPickupLocation(e.target.value)}
-              className="pl-11 h-12 text-base bg-background border-2 focus:border-primary"
-            />
-          </div>
+          <AddressAutocomplete
+            value={pickupLocation}
+            onChange={setPickupLocation}
+            placeholder="Where are you?"
+            restrictToCity="Memphis"
+            restrictToState="Tennessee"
+          />
 
           {/* Destination */}
-          <div className="relative">
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-accent">
-              <Navigation className="w-5 h-5" />
-            </div>
-            <Input
-              type="text"
-              placeholder="Where are you going?"
-              value={destination}
-              onChange={(e) => setDestination(e.target.value)}
-              className="pl-11 h-12 text-base bg-background border-2 focus:border-accent"
-            />
-          </div>
+          <AddressAutocomplete
+            value={destination}
+            onChange={setDestination}
+            placeholder="Where are you going?"
+            restrictToCity="Memphis"
+            restrictToState="Tennessee"
+          />
 
           {/* Search Button */}
           <Button 
