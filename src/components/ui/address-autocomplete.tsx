@@ -59,9 +59,19 @@ const AddressAutocomplete = ({
 
     setIsLoading(true);
     try {
+      // Viewbox for Memphis, TN and Mississippi area (focused search area)
+      // Memphis center: 35.1495, -90.0490
+      // Viewbox covers Memphis metro and Mississippi: left,top,right,bottom
+      const viewbox = "-91.5,36.0,-88.5,34.0"; // Covers Memphis TN and northern Mississippi
+      
+      // Build the query with location context
+      const locationQuery = restrictToCity 
+        ? `${query}, ${restrictToCity}, ${restrictToState || 'TN'}`
+        : `${query}, Memphis TN`;
+      
       // Using Nominatim - free geocoding service by OpenStreetMap
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=5&q=${encodeURIComponent(query)}&countrycodes=us`
+        `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=5&q=${encodeURIComponent(locationQuery)}&countrycodes=us&viewbox=${viewbox}&bounded=1`
       );
       
       if (response.ok) {
