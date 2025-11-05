@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Label } from "@/components/ui/label";
 import { MapPin, Navigation, DollarSign, Calendar, Clock, TrendingUp } from "lucide-react";
 import MapView from "@/components/MapView";
+import AddressAutocomplete from "@/components/ui/address-autocomplete";
 
 interface RideBookingWidgetProps {
   onSearchRide: (pickup: string, destination: string) => void;
@@ -126,11 +128,11 @@ const RideBookingWidget = ({ onSearchRide }: RideBookingWidgetProps) => {
         <div className="space-y-4">
           {/* Pickup Selection */}
           <div className="space-y-2">
-            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+            <Label className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-primary" />
               Where are you?
-            </div>
-            <div className="flex flex-wrap gap-2">
+            </Label>
+            <div className="flex flex-wrap gap-2 mb-2">
               {presetLocations.map((loc) => (
                 <Badge
                   key={`pickup-${loc.id}`}
@@ -142,15 +144,22 @@ const RideBookingWidget = ({ onSearchRide }: RideBookingWidgetProps) => {
                 </Badge>
               ))}
             </div>
+            <AddressAutocomplete
+              value={pickupLocation}
+              onChange={(value) => setPickupLocation(value)}
+              placeholder="Or enter your pickup address"
+              restrictToCity="Memphis"
+              restrictToState="Tennessee"
+            />
           </div>
 
           {/* Destination Selection */}
           <div className="space-y-2">
-            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+            <Label className="flex items-center gap-2">
               <Navigation className="w-4 h-4 text-accent" />
               Where are you going?
-            </div>
-            <div className="flex flex-wrap gap-2">
+            </Label>
+            <div className="flex flex-wrap gap-2 mb-2">
               {presetLocations.map((loc) => (
                 <Badge
                   key={`dest-${loc.id}`}
@@ -162,6 +171,13 @@ const RideBookingWidget = ({ onSearchRide }: RideBookingWidgetProps) => {
                 </Badge>
               ))}
             </div>
+            <AddressAutocomplete
+              value={destination}
+              onChange={(value) => setDestination(value)}
+              placeholder="Or enter where you want to go"
+              restrictToCity="Memphis"
+              restrictToState="Tennessee"
+            />
           </div>
 
           {/* Price Preview & Book Button */}
