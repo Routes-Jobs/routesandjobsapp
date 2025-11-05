@@ -264,20 +264,44 @@ const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="pickup">Pickup Location</Label>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {['Downtown Memphis', 'Midtown', 'East Memphis', 'Germantown', 'Cordova'].map((location) => (
+                    <Badge
+                      key={location}
+                      variant={rideData.pickup === location ? "default" : "outline"}
+                      className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
+                      onClick={() => setRideData(prev => ({ ...prev, pickup: location }))}
+                    >
+                      {location}
+                    </Badge>
+                  ))}
+                </div>
                 <AddressAutocomplete
                   value={rideData.pickup}
                   onChange={(value) => setRideData(prev => ({ ...prev, pickup: value }))}
-                  placeholder="Enter your pickup address"
+                  placeholder="Or enter your pickup address"
                   restrictToCity="Memphis"
                   restrictToState="Tennessee"
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="destination">Destination</Label>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {['Memphis Airport', 'Beale Street', 'Graceland', 'Medical District', 'University of Memphis', 'Shelby Farms'].map((location) => (
+                    <Badge
+                      key={location}
+                      variant={rideData.destination === location ? "default" : "outline"}
+                      className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
+                      onClick={() => setRideData(prev => ({ ...prev, destination: location }))}
+                    >
+                      {location}
+                    </Badge>
+                  ))}
+                </div>
                 <AddressAutocomplete
                   value={rideData.destination}
                   onChange={(value) => setRideData(prev => ({ ...prev, destination: value }))}
-                  placeholder="Where do you want to go?"
+                  placeholder="Or enter where you want to go"
                   restrictToCity="Memphis"
                   restrictToState="Tennessee"
                 />
