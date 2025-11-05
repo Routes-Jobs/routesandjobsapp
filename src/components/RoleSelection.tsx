@@ -2,8 +2,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Building2, MapPin, Car } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useToast } from "@/hooks/use-toast";
 import highwayCars1 from "@/assets/highway-cars-1.jpg";
 import highwayCars2 from "@/assets/highway-cars-2.jpg";
+import RideBookingWidget from "@/components/RideBookingWidget";
 
 interface RoleSelectionProps {
   onRoleSelect: (role: "employee" | "employer" | "general") => void;
@@ -11,6 +13,18 @@ interface RoleSelectionProps {
 
 const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
   const { t } = useLanguage();
+  const { toast } = useToast();
+
+  const handleSearchRide = (pickup: string, destination: string) => {
+    toast({
+      title: "Searching for rides...",
+      description: `From ${pickup} to ${destination}`,
+    });
+    // This could navigate to the general public flow or employee flow
+    setTimeout(() => {
+      onRoleSelect("general");
+    }, 1000);
+  };
   
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -71,6 +85,11 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
             <p className="text-xl text-white/90 max-w-2xl mx-auto">
               Find transportation solutions and job opportunities in your community
             </p>
+          </div>
+
+          {/* Ride Booking Widget */}
+          <div className="max-w-2xl mx-auto mb-12">
+            <RideBookingWidget onSearchRide={handleSearchRide} />
           </div>
 
           {/* Navigation Options */}
