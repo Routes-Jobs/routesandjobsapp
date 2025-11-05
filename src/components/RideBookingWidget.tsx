@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MapPin, Navigation, Search, Clock, Route } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { MapPin, Navigation, DollarSign, Calendar, Clock, TrendingUp } from "lucide-react";
 import MapView from "@/components/MapView";
-import AddressAutocomplete from "@/components/ui/address-autocomplete";
 
 interface RideBookingWidgetProps {
   onSearchRide: (pickup: string, destination: string) => void;
@@ -96,6 +96,14 @@ const RideBookingWidget = ({ onSearchRide }: RideBookingWidgetProps) => {
     return points;
   };
 
+  const handleLocationSelect = (location: string, isPickup: boolean) => {
+    if (isPickup) {
+      setPickupLocation(location);
+    } else {
+      setDestination(location);
+    }
+  };
+
   const handleSearch = () => {
     if (pickupLocation && destination) {
       onSearchRide(pickupLocation, destination);
@@ -103,44 +111,87 @@ const RideBookingWidget = ({ onSearchRide }: RideBookingWidgetProps) => {
     }
   };
 
-  const memphisLocations = [
-    { id: "loc1", name: "Memphis International Airport", coordinates: [-89.9711, 35.0428] as [number, number], type: "pickup" as const, status: "active" as const },
-    { id: "loc2", name: "Beale Street", coordinates: [-90.0490, 35.1495] as [number, number], type: "pickup" as const, status: "active" as const },
-    { id: "loc3", name: "Graceland", coordinates: [-90.0267, 35.0474] as [number, number], type: "destination" as const },
-    { id: "loc4", name: "FedExForum", coordinates: [-90.0507, 35.1382] as [number, number], type: "destination" as const },
+  const presetLocations = [
+    { id: "airport", name: "Memphis Airport", coordinates: [-89.9711, 35.0428] as [number, number] },
+    { id: "beale", name: "Beale Street", coordinates: [-90.0490, 35.1495] as [number, number] },
+    { id: "graceland", name: "Graceland", coordinates: [-90.0267, 35.0474] as [number, number] },
+    { id: "fedex", name: "FedExForum", coordinates: [-90.0507, 35.1382] as [number, number] },
+    { id: "downtown", name: "Downtown", coordinates: [-90.0490, 35.1495] as [number, number] },
+    { id: "midtown", name: "Midtown", coordinates: [-89.9940, 35.1378] as [number, number] },
   ];
 
   return (
     <Card className="bg-white/95 backdrop-blur-sm border-2 border-primary/20 shadow-xl">
       <CardContent className="p-6 space-y-4">
-        <div className="space-y-3">
-          {/* Pickup Location */}
-          <AddressAutocomplete
-            value={pickupLocation}
-            onChange={setPickupLocation}
-            placeholder="Where are you?"
-            restrictToCity="Memphis"
-            restrictToState="Tennessee"
-          />
+        <div className="space-y-4">
+          {/* Pickup Selection */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+              <MapPin className="w-4 h-4 text-primary" />
+              Where are you?
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {presetLocations.map((loc) => (
+                <Badge
+                  key={`pickup-${loc.id}`}
+                  variant={pickupLocation === loc.name ? "default" : "outline"}
+                  className="cursor-pointer hover:bg-primary/10 transition-colors px-3 py-2"
+                  onClick={() => handleLocationSelect(loc.name, true)}
+                >
+                  {loc.name}
+                </Badge>
+              ))}
+            </div>
+          </div>
 
-          {/* Destination */}
-          <AddressAutocomplete
-            value={destination}
-            onChange={setDestination}
-            placeholder="Where are you going?"
-            restrictToCity="Memphis"
-            restrictToState="Tennessee"
-          />
+          {/* Destination Selection */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+              <Navigation className="w-4 h-4 text-accent" />
+              Where are you going?
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {presetLocations.map((loc) => (
+                <Badge
+                  key={`dest-${loc.id}`}
+                  variant={destination === loc.name ? "default" : "outline"}
+                  className="cursor-pointer hover:bg-accent/10 transition-colors px-3 py-2"
+                  onClick={() => handleLocationSelect(loc.name, false)}
+                >
+                  {loc.name}
+                </Badge>
+              ))}
+            </div>
+          </div>
 
-          {/* Search Button */}
-          <Button 
-            onClick={handleSearch}
-            disabled={!pickupLocation || !destination}
-            className="w-full h-12 text-base font-semibold bg-primary hover:bg-primary/90"
-          >
-            <Search className="w-5 h-5 mr-2" />
-            Find Rides & Routes
-          </Button>
+          {/* Price Preview & Book Button */}
+          {routePreview && pickupLocation && destination && (
+            <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-accent/5">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <div>
+                    <div className="text-sm text-muted-foreground">Estimated Fare</div>
+                    <div className="text-3xl font-bold text-primary flex items-center gap-1">
+                      <DollarSign className="w-6 h-6" />
+                      {routePreview.price}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xs text-muted-foreground">Distance</div>
+                    <div className="text-lg font-semibold">{routePreview.distance} mi</div>
+                    <div className="text-xs text-muted-foreground mt-1">~{routePreview.duration} min</div>
+                  </div>
+                </div>
+                <Button 
+                  onClick={handleSearch}
+                  className="w-full h-11 text-base font-semibold"
+                >
+                  <Calendar className="w-5 h-5 mr-2" />
+                  Book Now
+                </Button>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         {/* Route Preview */}
@@ -149,7 +200,7 @@ const RideBookingWidget = ({ onSearchRide }: RideBookingWidgetProps) => {
             <div className="grid grid-cols-3 gap-3">
               <Card className="border-primary/20 bg-primary/5">
                 <CardContent className="p-3 text-center">
-                  <Route className="w-5 h-5 mx-auto mb-1 text-primary" />
+                  <TrendingUp className="w-5 h-5 mx-auto mb-1 text-primary" />
                   <div className="text-lg font-bold text-foreground">{routePreview.distance} mi</div>
                   <div className="text-xs text-muted-foreground">Distance</div>
                 </CardContent>
