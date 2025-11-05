@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import EmployerJobManagement from "@/components/EmployerJobManagement";
 import MapView from "@/components/MapView";
 import EmployerPricingCalendar from "@/components/EmployerPricingCalendar";
+import arkLogo from "@/assets/ark-logo.png";
 
 interface EmployerFlowProps {
   onBack: () => void;
@@ -66,14 +67,14 @@ const EmployerFlow = ({ onBack }: EmployerFlowProps) => {
               Back
             </Button>
             <img 
-              src="/lovable-uploads/5137d2a6-573f-4db3-b0c1-4cca8f17c149.png" 
-              alt="Routes & Jobs Logo" 
-              className="h-6 md:h-8 w-auto flex-shrink-0"
+              src={arkLogo} 
+              alt="ARK - Attendance. Retention. Key Performance." 
+              className="h-8 md:h-12 w-auto flex-shrink-0"
             />
           </div>
           <div className="ml-0 md:ml-auto">
             <h1 className="text-xl md:text-2xl font-bold">Employer Dashboard</h1>
-            <p className="text-secondary-foreground/80 text-sm md:text-base">Manage workforce transportation</p>
+            <p className="text-secondary-foreground/80 text-sm md:text-base">Workforce Transportation & Analytics</p>
           </div>
         </div>
       </div>

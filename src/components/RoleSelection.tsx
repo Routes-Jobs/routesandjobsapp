@@ -74,26 +74,7 @@ const RoleSelection = ({ onRoleSelect }: RoleSelectionProps) => {
           </div>
 
           {/* Navigation Options */}
-          <div className="grid md:grid-cols-4 gap-6 mb-12">
-            {/* Plan Work Shuttle */}
-            <Card className="bg-white/95 hover:bg-white transition-all cursor-pointer border-2 hover:border-primary">
-              <CardHeader className="text-center pb-4">
-                <div className="mx-auto w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4">
-                  <Users className="w-8 h-8 text-white" />
-                </div>
-                <CardTitle className="text-lg font-bold">Plan Work Shuttle</CardTitle>
-                <CardDescription>Schedule employee transportation</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button 
-                  onClick={() => onRoleSelect("employee")} 
-                  className="w-full bg-primary hover:bg-primary/90"
-                >
-                  Get Started
-                </Button>
-              </CardContent>
-            </Card>
-
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
             {/* Find a Job */}
             <Card className="bg-white/95 hover:bg-white transition-all cursor-pointer border-2 hover:border-primary">
               <CardHeader className="text-center pb-4">
