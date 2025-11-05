@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -25,6 +25,7 @@ interface MapViewProps {
   zoom?: number;
   height?: string;
   className?: string;
+  route?: [number, number][]; // Array of [lng, lat] coordinates for route path
 }
 
 // Custom marker icons based on type and status
@@ -71,7 +72,8 @@ const MapView = ({
   center = [-90.0490, 35.1495], // Memphis coordinates [lng, lat]
   zoom = 11,
   height = '400px',
-  className = ''
+  className = '',
+  route
 }: MapViewProps) => {
   // Convert center from [lng, lat] to [lat, lng] for Leaflet
   const leafletCenter: [number, number] = [center[1], center[0]];
@@ -89,6 +91,19 @@ const MapView = ({
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
+          
+          {/* Route polyline */}
+          {route && route.length > 0 && (
+            <Polyline
+              positions={route.map(coord => [coord[1], coord[0]] as [number, number])} // Convert [lng, lat] to [lat, lng]
+              pathOptions={{
+                color: 'hsl(var(--primary))',
+                weight: 4,
+                opacity: 0.8,
+                dashArray: '10, 5'
+              }}
+            />
+          )}
           
           {locations.map((location) => {
             const position: [number, number] = [location.coordinates[1], location.coordinates[0]]; // [lat, lng] for Leaflet
