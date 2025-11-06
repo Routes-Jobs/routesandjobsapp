@@ -16,7 +16,7 @@ interface GeneralPublicFlowProps {
 }
 
 const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
-  const [activeTab, setActiveTab] = useState("transportation");
+  const [activeTab, setActiveTab] = useState("rides");
   const [step, setStep] = useState<"request" | "routes" | "payment">("request");
   const [rideData, setRideData] = useState({
     pickup: "",
@@ -117,12 +117,12 @@ const GeneralPublicFlow = ({ onBack }: GeneralPublicFlowProps) => {
       <div className="max-w-4xl mx-auto p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="transportation">Transportation</TabsTrigger>
+            <TabsTrigger value="rides">Rides & Pricing</TabsTrigger>
             <TabsTrigger value="jobs">Job Listings</TabsTrigger>
           </TabsList>
           
-          <TabsContent value="transportation" className="space-y-6">
-            {/* ARK Value Proposition */}
+          <TabsContent value="rides" className="space-y-6">
+            {/* ARK Value Proposition & Insights */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <Card className="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 border-green-200">
                 <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
