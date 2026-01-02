@@ -28,7 +28,7 @@ const Header = () => {
           <Link to="/" className="hover:text-primary transition-colors">HOME</Link>
           <Link to="/jobs" className="hover:text-primary transition-colors">JOBS</Link>
           <a href="#find-rides" className="hover:text-primary transition-colors">FIND RIDES</a>
-          <a href="https://routesandjobsmapgit.netlify.app/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">MAP</a>
+          <Link to="/mapping" className="hover:text-primary transition-colors">MAP</Link>
           <Link to="/driver" className="hover:text-primary transition-colors">DRIVERS</Link>
           <a href="https://routesandjobs.com" className="hover:text-primary transition-colors">ABOUT</a>
         </nav>
