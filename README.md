@@ -27,6 +27,16 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
+## Mapping & Routing
+
+This app includes an integrated mapping feature at the `/mapping` route:
+
+- Visualizes Memphis community pickup points and employment centers on a Leaflet map.
+- Lets users choose a pickup and employment destination, then draws a route between them.
+- Recenters the map and opens an info popup based on the last changed selection (pickup or dropoff).
+- Uses shared data (`memphisLocations`, `predeterminedRoutes`) and `RouteContext` for route state.
+
+Access it via the **MAP** item in the top navigation or directly at `/mapping` while the dev server is running.
 
 
 Simply open [Lovable](https://lovable.dev/projects/8497d4cb-5bf7-4dfb-bb1d-1af0859759aa) and click on Share -> Publish.
