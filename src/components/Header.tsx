@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageToggle from "@/components/LanguageToggle";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import LoginDialog from "@/components/LoginDialog";
+import SignupDialog from "@/components/SignupDialog";
 
 const Header = () => {
   const { t } = useLanguage();
   const [loginOpen, setLoginOpen] = useState(false);
-  const navigate = useNavigate();
+  const [signupOpen, setSignupOpen] = useState(false);
   
   return (
     <header className="bg-white border-b border-gray-200">
@@ -44,7 +45,7 @@ const Header = () => {
           </Button>
           <Button 
             className="bg-primary hover:bg-primary/90 text-white px-6 py-2 text-sm font-medium"
-            onClick={() => navigate('/auth')}
+            onClick={() => setSignupOpen(true)}
           >
             GET STARTED
           </Button>
@@ -52,6 +53,7 @@ const Header = () => {
       </div>
       
       <LoginDialog open={loginOpen} onOpenChange={setLoginOpen} />
+      <SignupDialog open={signupOpen} onOpenChange={setSignupOpen} />
     </header>
   );
 };
