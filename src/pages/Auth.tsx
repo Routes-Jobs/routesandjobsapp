@@ -22,20 +22,30 @@ const roleConfig = {
 
 const Auth = () => {
   const navigate = useNavigate();
-  const { user, signIn, signUp } = useAuth();
+  const { user, roles, signIn, signUp } = useAuth();
   const { toast } = useToast();
-  
+
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
   const [selectedRole, setSelectedRole] = useState<AppRole | null>(null);
 
+  // Helper to get redirect path based on role
+  const getRoleRedirectPath = (userRoles: string[]) => {
+    if (userRoles.includes('driver')) return '/driver';
+    if (userRoles.includes('employer')) return '/employer';
+    if (userRoles.includes('rider') || userRoles.includes('employee')) return '/rider';
+    if (userRoles.includes('admin')) return '/dashboard';
+    return '/dashboard';
+  };
+
   useEffect(() => {
-    if (user) {
-      navigate('/dashboard');
+    if (user && roles.length > 0) {
+      const redirectPath = getRoleRedirectPath(roles);
+      navigate(redirectPath);
     }
-  }, [user, navigate]);
+  }, [user, roles, navigate]);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -11,6 +11,8 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import DriverApp from "./pages/DriverApp";
+import RiderDashboard from "./pages/RiderDashboard";
+import EmployerDashboard from "./pages/EmployerDashboard";
 import SimpleJobListings from "./pages/SimpleJobListings";
 import EmployeeLocations from "./pages/EmployeeLocations";
 import NotFound from "./pages/NotFound";
@@ -32,6 +34,8 @@ const App = () => (
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/jobs" element={<SimpleJobListings />} />
               <Route path="/driver" element={<DriverApp />} />
+              <Route path="/rider" element={<RiderDashboard />} />
+              <Route path="/employer" element={<EmployerDashboard />} />
               <Route path="/employee-locations" element={<EmployeeLocations />} />
               <Route
                 path="/mapping"
