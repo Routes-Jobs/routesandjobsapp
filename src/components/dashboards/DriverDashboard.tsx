@@ -2,9 +2,8 @@ import { useRealTimeRides } from '@/hooks/useRealTimeRides';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
-import { MapPin, Navigation, Clock, Users, CheckCircle, Play, AlertCircle, Car, Phone } from 'lucide-react';
+import { MapPin, Navigation, Clock, Users, CheckCircle, Play, AlertCircle, Car } from 'lucide-react';
 
 const statusConfig = {
   requested: { color: 'bg-yellow-600', label: 'New Request' },
@@ -54,26 +53,6 @@ export const DriverDashboard = () => {
 
   return (
     <div className="space-y-6">
-      {/* Driver Header */}
-      <div className="bg-gradient-to-r from-green-600/20 to-emerald-600/20 border border-green-600/30 rounded-lg p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Car className="w-8 h-8 text-green-500" />
-            <div>
-              <h2 className="text-xl font-bold text-white">Driver Board</h2>
-              <p className="text-sm text-slate-400">Accept and manage ride requests in real-time</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-            </span>
-            <span className="text-green-400 text-sm font-medium">Online</span>
-          </div>
-        </div>
-      </div>
-
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card className="bg-yellow-600/20 border-yellow-600/50">
@@ -82,17 +61,7 @@ export const DriverDashboard = () => {
               <p className="text-yellow-400 text-sm">New Requests</p>
               <p className="text-3xl font-bold text-white">{newRequests.length}</p>
             </div>
-            <div className="relative">
-              <AlertCircle className="w-8 h-8 text-yellow-500" />
-              {newRequests.length > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-4 w-4">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-4 w-4 bg-yellow-500 text-xs items-center justify-center text-black font-bold">
-                    {newRequests.length}
-                  </span>
-                </span>
-              )}
-            </div>
+            <AlertCircle className="w-8 h-8 text-yellow-500" />
           </CardContent>
         </Card>
         <Card className="bg-blue-600/20 border-blue-600/50">
@@ -115,87 +84,58 @@ export const DriverDashboard = () => {
         </Card>
       </div>
 
-      {/* New Ride Requests - Live List of Available Riders */}
+      {/* New Ride Requests */}
       <Card className="bg-slate-800/50 border-slate-700">
         <CardHeader>
           <CardTitle className="text-white flex items-center gap-2">
             <AlertCircle className="w-5 h-5 text-yellow-500" />
-            Available Riders
+            New Ride Requests
             {newRequests.length > 0 && (
-              <>
-                <Badge className="bg-yellow-600 text-white ml-2">{newRequests.length}</Badge>
-                <span className="relative flex h-3 w-3 ml-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
-                </span>
-              </>
+              <Badge className="bg-yellow-600 text-white ml-2">{newRequests.length}</Badge>
             )}
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <ScrollArea className="h-[350px] pr-4">
-            {loading ? (
-              <div className="text-center text-slate-400 py-8">Loading ride requests...</div>
-            ) : newRequests.length === 0 ? (
-              <div className="text-center text-slate-400 py-8">
-                <Users className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                <p>No riders waiting</p>
-                <p className="text-xs mt-1">New requests will appear here in real-time</p>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {newRequests.map((ride) => (
-                  <div key={ride.id} className="bg-yellow-900/20 border border-yellow-600/30 rounded-lg p-4 space-y-3">
-                    <div className="flex items-start justify-between">
-                      <div className="space-y-2 flex-1">
-                        {/* Rider Location Details */}
-                        <div className="flex items-center gap-2 text-white">
-                          <MapPin className="w-4 h-4 text-green-500 flex-shrink-0" />
-                          <span className="font-medium">{ride.pickup_location}</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-white">
-                          <Navigation className="w-4 h-4 text-red-500 flex-shrink-0" />
-                          <span>{ride.destination}</span>
-                        </div>
-                        
-                        {/* Rider Details */}
-                        <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-yellow-600/20">
-                          <span className="flex items-center gap-1 text-sm text-slate-400">
-                            <Users className="w-3 h-3" />
-                            {ride.passenger_count} passenger{ride.passenger_count !== 1 ? 's' : ''}
-                          </span>
-                          <span className="flex items-center gap-1 text-sm text-slate-400">
-                            <Clock className="w-3 h-3" />
-                            Requested {new Date(ride.created_at).toLocaleTimeString()}
-                          </span>
-                          <Badge variant="outline" className="text-xs border-yellow-600/50 text-yellow-400">
-                            Waiting
-                          </Badge>
-                        </div>
+          {loading ? (
+            <div className="text-center text-slate-400 py-8">Loading...</div>
+          ) : newRequests.length === 0 ? (
+            <div className="text-center text-slate-400 py-8">No new ride requests</div>
+          ) : (
+            <div className="space-y-4">
+              {newRequests.map((ride) => (
+                <div key={ride.id} className="bg-yellow-900/20 border border-yellow-600/30 rounded-lg p-4 space-y-3">
+                  <div className="flex items-start justify-between">
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 text-white">
+                        <MapPin className="w-4 h-4 text-green-500" />
+                        <span>{ride.pickup_location}</span>
                       </div>
-                      
-                      <div className="flex flex-col gap-2 ml-4">
-                        <Button 
-                          onClick={() => handleAccept(ride.id)}
-                          className="bg-green-600 hover:bg-green-700"
-                        >
-                          Accept
-                        </Button>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          className="border-slate-600 text-slate-300"
-                        >
-                          <Phone className="w-3 h-3 mr-1" />
-                          Contact
-                        </Button>
+                      <div className="flex items-center gap-2 text-white">
+                        <Navigation className="w-4 h-4 text-red-500" />
+                        <span>{ride.destination}</span>
                       </div>
                     </div>
+                    <Button 
+                      onClick={() => handleAccept(ride.id)}
+                      className="bg-green-600 hover:bg-green-700"
+                    >
+                      Accept Ride
+                    </Button>
                   </div>
-                ))}
-              </div>
-            )}
-          </ScrollArea>
+                  <div className="flex items-center gap-4 text-xs text-slate-400">
+                    <span className="flex items-center gap-1">
+                      <Users className="w-3 h-3" />
+                      {ride.passenger_count} passenger{ride.passenger_count !== 1 ? 's' : ''}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      {new Date(ride.created_at).toLocaleTimeString()}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </CardContent>
       </Card>
 
@@ -209,11 +149,7 @@ export const DriverDashboard = () => {
         </CardHeader>
         <CardContent>
           {myActiveRides.length === 0 ? (
-            <div className="text-center text-slate-400 py-8">
-              <Car className="w-12 h-12 mx-auto mb-2 opacity-50" />
-              <p>No active rides</p>
-              <p className="text-xs mt-1">Accept a ride request to get started</p>
-            </div>
+            <div className="text-center text-slate-400 py-8">No active rides</div>
           ) : (
             <div className="space-y-4">
               {myActiveRides.map((ride) => {
@@ -254,18 +190,6 @@ export const DriverDashboard = () => {
                         <p className="text-slate-400">Destination</p>
                         <p className="text-white">{ride.destination}</p>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-4 text-xs text-slate-500">
-                      <span className="flex items-center gap-1">
-                        <Users className="w-3 h-3" />
-                        {ride.passenger_count} passenger{ride.passenger_count !== 1 ? 's' : ''}
-                      </span>
-                      {ride.accepted_at && (
-                        <span className="flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          Accepted {new Date(ride.accepted_at).toLocaleTimeString()}
-                        </span>
-                      )}
                     </div>
                   </div>
                 );

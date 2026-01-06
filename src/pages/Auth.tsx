@@ -6,18 +6,25 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { User, Car, Briefcase, Shield, Users } from 'lucide-react';
+import { User, Car, Briefcase, Shield } from 'lucide-react';
 import arkLogo from '@/assets/ark-logo.png';
 
-type AppRole = 'rider' | 'driver' | 'employer' | 'employee' | 'admin';
+type AppRole = 'rider' | 'driver' | 'employer' | 'admin';
 
-const roleConfig = {
-  rider: { icon: User, label: 'Rider / User', color: 'bg-blue-600', description: 'Request rides and track your trips' },
-  driver: { icon: Car, label: 'Driver', color: 'bg-green-600', description: 'Accept rides and transport passengers' },
-  employer: { icon: Briefcase, label: 'Employer', color: 'bg-purple-600', description: 'Manage workforce transportation' },
-  employee: { icon: Users, label: 'Employee', color: 'bg-amber-600', description: 'View assigned rides and schedules' },
-  admin: { icon: Shield, label: 'Admin / Test', color: 'bg-red-600', description: 'Full system access and monitoring' }
+const roleIcons = {
+  rider: User,
+  driver: Car,
+  employer: Briefcase,
+  admin: Shield
+};
+
+const roleLabels = {
+  rider: 'Rider / User',
+  driver: 'Driver',
+  employer: 'Employer',
+  admin: 'Admin / Test'
 };
 
 const Auth = () => {
@@ -29,7 +36,7 @@ const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
-  const [selectedRole, setSelectedRole] = useState<AppRole | null>(null);
+  const [selectedRole, setSelectedRole] = useState<AppRole>('rider');
 
   useEffect(() => {
     if (user) {
@@ -62,16 +69,6 @@ const Auth = () => {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!selectedRole) {
-      toast({
-        title: 'Please select a role',
-        description: 'You must choose a role to create an account',
-        variant: 'destructive'
-      });
-      return;
-    }
-
     setIsLoading(true);
 
     const { error } = await signUp(email, password, selectedRole, fullName);
@@ -85,7 +82,7 @@ const Auth = () => {
     } else {
       toast({
         title: 'Account created!',
-        description: `You are now registered as a ${roleConfig[selectedRole].label}`
+        description: `You are now registered as a ${roleLabels[selectedRole]}`
       });
       navigate('/dashboard');
     }
@@ -95,7 +92,7 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
-      <Card className="w-full max-w-lg bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+      <Card className="w-full max-w-md bg-slate-800/50 border-slate-700 backdrop-blur-sm">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
             <img src={arkLogo} alt="ARK Transit" className="h-16" />
@@ -186,50 +183,31 @@ const Auth = () => {
                     className="bg-slate-700/50 border-slate-600 text-white"
                   />
                 </div>
-                
-                {/* Role Selection */}
-                <div className="space-y-3">
-                  <Label className="text-slate-200">Select Your Role *</Label>
-                  <div className="grid grid-cols-1 gap-2">
-                    {(['rider', 'driver', 'employer', 'employee', 'admin'] as AppRole[]).map((role) => {
-                      const config = roleConfig[role];
-                      const Icon = config.icon;
-                      const isSelected = selectedRole === role;
-                      return (
-                        <button
-                          key={role}
-                          type="button"
-                          onClick={() => setSelectedRole(role)}
-                          className={`flex items-center gap-3 p-3 rounded-lg border transition-all text-left ${
-                            isSelected 
-                              ? `${config.color} border-transparent text-white` 
-                              : 'bg-slate-700/30 border-slate-600 text-slate-300 hover:bg-slate-700/50'
-                          }`}
-                        >
-                          <div className={`p-2 rounded-full ${isSelected ? 'bg-white/20' : 'bg-slate-600'}`}>
-                            <Icon className="w-5 h-5" />
-                          </div>
-                          <div className="flex-1">
-                            <p className="font-medium">{config.label}</p>
-                            <p className={`text-xs ${isSelected ? 'text-white/80' : 'text-slate-500'}`}>
-                              {config.description}
-                            </p>
-                          </div>
-                          {isSelected && (
-                            <div className="w-5 h-5 rounded-full bg-white/30 flex items-center justify-center">
-                              <div className="w-2.5 h-2.5 rounded-full bg-white" />
+                <div className="space-y-2">
+                  <Label className="text-slate-200">Select Your Role</Label>
+                  <Select value={selectedRole} onValueChange={(v) => setSelectedRole(v as AppRole)}>
+                    <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-slate-800 border-slate-700">
+                      {(['rider', 'driver', 'employer', 'admin'] as AppRole[]).map((role) => {
+                        const Icon = roleIcons[role];
+                        return (
+                          <SelectItem key={role} value={role} className="text-white hover:bg-slate-700">
+                            <div className="flex items-center gap-2">
+                              <Icon className="w-4 h-4" />
+                              {roleLabels[role]}
                             </div>
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
+                          </SelectItem>
+                        );
+                      })}
+                    </SelectContent>
+                  </Select>
                 </div>
-
                 <Button 
                   type="submit" 
                   className="w-full bg-amber-600 hover:bg-amber-700"
-                  disabled={isLoading || !selectedRole}
+                  disabled={isLoading}
                 >
                   {isLoading ? 'Creating account...' : 'Create Account'}
                 </Button>
@@ -239,7 +217,7 @@ const Auth = () => {
           
           <div className="mt-6 pt-4 border-t border-slate-700">
             <p className="text-xs text-slate-500 text-center">
-              For testing: Create accounts with different roles on separate devices
+              For testing: Create 4 accounts with different roles (Rider, Driver, Employer, Admin)
             </p>
           </div>
         </CardContent>

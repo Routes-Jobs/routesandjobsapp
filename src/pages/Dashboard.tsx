@@ -4,10 +4,9 @@ import { useAuth } from '@/hooks/useAuth';
 import { RiderDashboard } from '@/components/dashboards/RiderDashboard';
 import { DriverDashboard } from '@/components/dashboards/DriverDashboard';
 import { EmployerDashboard } from '@/components/dashboards/EmployerDashboard';
-import { EmployeeDashboard } from '@/components/dashboards/EmployeeDashboard';
 import { AdminDashboard } from '@/components/dashboards/AdminDashboard';
 import { Button } from '@/components/ui/button';
-import { LogOut, User, Car, Briefcase, Shield, Users } from 'lucide-react';
+import { LogOut, User, Car, Briefcase, Shield } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import arkLogo from '@/assets/ark-logo.png';
 
@@ -15,7 +14,6 @@ const roleIcons = {
   rider: User,
   driver: Car,
   employer: Briefcase,
-  employee: Users,
   admin: Shield
 };
 
@@ -23,7 +21,6 @@ const roleColors = {
   rider: 'bg-blue-600',
   driver: 'bg-green-600',
   employer: 'bg-purple-600',
-  employee: 'bg-amber-600',
   admin: 'bg-red-600'
 };
 
@@ -57,21 +54,8 @@ const Dashboard = () => {
     if (hasRole('admin')) return <AdminDashboard />;
     if (hasRole('employer')) return <EmployerDashboard />;
     if (hasRole('driver')) return <DriverDashboard />;
-    if (hasRole('employee')) return <EmployeeDashboard />;
     return <RiderDashboard />;
   };
-
-  // Get the primary role for display
-  const getPrimaryRole = () => {
-    if (hasRole('admin')) return 'admin';
-    if (hasRole('employer')) return 'employer';
-    if (hasRole('driver')) return 'driver';
-    if (hasRole('employee')) return 'employee';
-    return 'rider';
-  };
-
-  const primaryRole = getPrimaryRole();
-  const PrimaryIcon = roleIcons[primaryRole];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
@@ -81,10 +65,7 @@ const Dashboard = () => {
           <div className="flex items-center gap-4">
             <img src={arkLogo} alt="ARK Transit" className="h-10" />
             <div className="hidden sm:block">
-              <h1 className="text-lg font-semibold text-white flex items-center gap-2">
-                <PrimaryIcon className="w-5 h-5" />
-                {primaryRole.charAt(0).toUpperCase() + primaryRole.slice(1)} Dashboard
-              </h1>
+              <h1 className="text-lg font-semibold text-white">Real-Time Dashboard</h1>
               <p className="text-xs text-slate-400">{user.email}</p>
             </div>
           </div>
@@ -100,13 +81,6 @@ const Dashboard = () => {
                   </Badge>
                 );
               })}
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-              </span>
-              <span className="text-xs text-green-400 hidden sm:inline">Live</span>
             </div>
             <Button 
               variant="ghost" 
