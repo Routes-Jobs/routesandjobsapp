@@ -1,61 +1,135 @@
+// Predetermined efficient routes for passenger van service (from r&jMappingAndRouting)
+// Routes designed to maximize occupancy and minimize travel time
+
 export interface RouteStop {
-  id: string;
-  name: string;
   locationId: string;
-  locationName?: string;
-  latitude: number;
-  longitude: number;
+  locationName: string;
+  arrivalTime: string; // format: "HH:MM"
   type: "pickup" | "dropoff";
-  arrivalTime?: string;
-  notes?: string;
+  estimatedPassengers?: number;
+  notes?: string; // Optional notes about the stop
 }
 
 export interface PredeterminedRoute {
   id: string;
   name: string;
   description: string;
-  stops: RouteStop[];
   color: string;
+  estimatedDuration: number; // in minutes
+  frequency: number; // minutes between vans
+  capacity: number;
+  stops: RouteStop[];
 }
 
 export const predeterminedRoutes: PredeterminedRoute[] = [
   {
     id: "route-1",
-    name: "Downtown to FedEx Hub",
-    description: "Morning shuttle from Downtown Memphis to FedEx World Hub",
-    color: "#3B82F6",
+    name: "Whitehaven Employment Shuttle",
+    description: "Direct route from Whitehaven Community Center to nearby employers",
+    color: "#007AFF",
+    estimatedDuration: 20,
+    frequency: 30,
+    capacity: 12,
     stops: [
-      { id: "r1-s1", name: "Downtown Transit Center", locationId: "downtown-cc", locationName: "Downtown Community Center", latitude: 35.1495, longitude: -90.049, type: "pickup", arrivalTime: "6:00 AM" },
-      { id: "r1-s2", name: "Orange Mound", locationId: "orange-mound-cc", locationName: "Orange Mound Community Center", latitude: 35.1147, longitude: -89.9747, type: "pickup", arrivalTime: "6:15 AM" },
-      { id: "r1-s3", name: "FedEx World Hub", locationId: "fedex-hub", locationName: "FedEx World Hub", latitude: 35.0456, longitude: -89.9811, type: "dropoff", arrivalTime: "6:45 AM" },
+      {
+        locationId: "comm-4",
+        locationName: "Kirby Community Center",
+        arrivalTime: "07:00",
+        type: "pickup",
+        estimatedPassengers: 10,
+        notes: "Main pickup location for Whitehaven residents",
+      },
+      {
+        locationId: "emp-fedex-world-hub-6402",
+        locationName: "FedEx World Hub",
+        arrivalTime: "07:20",
+        type: "dropoff",
+        notes: "Major employment center near Whitehaven",
+      },
     ],
   },
   {
     id: "route-2",
-    name: "Whitehaven to Amazon",
-    description: "Shift shuttle from Whitehaven to Amazon MEM1",
-    color: "#10B981",
+    name: "Frayser Employment Shuttle",
+    description: "Direct route from Frayser Community Center to nearby employers",
+    color: "#B4E900",
+    estimatedDuration: 15,
+    frequency: 30,
+    capacity: 12,
     stops: [
-      { id: "r2-s1", name: "Whitehaven Community Center", locationId: "downtown-cc", locationName: "Downtown Community Center", latitude: 35.0333, longitude: -90.0333, type: "pickup", arrivalTime: "5:30 AM" },
-      { id: "r2-s2", name: "Southgate Center", locationId: "orange-mound-cc", locationName: "Orange Mound Community Center", latitude: 35.05, longitude: -89.95, type: "pickup", arrivalTime: "5:45 AM" },
-      { id: "r2-s3", name: "Amazon MEM1", locationId: "amazon-mem1", locationName: "Amazon MEM1", latitude: 35.0842, longitude: -89.8053, type: "dropoff", arrivalTime: "6:15 AM" },
+      {
+        locationId: "comm-2",
+        locationName: "Frayser Community Center",
+        arrivalTime: "07:00",
+        type: "pickup",
+        estimatedPassengers: 12,
+        notes: "Main pickup location for Frayser residents",
+      },
+      {
+        locationId: "emp-fulfillment-1a",
+        locationName: "Amazon Fulfillment Center MEM4",
+        arrivalTime: "07:15",
+        type: "dropoff",
+        notes: "Major employment center near Frayser",
+      },
     ],
   },
   {
     id: "route-3",
-    name: "Midtown Medical Route",
-    description: "Healthcare worker shuttle to St. Jude",
-    color: "#8B5CF6",
+    name: "Hickory Hill Employment Shuttle",
+    description: "Direct route from Hickory Hill Community Center to nearby employers",
+    color: "#FF2D55",
+    estimatedDuration: 15,
+    frequency: 30,
+    capacity: 12,
     stops: [
-      { id: "r3-s1", name: "Midtown Station", locationId: "downtown-cc", locationName: "Downtown Community Center", latitude: 35.1347, longitude: -90.0, type: "pickup", arrivalTime: "6:30 AM" },
-      { id: "r3-s2", name: "Cooper-Young", locationId: "orange-mound-cc", locationName: "Orange Mound Community Center", latitude: 35.1189, longitude: -89.9908, type: "pickup", arrivalTime: "6:40 AM" },
-      { id: "r3-s3", name: "St. Jude Campus", locationId: "st-jude", locationName: "St. Jude Children's Hospital", latitude: 35.1593, longitude: -90.0344, type: "dropoff", arrivalTime: "7:00 AM" },
+      {
+        locationId: "comm-1",
+        locationName: "Hickory Hill Community Center",
+        arrivalTime: "07:00",
+        type: "pickup",
+        estimatedPassengers: 12,
+        notes: "Main pickup location for Hickory Hill residents",
+      },
+      {
+        locationId: "emp-retail-8",
+        locationName: "Walmart Supercenter - Hickory Hill",
+        arrivalTime: "07:15",
+        type: "dropoff",
+        notes: "Major employer in Hickory Hill area",
+      },
     ],
   },
 ];
 
-export const getNextArrivalTimes = (routeId: string): string[] => {
-  const route = predeterminedRoutes.find((r) => r.id === routeId);
-  if (!route) return [];
-  return route.stops.map((stop) => stop.arrivalTime || "TBD");
+// Calculate next arrival times based on current time and frequency
+export const getNextArrivalTimes = (route: PredeterminedRoute, currentTime: Date = new Date()): string[] => {
+  const currentHour = currentTime.getHours();
+  const currentMinute = currentTime.getMinutes();
+  const currentTotalMinutes = currentHour * 60 + currentMinute;
+
+  const arrivalTimes: string[] = [];
+
+  // Generate next 3 arrival times
+  for (let i = 0; i < 3; i++) {
+    const baseTime = route.stops[0].arrivalTime; // First stop time
+    const [hours, minutes] = baseTime.split(":").map(Number);
+    const baseTotalMinutes = hours * 60 + minutes;
+
+    // Find next departure after current time
+    let nextDeparture = baseTotalMinutes;
+    while (nextDeparture <= currentTotalMinutes) {
+      nextDeparture += route.frequency;
+    }
+
+    // Add frequency intervals for multiple times
+    nextDeparture += i * route.frequency;
+
+    const nextHour = Math.floor(nextDeparture / 60) % 24;
+    const nextMinute = nextDeparture % 60;
+
+    arrivalTimes.push(`${nextHour.toString().padStart(2, "0")}:${nextMinute.toString().padStart(2, "0")}`);
+  }
+
+  return arrivalTimes;
 };
