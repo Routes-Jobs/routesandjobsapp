@@ -1,49 +1,17 @@
-name: CI
+# CI workflow disabled
+# This file is preserved for future use but currently disabled.
+# To re-enable, replace the 'on:' block below with the real triggers.
 
-# Triggers: when to run this workflow
 on:
   push:
-    branches: [ main ]          # Run on pushes to main
+    branches: [ never-trigger ]  # Dummy branch to prevent triggers
   pull_request:
-    branches: [ main ]          # Run on PRs targeting main
+    branches: [ never-trigger ]  # Dummy branch to prevent triggers
 
 jobs:
-  build-and-test:
-    # Use the latest Ubuntu runner
+  # No-op job to keep workflow syntax valid but do nothing
+  placeholder:
     runs-on: ubuntu-latest
-
     steps:
-      # 1️⃣ Checkout your repository code
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # 2️⃣ Set up Node.js (uses version from package.json engines if specified)
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'     # Use Node 20 LTS
-          cache: 'npm'          # Cache npm dependencies for speed
-
-      # 3️⃣ Install dependencies cleanly (uses lockfile, faster than npm install)
-      - name: Install dependencies
-        run: npm ci
-
-      # 4️⃣ Run linting to catch code style issues
-      - name: Run ESLint
-        run: npm run lint
-
-      # 4.5️⃣ Run security audit
-      - name: Run security audit
-        run: npm audit --audit-level=moderate
-
-      # 5️⃣ Build the app to ensure it compiles without errors
-      - name: Build application
-        run: npm run build
-
-      # 6️⃣ (Optional) Upload build artifacts so you can download them from the workflow run
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-files
-          path: dist/           # Vite outputs to 'dist' by default
-          retention-days: 7     # Keep for 7 days
+      - name: No-op
+        run: echo "CI/CD is currently disabled."
