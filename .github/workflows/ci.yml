@@ -32,6 +32,10 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
+      # 4.5️⃣ Run security audit
+      - name: Run security audit
+        run: npm audit --audit-level=moderate
+
       # 5️⃣ Build the app to ensure it compiles without errors
       - name: Build application
         run: npm run build
