@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,7 +16,12 @@ interface RouteSelectorProps {
   isLoading?: boolean;
 }
 
-const RouteSelector: React.FC<RouteSelectorProps> = ({ onRouteSelect, onRouteChange, isLoading = false }) => {
+export interface RouteSelectorHandle {
+  setPickup: (pickupId: string) => void;
+  setDropoff: (dropoffId: string) => void;
+}
+const RouteSelector = forwardRef<RouteSelectorHandle, RouteSelectorProps>(
+  ({ onRouteSelect, onRouteChange, isLoading = false }, ref) => {
   const [selectedPickup, setSelectedPickup] = useState<string>("");
   const [selectedDropoff, setSelectedDropoff] = useState<string>("");
 
@@ -40,6 +45,21 @@ const RouteSelector: React.FC<RouteSelectorProps> = ({ onRouteSelect, onRouteCha
       });
     }
   };
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      setPickup: (pickupId: string) => {
+        setSelectedPickup(pickupId);
+        emitRouteChange(pickupId, selectedDropoff, "pickup");
+      },
+      setDropoff: (dropoffId: string) => {
+        setSelectedDropoff(dropoffId);
+        emitRouteChange(selectedPickup, dropoffId, "dropoff");
+      },
+    }),
+    [selectedPickup, selectedDropoff],
+  );
 
   const selectedPickupLocation = pickupPoints.find((loc) => loc.id === selectedPickup);
   const selectedDropoffLocation = employmentCenters.find((loc) => loc.id === selectedDropoff);
@@ -145,6 +165,6 @@ const RouteSelector: React.FC<RouteSelectorProps> = ({ onRouteSelect, onRouteCha
       </CardContent>
     </Card>
   );
-};
+});
 
 export default RouteSelector;

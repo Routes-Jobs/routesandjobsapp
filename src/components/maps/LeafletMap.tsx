@@ -5,7 +5,7 @@ import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import "leaflet-routing-machine";
 import { memphisLocations, memphisCenterCoords, quickNavAreas } from "@/data/memphisPOIdata";
 import { Button } from "@/components/ui/button";
-import RouteSelector from "@/components/RouteSelector";
+import RouteSelector, { RouteSelectorHandle } from "@/components/RouteSelector";
 import { PredeterminedRoute } from "@/data/predeterminedRoutes";
 
 interface TileProvider {
@@ -77,6 +77,7 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ selectedRoute = null }) => {
   const routeMarkersRef = useRef<L.LayerGroup>(L.layerGroup());
   const routeLineRef = useRef<L.Polyline | null>(null);
   const baseMarkersRef = useRef<Record<string, L.Marker>>({});
+  const routeSelectorRef = useRef<RouteSelectorHandle | null>(null);
   const [selectedArea, setSelectedArea] = useState<string | null>(null);
   const [isRoutingLoading, setIsRoutingLoading] = useState(false);
   const [currentTileProvider, setCurrentTileProvider] = useState<string>("osm");
@@ -194,6 +195,17 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ selectedRoute = null }) => {
         </div>
       `;
       marker.bindPopup(popupContent);
+
+      marker.on("click", () => {
+        const selector = routeSelectorRef.current;
+        if (!selector) return;
+
+        if (location.type === "community_center") {
+          selector.setPickup(location.id);
+        } else if (location.type === "employment") {
+          selector.setDropoff(location.id);
+        }
+      });
       baseMarkersRef.current[location.id] = marker;
     });
 
@@ -378,7 +390,12 @@ const LeafletMap: React.FC<LeafletMapProps> = ({ selectedRoute = null }) => {
       </div>
 
       <div className="absolute top-4 right-4 z-[900]">
-        <RouteSelector onRouteSelect={handleRouteSelect} onRouteChange={handleRouteChange} isLoading={isRoutingLoading} />
+        <RouteSelector
+          ref={routeSelectorRef}
+          onRouteSelect={handleRouteSelect}
+          onRouteChange={handleRouteChange}
+          isLoading={isRoutingLoading}
+        />
       </div>
     </div>
   );
